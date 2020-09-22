@@ -1,0 +1,143 @@
+plugins {
+    id 'java'
+    id 'maven'
+    id 'groovy'
+    id "de.seitenbau.serviceportal.prozesspipeline" version "0.99-RC12"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    [
+            "org.codehaus.groovy:groovy-all:2.3.11",
+    ].each { dep ->
+        implementation(dep) {
+            exclude group: 'ch.qos.logback', module: 'logback-classic'
+        }
+    }
+
+    // Include commons subproject
+    // i.e. compile project("commons.serviceportal")
+
+    // testing
+    // testCompile "net.bytebuddy:byte-buddy-gradle-plugin:1.10.1"
+    // testCompile "org.spockframework:spock-core:1.1-groovy-2.3"
+}
+
+// Set source directories (where to compile and test from)
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ["scripts"]
+        }
+        resources {
+            srcDirs = ["scripts"]
+        }
+    }
+    test {
+        groovy {
+            srcDirs = ["tests"]
+        }
+        resources {
+            srcDirs = ["tests"]
+        }
+    }
+}
+
+// Enable logging of test results
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+// Ermittelt für eine Variable Wert bzw. setzt den Defaultwert wenn nicht vorhanden
+def getVariableValue(name, defaultValue) {
+    return project.hasProperty(name) ? project.property(name) : defaultValue
+}
+
+mergeScripts {
+    debug = getVariableValue('debug', false)
+}
+
+buildModel {
+    debug = getVariableValue('debug', false)
+    dependsOn 'mergeScripts'
+}
+
+uploadProcessModelFiles {
+    environment = getVariableValue('environment', 'default')
+    debug = getVariableValue('debug', false)
+}
+
+uploadFormularFiles {
+    environment = getVariableValue('environment', 'default')
+    debug = getVariableValue('debug', false)
+}
+
+uploadAndDeployFormularFiles {
+    environment = getVariableValue('environment', 'default')
+    debug = getVariableValue('debug', false)
+}
+
+deployProcessModelVersion {
+    environment = getVariableValue('environment', 'default')
+    debug = getVariableValue('debug', false)
+}
+
+uploadParameterDefinition {
+    environment = getVariableValue('environment', 'default')
+    debug = getVariableValue('debug', false)
+}
+
+getAuthorizationToken {
+    environment = getVariableValue('environment', 'default')
+    mandant = getVariableValue('mandant', null)
+    debug = getVariableValue('debug', false)
+}
+
+// ################ Kombinierte Tasks ################
+
+// Fügt die Skripte zusammen und fügt sie in das Modell ein
+task mergeBuild {
+    doFirst {
+        clean
+    }
+    dependsOn 'buildModel'
+    dependsOn 'mergeScripts'
+    tasks.findByName('buildModel').mustRunAfter 'mergeScripts'
+}
+
+// Fügt die Skripte zusammen, fügt sie in das Modell ein und läd
+// Prozessmodelle, Formulare und Prozessparameterdefinitionen hoch
+task upload {
+    doFirst {
+        clean
+    }
+    dependsOn 'mergeBuild'
+    dependsOn 'uploadProcessModelFiles'
+    dependsOn 'uploadFormularFiles'
+    dependsOn 'uploadParameterDefinition'
+    tasks.findByName('uploadProcessModelFiles').mustRunAfter 'buildModel'
+}
+
+// Fügt die Skripte zusammen, fügt sie in das Modell ein, läd
+// Prozessmodelle, Formulare und Prozessparameterdefinitionen hoch
+// und deployed Formulare und Prozesse
+task uploadAndDeploy {
+    doFirst {
+        clean
+    }
+    dependsOn 'mergeBuild'
+    dependsOn 'uploadProcessModelFiles'
+    dependsOn 'uploadAndDeployFormularFiles'
+    dependsOn 'uploadParameterDefinition'
+    dependsOn 'deployProcessModelVersion'
+    tasks.findByName('uploadProcessModelFiles').mustRunAfter 'buildModel'
+    tasks.findByName('uploadParameterDefinition').mustRunAfter 'uploadProcessModelFiles'
+    tasks.findByName('deployProcessModelVersion').mustRunAfter 'uploadParameterDefinition'
+}
+
+
