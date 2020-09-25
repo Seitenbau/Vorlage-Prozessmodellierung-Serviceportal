@@ -18,7 +18,6 @@ Arbeitsablauf:
 1. `git fetch --all` aufrufen
 1. `git merge template/master --allow-unrelated-histories` alle Dateien aus der Vorlage in der Projekt mergen.
 1. Den Projektnamen "Prozessmodellierungsvorlage" in den folgenden Dateien in den tatsächlichen Namen des Projektes ändern:
-   - `config/default.json`
    - `settings.gradle`
    - `config/project.json`
 1. in der `settings.gradle` die gewünschte Version des Gradle-Plugins setzen     
