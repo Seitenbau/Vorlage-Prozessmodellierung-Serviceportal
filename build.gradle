@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'maven'
     id 'groovy'
-    id "de.seitenbau.serviceportal.prozesspipeline" version "0.99-RC12"
+    id "de.seitenbau.serviceportal.prozesspipeline" version "0.99-RC13"
 }
 
 repositories {
