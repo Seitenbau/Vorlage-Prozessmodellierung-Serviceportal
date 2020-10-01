@@ -59,10 +59,12 @@ def getVariableValue(name, defaultValue) {
 }
 
 mergeScripts {
+    environment = getVariableValue('environment', 'default')
     debug = getVariableValue('debug', false)
 }
 
 buildModel {
+    environment = getVariableValue('environment', 'default')
     debug = getVariableValue('debug', false)
     dependsOn 'mergeScripts'
 }
