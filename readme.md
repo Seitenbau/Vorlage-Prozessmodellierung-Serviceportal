@@ -50,9 +50,9 @@ Hierbei sind nicht für alle Gradle-Tasks alle beschriebenen Dateien und Ordner 
   * **${prozessmodelId}** Enthält die Skripte für den Prozess mit der Id ${prozessmodelId}
     * **${scriptname}.groovy** Enthält den Inhalt des Skripts mit der Id ${scriptname} in der
       Prozessmodell-Datei ${prozessmodelName}.bpmn 
-  * **commons** Enthält Klassen, die in den Skripten des Prozessmodells verwendet werden können
-* **commons** Enthält Unterordner mit externen Klassen, die in den Skripten des Prozessmodells 
-  verwendet  werden können
+  * **commons** Enthält Klassen, die in allen Skripten des Prozessmodells verwendet werden können
+* **commons** Enthält Unterordner mit externen Klassen, die in den Skripten dieses Prozessmodells 
+  und anderer Projekte verwendet werden können
 * **models** Enthält die Prozessmodell-Dateien (mit leeren Skript Tasks)
   * **${dateiname}.bpmn** bzw. **${dateiname}.bpmn20.xml** Enthält eine Prozessmodell-Datei
 * **forms** Enthält die Formulare, die zum Prozess gehören
@@ -67,6 +67,16 @@ Hierbei sind nicht für alle Gradle-Tasks alle beschriebenen Dateien und Ordner 
 Enthält die Konfigurationsdateien für das Gradle-Plugin. Die enthaltenen Dateien beeinflussen nur
 das Verhalten des Gradle-Plugins.
 
+#### hierachische Projekte
+
+Wenn mehrere Projekte in einem Repository zusammen gelegt werden, können diese über die Gradle-Standart-Methoden angesteuert werden (siehe https://docs.gradle.org/current/userguide/multi_project_builds.html). Dabei wird auch ie Projektkonfiguration entsprechend erst aus dem root-Projekt gelesen, und deren Werte mit denen des Unterprojektes ergänzt.
+
+Dadurch kann z.B. die Konfiguration für alle Projekte im Root-Prjekt erfolgen, und die Konfigurationsdateien der Unterprojekte enthalten nur noch die abweichenden Größen wie z.B. den Namen des Projektes.
+
+Dabei gilt: Manuell per Aufrufpfad gesetzte Parameter überschreiben die Werte aus den Konfigdateien (z.B. -Pmandant=42), und die Angaben im Unterprojekt überschreiben (wenn gesetzt) die im Root-Projekt.
+
+Eine Ausnahme hierbei sind die Daten zur Identifizierung: der Task getAuthorizationToken schreibt die Daten ins Root Projekt und nimmt diese auch bevorzugt von hier.
+
 #### Ordner config - Datei project.json
 
 Die Datei project.json enthält Informationen darüber, an welcher Stelle der Prozess im Admincenter
@@ -75,17 +85,6 @@ abgelegt wird. Enthalten sind folgende Informationen:
 * **projectVersion**: Die Version des Prozessmodells, an der gerade gearbeitet wird.
 * **mandant**: Die ID des Mandanten, unter dem das Prozessmodell und die Formulare im Admincenter 
   abgelegt werden. Die Angabe ist optional, allerdings muss dann in der Umgebungskonfiguration oder als Parameter ein Mandant gesetzt werden.
-* **globalEnvConfigurationPath**: Pfad zu Ordner, der Umgebungsdefinitionen enthält,
-die projektübergreifend verwendet werden. Pro Umgebung kann an diesem Pfad eine Datei `${umgebungsname}.json`
-angelegt werden. Die globalen Umgebungsparameter können durch Anlegen der Datei `${umgebungsname}.json` im Ordner `config`
-überschrieben werden. Wir der 'globalEnvConfigurationPath' nicht angegeben werden nur die Umgebungsdefinitionen
-im Ordner `config` verwendet. 
-* **authConfigurationPath**: Pfad zu Datei, die Authentifizierungsinformationen (Token) für die Umgebungen enthält. 
-Falls nicht gesetzt, wird `config/auth.json` verwendet.
-
-Die Pfade `globalEnvConfigurationPath` und `authConfigurationPath` können in einem Ordner außerhalb des 
-Projektes liegen, sodass die Information von mehreren Projekten gemeinsam genutzt werden kann.
-Damit besteht auch nicht mehr die Gefahr, dass die Informationen aus Versehen versioniert werden. 
 
 Beispielsweise könnte die Datei project.json so aussehen:
 ```json
@@ -93,10 +92,9 @@ Beispielsweise könnte die Datei project.json so aussehen:
   "projectName" : "TestInternal",
   "projectVersion": "v1.0",
   "mandant": "1",
-  "globalEnvConfigurationPath": "",
-  "authConfigurationPath": ""  
 }
 ```
+
 #### Ordner config - Datei auth.json
 
 Die Informationen in dieser Datei authentifizieren den Benutzer gegen die entsprechende Umgebung.
@@ -191,12 +189,6 @@ Die Dateien enthalten folgende Informationen:
   dass manche Werte auf manchen Umgebungen nicht zur Verfügung stehen.
 * **mandant**: Die ID des Mandanten für die Umgebung. Überschreibr - wenn gesetzt - den Mandant aus der Datei 
   project.json überschrieben. Angabe optional, es muss dann aber anderweitig ein Mandant gesetzt werden. 
-* **staticIds** enthält eine Map mit Prozess-Keys im Prozessmodell, die ersetzt werden.
-  Key der Map ist der zu ersetzende Wert, Value der Wert, der stattdessen eingesetzt wird.
-  Ersetzt werden Treffer an folgende Stellen:
-  * Attribut id im element process
-  * Attribut calledElement im Element callActivity
-  * Attribut bpmnElement im Element BPMNPlane
 
 Beispiel:
 ```

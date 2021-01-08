@@ -156,9 +156,34 @@ Ist die Prozessmodellversion in der angegebenen Stufe nicht auf der Umgebung vor
 Fehler geworfen.
 
 Beim Deployen werden neben der Prozessmodellversion auch die hochgeladene Prozessparameterdefinition
-gelöscht.
+veröffentlicht.
 
-### Task getAuthorizationToken
+### Task _uploadFormularFiles_
+
+Dieser Task dient dazu, die Fomulardateien für ein Prozessmodell ins Admincenter hochzuladen. 
+Dabei wird das Prozessmodell nicht sofort deployed; das Deployment erfolgt über einen separaten Task.
+
+Beim erstmaligen Hochladen wird für den in der Konfiguration bzw. im Parameter `environment` angegebenen Mandanten im
+ Admincenter ein Formularmodell mit dem Namen des Formulares angelegt. Eventuell gleichbenannte Formulare aus anderen Projekten werden dabei aktualisiert.
+
+In diesem wird die unter `projectVersion` definierte Version angelegt, wobei die Stufen _Fachliche Modellierung_ und _Technische Implementierung_ zu _Modellierung_ gewandelt werden.
+
+Anschließend werden alle Dateien im Ordner `forms` für alle Stufen bis zur in `$
+{nameDerUmgebung}.json` bzw. `default.json` unter `project` definierten Stufe importiert.
+
+Falls für das angegebene Formulare und die angegebene Version
+* bereits Dateien in der angegebenen Stufe vorhanden sind, so gilt
+  * hat eine Datei in der Stufe den gleichen Namen wie eine Datei in `build/models`, wird diese
+   ersetzt
+  * alle anderen vorhandenen Dateien werde nicht verändert
+* bereits Dateien in einer höheren als der angegebenen Stufe vorhanden sind, ist ein Hochladen in
+ die angegebene Stufe nicht möglich.
+
+### Task _uploadAndDeployFormularFiles_
+
+Wie _uploadFormularFiles_, nur wird das Formular direkt nach dem Hochladen deployed.
+
+### Task _getAuthorizationToken_
 
 Um den manuellen Prozess zu vereinfachen, kann man mit diesem Task automatisiert für eine mittels 
 `-Penvironment` angegebene Umgebung ein neues Bearer-Token in die Konfigurationsdatei `auth.json` 
