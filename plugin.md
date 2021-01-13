@@ -271,7 +271,10 @@ In einer Parameterdefinition werden die folgenden Informationen gespeichert
   oder false, wenn nicht. Default ist false.
 * **hidden**: true, wenn der Prozessparameter bei der Aktivierung nicht sichtbar sein soll,
   oder false, wenn der Prozessparameter bei der Aktivierung sichtbar sein soll. Default ist false.
-  
+
+Diese Dateien haben dasselbe Format wie die json-Dateien, 
+die auch im Admincenter als Prozessparameterdefinitionen verwendet werden.
+
 Beispielhafter Inhalt einer Prozessparameterdefinitions-Datei:
 ```json
 [
@@ -325,6 +328,9 @@ des Root-Projektes geladen, wenn sie dort vorhanden sind.
 
 Dies erlaubt es, die Konfiguration in den einzelnen Projekten minimal zu halten, indem 
 wiederkehrende Konfigurationseinstellungen in ein Root-Projekt ausgelagert werden.
+
+Authentifizierungsdaten, die vom Task _getAuthorizationToken_ geschrieben werden, werden
+in die Datei config/auth.json des Root-Projektes geschrieben.
 
 # Bereitgestellte Gradle-Tasks
 
