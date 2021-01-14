@@ -524,3 +524,11 @@ Mandant und Umgebung, unter der der Key abgelegt werden soll, werden wie im Kapi
 ## Aufrufparameter
 
 Alle globalen Aufrufparameter beeinflussen den Task wie angegeben.
+
+# Task _startLocalHttpServer_
+
+Dieser Task befindet sich noch in der Entwicklung und sollte nicht verwendet werden.
+
+# Task _stopLocalHttpServer_
+
+Dieser Task befindet sich noch in der Entwicklung und sollte nicht verwendet werden.
