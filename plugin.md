@@ -94,9 +94,9 @@ Die Ordnerstruktur wird vom Gradle-Plugin wie folgt erwartet:
   * **${prozessmodelId}** Enthält die Skripte für den Prozess mit der Id ${prozessmodelId}
     * **${skriptname}.groovy** Enthält den Inhalt des Skripts mit der Id ${skriptname} in der
       Prozessmodell-Datei ${prozessmodelName}.bpmn 
-  * **commons** Enthält Klassen, die in den Skripten des Prozessmodells verwendet  werden können
-* **commons** Enthält Unterordner mit externen Klassen, die in den Skripten des Prozessmodells 
-  verwendet  werden können
+  * **commons** Enthält Klassen, die in mehreren Skripten des Prozessmodells verwendet  werden können
+* **commons** Enthält Unterordner mit externen Klassen, die in den Skripten der Prozessmodelle 
+  verschiedener Projekte übergreifend verwendet  werden können
 * **models** Enthält die Prozessmodell-Dateien (mit leeren Skript Tasks)
   * **${dateiname}.bpmn** Enthält eine Prozessmodell-Datei
 * **forms** Enthält die Formulare, die zum Prozess gehören
@@ -136,9 +136,7 @@ Die Authentifizierungsinformationen sind sensitive persönliche Informationen
 und entsprechen vom Stellenwert her persönlichen Passwörtern. 
 Das heisst, jeder Entwickler sollte eigene Authentifizierungs-Tokens benutzen, 
 daher sollte diese Datei NICHT unter Versionskontrolle stehen und NICHT an andere Personen
-weitergegeben werden.
-Wenn möglich, sollte die Datei außerhalb der Projekte angelegt und in das Projekt hinein 
-verlinkt werden. 
+weitergegeben werden. 
 
 Die Datei hat folgende Struktur:
 
@@ -152,7 +150,8 @@ Damit die Token funktionieren, gelten folgende Voraussetzungen:
 * Der entsprechende Nutzer muss auf der Umgebung angelegt sein
 * dem Nutzer müssen die entsprechenden Rechte über Rollen/ Benutzergruppen gewährt werden.
 * Das Token muss auf der entsprechenden Umgebung ausgestellt worden sein.
-Ein Zugriff mittels Webservice-Benutzern ist nicht möglich.
+* Ein Zugriff mittels Webservice-Benutzern ist nicht möglich.
+* Die Benutzertoken haben eine Güligkeitsdauer von 24h, danach muss ein neues Token erzeugt werden.
 
 Beispiel für die Authentifizierung für den Mandant 1 in der Umgebung default:
 ```json
@@ -170,8 +169,12 @@ Beispiel für die Authentifizierung für den Mandant 1 in der Umgebung default:
 Die Token können am bequemsten über den Task getAuthorizationToken geholt werden.
 
 Manche Umgebungen schränken aus Sicherheitsgründen einzelne Funktionen ein.
-Z.B. wird es nicht möglich sein, auf die Produktivumgebungen mittels automatischem Deployment
-zu deployen. Diese Beschränkungen werden über den Betrieb festgelegt.
+So wird beispielsweise es möglich sein, auf die Produktivumgebungen Prozesse in die Stufe QS hoch
+zu laden, aber nicht in die Stufe Certified. Ebenso wird es nicht möglich sein mittels des Plugins 
+die Prozesse  zu deployen. 
+
+Diese Beschränkungen werden über den Betrieb in Absprache mit dem IM/SK für jede Umgebung
+festgelegt.
 
 #### Ordner config - Datei default.json und andere Umgebungsdefinitionen
 
@@ -199,7 +202,7 @@ Beispiel:
   "projectStage": "TECHNICAL_IMPLEMENTATION",
   "mandant": "42",
   "processModelNameExtension": "DEV"
-}
+} 
 ```
 
 ### Ordner scripts
@@ -211,11 +214,14 @@ Die Skripte für ein Prozessmodell liegen in einem Unterverzeichnis, dessen Name
 des Prozessmodells (Attribut `id` des Elements `process` der BPMN-Datei) und haben den Namen
 ${Id des Script-Tasks}.groovy.
 
-Die Groovy-Klassen, die in den Skripten verwendet werden, können im Unterverzeichnis "commons" liegen
-und müssen das package "commons" haben 
-(für projektübergreifende Klassen ist das Verzeichnis commons direkt im Projekt gedacht, s.u.).
-So wird z.B. die Klasse "commons.Example" in der Datei
-scripts/commons/Example.groovy gesucht
+Sollen skripttaksübergreifende Groovy-Klassen verwendet werden, können im Unterverzeichnis "commons" 
+abgelegt werden.
+
+Sie müssen im Package "commons" deklariert werden und können über Importanweisungen eingebungen 
+werden. So wird z.B. die Klasse "commons.Example" in der Datei scripts/commons/Example.groovy 
+gesucht.
+
+Für projektübergreifende Klassen ist das Verzeichnis commons direkt im Projekt gedacht, s.u.
 
 ### Ordner commons
 
@@ -252,6 +258,9 @@ Werden für einzelne Umgebungen andere Prozessparameterdefinitionen benötigt, s
 in Dateien ${umgebungsname}.json abgelegt werden, die dann für die benannten Umgebungen 
 automatisch statt default.json angezogen werden.
 
+**Diese Dateien haben dasselbe Format wie die json-Dateien, 
+die auch im Admincenter als Prozessparameterdefinitionen verwendet werden.**
+
 In einer Parameterdefinition werden die folgenden Informationen gespeichert
 * **name**: Der programmatische Name des Prozessparameters, muss unique für ein Prozessmodell sein
 * **description**: Die Beschreibung des Parameters für die Prozessverwalter, die den Parameter 
@@ -272,8 +281,6 @@ In einer Parameterdefinition werden die folgenden Informationen gespeichert
 * **hidden**: true, wenn der Prozessparameter bei der Aktivierung nicht sichtbar sein soll,
   oder false, wenn der Prozessparameter bei der Aktivierung sichtbar sein soll. Default ist false.
 
-Diese Dateien haben dasselbe Format wie die json-Dateien, 
-die auch im Admincenter als Prozessparameterdefinitionen verwendet werden.
 
 Beispielhafter Inhalt einer Prozessparameterdefinitions-Datei:
 ```json
@@ -299,13 +306,14 @@ Beispielhafter Inhalt einer Prozessparameterdefinitions-Datei:
 ### Umgebung
 
 Die Umgebung wird, sofern sie vom Task benutzt wird, über den Parameter **environment**
-des Tasks gesetzt. Wird dieser Parameter nicht gesetzt, so wird die Umgebung `default` verwendet.
+des Tasks gesetzt (mittels `-Penvironment=<umgebung>`). Wird dieser Parameter nicht gesetzt, so wird die
+Umgebung `default` verwendet.
 
 ### Mandant
 
 Der Mandant wird mit folgender Hierarchie ermittelt. 
 Dabei wird von oben nach unten vorgegangen und der erste nicht-null Wert verwendet.
-* Parameter **mandant** des Tasks
+* Parameter **mandant** bei Aufurf des Tasks (mittels `-Pmandant=<mandant>`)
 * der in der Konfigurationsdatei der Umgebung definierte Mandant 
 * der in der Datei `config/project.json` definierte Mandant 
 
@@ -330,7 +338,8 @@ Dies erlaubt es, die Konfiguration in den einzelnen Projekten minimal zu halten,
 wiederkehrende Konfigurationseinstellungen in ein Root-Projekt ausgelagert werden.
 
 Authentifizierungsdaten, die vom Task _getAuthorizationToken_ geschrieben werden, werden
-in die Datei config/auth.json des Root-Projektes geschrieben.
+in die Datei config/auth.json des Root-Projektes geschrieben. Authentifizierungsdaten im Unterprojekt
+werden dabei vollständig ignoriert.
 
 # Bereitgestellte Gradle-Tasks
 
