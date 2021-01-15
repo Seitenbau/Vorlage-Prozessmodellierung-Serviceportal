@@ -1,8 +1,7 @@
 plugins {
     id 'java'
-    id 'maven'
     id 'groovy'
-    id "de.seitenbau.serviceportal.prozesspipeline" version "0.99-RC13"
+    id 'de.seitenbau.serviceportal.prozesspipeline' version '0.99-RC15'
 }
 
 repositories {
@@ -10,20 +9,10 @@ repositories {
 }
 
 dependencies {
-    [
-            "org.codehaus.groovy:groovy-all:2.3.11",
-    ].each { dep ->
-        implementation(dep) {
-            exclude group: 'ch.qos.logback', module: 'logback-classic'
-        }
-    }
+    implementation "org.codehaus.groovy:groovy-all:2.5.14"
 
     // Include commons subproject
-    // i.e. compile project("commons.serviceportal")
-
-    // testing
-    // testCompile "net.bytebuddy:byte-buddy-gradle-plugin:1.10.1"
-    // testCompile "org.spockframework:spock-core:1.1-groovy-2.3"
+    // i.e. compile project(":commons.serviceportal")
 }
 
 // Set source directories (where to compile and test from)
@@ -38,20 +27,20 @@ sourceSets {
     }
     test {
         groovy {
-            srcDirs = ["tests"]
+            srcDirs = ["test"]
         }
         resources {
-            srcDirs = ["tests"]
+            srcDirs = ["test"]
         }
     }
 }
 
 // Enable logging of test results
-test {
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
-}
+//test {
+//    testLogging {
+//        events "passed", "skipped", "failed"
+//    }
+//}
 
 // Ermittelt für eine Variable Wert bzw. setzt den Defaultwert wenn nicht vorhanden
 def getVariableValue(name, defaultValue) {
@@ -123,6 +112,7 @@ task upload {
     dependsOn 'uploadFormularFiles'
     dependsOn 'uploadParameterDefinition'
     tasks.findByName('uploadProcessModelFiles').mustRunAfter 'buildModel'
+    tasks.findByName('uploadParameterDefinition').mustRunAfter 'uploadProcessModelFiles'
 }
 
 // Fügt die Skripte zusammen, fügt sie in das Modell ein, läd
