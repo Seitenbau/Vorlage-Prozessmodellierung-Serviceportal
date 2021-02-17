@@ -534,10 +534,24 @@ Mandant und Umgebung, unter der der Key abgelegt werden soll, werden wie im Kapi
 
 Alle globalen Aufrufparameter beeinflussen den Task wie angegeben.
 
-# Task _startLocalHttpServer_
+### Task _startLocalHttpServer_
 
-Dieser Task befindet sich noch in der Entwicklung und sollte nicht verwendet werden.
+Startet einen lokalen Server, um auf einer beliebigen Serviceportal-Umgebung die auf dem lokalen 
+Rechner des Entwickler liegenden Dateien des Entwicklungsprojektes (Formulare und Prozesse) 
+editieren zu können.
 
-# Task _stopLocalHttpServer_
+In der Konsole wird ein Link zu einer Übersichtsseite angezeigt, auf welcher die zur
+Bearbeitung verfügbaren Dateien verlinkt sind. Durch Klick auf den Link wird die entsprechende Seite 
+der Umgebung im Browser geöffnet.
 
-Dieser Task befindet sich noch in der Entwicklung und sollte nicht verwendet werden.
+Mit dem Parameter `environment` kann (wie bei den anderen Tasks) die gewünschte Umgebung gewählt 
+werden, auf welcher die Datei bearbeitet werden soll. Der Parameter `port` kann den Server auf
+einem definierten lokalen Port starten (sofern dieser frei ist).
+
+Es kann nur jeweils eine Instanz des Servers gestartet werden. Um den Server zu beenden kann in der 
+Übersichtsseite auf der entsprechende Link verwendet bzw. auf der Konsole der dazu bereitgestellte 
+Task verwendet werden.
+
+### Task _stopLocalHttpServer_
+
+Stoppt den lokalen Server zum Bearbeiten von lokalen Dateien.
