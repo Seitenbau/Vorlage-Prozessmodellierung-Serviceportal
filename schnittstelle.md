@@ -38,7 +38,7 @@ Formulardateien (Sprachen) sowie das anschließende Deployen der Formularversion
 Der Aufruf muss als POST ausgeführt werden.
 
 Durch Setzen des Header-Parameters `X-SP-Deploy: true` können die Formulare direkt im Anschluss an das
-Anlegen der Formulare im Admincenter deployed werden.
+Anlegen der Formulare im Admincenter deployt werden.
 
 ### Pfad
 `{pfad zum sgw}/formulare/management/formulare/api/upload`
@@ -49,7 +49,7 @@ Anlegen der Formulare im Admincenter deployed werden.
 | X-SP-Formular-Name    | Name des Formulars |
 | X-SP-Formular-Version | Version des Formulars |
 | X-SP-Formular-Stage   | WorkflowStage des Formulars<br />`MODELLING`, `QUALITY_ASSURANCE`, `CERTIFIED` |
-| X-SP-Formular-Deploy  | `true`, wenn das Formular deployed werden soll, default: `false` |
+| X-SP-Formular-Deploy  | `true`, wenn das Formular deployt werden soll, default: `false` |
 | X-SP-Mandant          | ID des Mandanten |
 | Content-Type          | `application/zip` |
 
@@ -92,7 +92,7 @@ Bei Prozessen sind die Schritte Hochladen und Deployen in zwei Schritte getrennt
 um nach dem Hochladen des Prozesses in einem separaten Aufruf die zugehörigen Prozessparameterdefinitionen hochladen zu können.
 
 Anschließend können beide gemeinsam (das Deployen von Prozessparameterdefinitionen ist 
-im Backend an das Deplyoen eines Prozesses gekoppelt und wird automatisch mit ausgeführt) deployed werden
+im Backend an das Deplyoen eines Prozesses gekoppelt und wird automatisch mit ausgeführt) deployt werden
 
 ### Pfad
 `{pfad zum sgw}/prozessmanagement/prozessmodelle/api/upload`
@@ -138,7 +138,7 @@ Einen Stream (`application/txt`) mit einem Protokoll der ausgeführten Aktionen.
 
 ### Allgemein
 Die Schnittstelle ermöglicht das Deployen einer Prozessmodellversion auf eine spezifische Prozess-Engine.
-Ist keine Engine angegeben, wird auf die Standard-Prozess-Engine deployed.
+Ist keine Engine angegeben, wird auf die Standard-Prozess-Engine deployt.
 Der Aufruf muss als POST ausgeführt werden.
 
 ### Pfad
@@ -164,7 +164,7 @@ Um diese Schnittstelle Aufrufen zu können benötigt der Benutzer folgende Recht
 Das Recht ist in den oben genannten Rollen und Benutzergruppen enthalten.
 
 Für jede Umgebung ist eine maximale Stufe definiert. Wird versucht eine Prozessmodellversion in eine Stufe höher 
-der angegebenen deployed, wird ein Fehler zurückgegeben.
+der angegebenen deployt, wird ein Fehler zurückgegeben.
 
 ### Rückgabewerte 
 
@@ -227,7 +227,7 @@ entspricht den hochgeladenen Daten plus die vergebenen id's
 
 ----------------------------------------------------------------------------------------------------
 
-## Schnittstelle zum Holen der Prozess-Engines
+## Schnittstelle zum Abfragen der Liste aktiver Prozess-Engines
 
 ### Allgemein
 Die Schnittstelle ermöglicht es die Liste der aktiven Prozess-Engines zu holen.
@@ -252,8 +252,8 @@ Eine Liste mit den IDs und Namen der Prozess-Engines (`application/json`).
     "name": "Standard-Prozess-Engine"
   },
   {
-    "id": "engine2",
-    "name": "Prozess-Engine-2"
+    "id": "secondEngine",
+    "name": "Zweite Prozess-Engine"
   }
 ]
 ```

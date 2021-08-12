@@ -55,9 +55,9 @@ In diesem Release enthalten sind die Tasks
 * `mergeScripts` Fügt die einzelnen Bestandteile der Skripte zu kompilierbaren Groovy-Skripten
   zusammen
 * `buildModel` Fügt die Skripte in das Prozessmodell ein
-* `getActiveProcessEngines` Gibt die Liste der zur Verfügung stehenden Prozess-Engines aus 
 * `uploadProcessModelFiles` Lädt Prozessmodelldateien in das Admincenter hoch
 * `uploadProcessDefinitions` Lädt Prozessparameterdefinitionen in das Admincenter hoch
+* `getActiveProcessEngines` Gibt die Liste der zur Verfügung stehenden Prozess-Engines aus
 * `deployProcessModelVersion` Deployt eine (zuvor hochgeladene) Prozessversion
 * `uploadFormularFiles` Lädt Formulardateien in das Admincenter hoch
 * `uploadAndDeployFormularFiles` Lädt Formulardateien in das Admincenter hoch und deployt sie
@@ -195,7 +195,7 @@ Die Dateien enthalten folgende Informationen:
 * **processModelNameExtension** Ein optionaler Suffix, der beim Bauen der Prozessmodelle 
   an den Prozessnamen, der in der bpmn-Datei definiert ist, angehängt wird 
   (getrennt durch ein Leerzeichen).
-* **processEngine:** Die ID der Prozess-Engine, auf welche die Prozessmodell-Version deployed werden
+* **processEngine:** Die ID der Prozess-Engine, auf welche die Prozessmodell-Version deployt werden
   soll. Ist der Parameter nicht gesetzt wird die Standard-Prozess-Engine verwendet.
 
 Beispiel:
@@ -205,8 +205,8 @@ Beispiel:
   "projectStage": "TECHNICAL_IMPLEMENTATION",
   "mandant": "42",
   "processModelNameExtension": "DEV",
-  "processEngine": "engine2"
-} 
+  "processEngine": "secondEngine"
+}
 ```
 
 ### Ordner scripts
@@ -330,7 +330,7 @@ Name und Version des Prozessmodells werden aus der Datei `config/project.json` g
 Die aktive Stufe des Prozessmodells wird aus der Konfigurationsdatei der Umgebung gelesen.
 
 ### Prozess-Engine für Deployment
-Die ID der Prozess-Engine, auf die eine Prozessmodell-Version deployed werden soll wird, sofern
+Die ID der Prozess-Engine, auf die eine Prozessmodell-Version deployt werden soll, wird, sofern
 vorhanden, aus der Konfigurationsdatei der Umgebung gelesen.
 
 ## Unterstützung von Gradle Multi-Project Builds
@@ -476,7 +476,7 @@ Alle globalen Aufrufparameter beeinflussen den Task wie angegeben.
 
 # Task _getActiveProcessEngines_
 
-Dieser Task gibt die Liste der aktuell zur Verfügung stehendenn Prozess-Engines aus. Die ID einer 
+Dieser Task gibt die Liste der aktuell zur Verfügung stehenden Prozess-Engines aus. Die ID einer 
 Prozess-Engine kann beim Deployment einer Prozessmodell-Version verwendet werden, um gezielt
 auf die gewünschte Prozess-Engine zu deployen.
 
@@ -486,14 +486,14 @@ Dieser Task deployt ein im Admincenter vorhandenes Prozessmodell. Ist das Prozes
 deployt, wird es undeployt und neu deployt. 
 
 Mandant, Name, Version und Stufe des zu deployenden Prozesses und die ID der Prozess-Engine, auf die
-deployed werden soll, werden wie im Kapitel "Ermittlung von Konfigurationswerten" beschrieben aus 
+deployt werden soll, werden wie im Kapitel "Ermittlung von Konfigurationswerten" beschrieben aus 
 der Konfiguration gelesen.
 
 Die Aktion entspricht dabei dem Button "Prozessmodell deployen" im Admincenter.
 Ein Triggern der Aktion "Deploy (Prozess-Testumgebung)" über diesen Task ist nicht möglich.
 
 Aus der Menge, der zur Verfügung stehenden Prozess-Engines, kann die Engine, auf die die
-Prozessversion deployed werden soll, ausgewählt werden. Ist keine Engine explizit angegeben,
+Prozessversion deployt werden soll, ausgewählt werden. Ist keine Engine explizit angegeben,
 wird die Standard-Prozess-Engine verwendet.
 
 # Task  _uploadFormularFiles_

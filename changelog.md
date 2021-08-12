@@ -1,9 +1,9 @@
 # Aktualisierungen
 
-## 2021.08.10-0
+## 2021.08.12-0
 - Ein Task zum Abfragen der Prozess-Engines wurde hinzugefügt
 - Der Task zum deployen einer Prozessmodell-Version wurde dahingehend ergänzt, dass die
-  Prozess-Engine, auf die deployed werden soll, angegeben werden kann. (SBW-20143)
+  Prozess-Engine, auf die deployt werden soll, angegeben werden kann. (SBW-20143)
 
 ## 2021.03.03-0
 - Optimierung: Der lokale HTTP-Server listet Dateien mit Bindestrichen auf. (SBW-19921)
