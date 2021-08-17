@@ -57,6 +57,7 @@ In diesem Release enthalten sind die Tasks
 * `buildModel` Fügt die Skripte in das Prozessmodell ein
 * `uploadProcessModelFiles` Lädt Prozessmodelldateien in das Admincenter hoch
 * `uploadProcessDefinitions` Lädt Prozessparameterdefinitionen in das Admincenter hoch
+* `getActiveProcessEngines` Gibt die Liste der zur Verfügung stehenden Prozess-Engines aus
 * `deployProcessModelVersion` Deployt eine (zuvor hochgeladene) Prozessversion
 * `uploadFormularFiles` Lädt Formulardateien in das Admincenter hoch
 * `uploadAndDeployFormularFiles` Lädt Formulardateien in das Admincenter hoch und deployt sie
@@ -193,7 +194,9 @@ Die Dateien enthalten folgende Informationen:
   Wenn gesetzt, wird der Mandant aus der Datei project.json überschrieben.
 * **processModelNameExtension** Ein optionaler Suffix, der beim Bauen der Prozessmodelle 
   an den Prozessnamen, der in der bpmn-Datei definiert ist, angehängt wird 
-  (getrennt durch ein Leerzeichen). 
+  (getrennt durch ein Leerzeichen).
+* **processEngine:** Die ID der Prozess-Engine, auf welche die Prozessmodell-Version deployt werden
+  soll. Ist der Parameter nicht gesetzt wird die Standard-Prozess-Engine verwendet.
 
 Beispiel:
 ```
@@ -201,8 +204,9 @@ Beispiel:
   "url": "https://sgwtest.service-bw.de",
   "projectStage": "TECHNICAL_IMPLEMENTATION",
   "mandant": "42",
-  "processModelNameExtension": "DEV"
-} 
+  "processModelNameExtension": "DEV",
+  "processEngine": "secondEngine"
+}
 ```
 
 ### Ordner scripts
@@ -306,8 +310,8 @@ Beispielhafter Inhalt einer Prozessparameterdefinitions-Datei:
 ### Umgebung
 
 Die Umgebung wird, sofern sie vom Task benutzt wird, über den Parameter **environment**
-des Tasks gesetzt (mittels `-Penvironment=<umgebung>`). Wird dieser Parameter nicht gesetzt, so wird die
-Umgebung `default` verwendet.
+des Tasks gesetzt (mittels `-Penvironment=<umgebung>`). Wird dieser Parameter nicht gesetzt, so wird
+die Umgebung `default` verwendet.
 
 ### Mandant
 
@@ -324,6 +328,10 @@ Name und Version des Prozessmodells werden aus der Datei `config/project.json` g
 ### Stufe der Prozessmodell-Version
 
 Die aktive Stufe des Prozessmodells wird aus der Konfigurationsdatei der Umgebung gelesen.
+
+### Prozess-Engine für Deployment
+Die ID der Prozess-Engine, auf die eine Prozessmodell-Version deployt werden soll, wird, sofern
+vorhanden, aus der Konfigurationsdatei der Umgebung gelesen.
 
 ## Unterstützung von Gradle Multi-Project Builds
 
@@ -466,16 +474,27 @@ im Admincenter nicht existiert, wird ein Fehler geworfen.
 
 Alle globalen Aufrufparameter beeinflussen den Task wie angegeben.
 
+# Task _getActiveProcessEngines_
+
+Dieser Task gibt die Liste der aktuell zur Verfügung stehenden Prozess-Engines aus. Die ID einer 
+Prozess-Engine kann beim Deployment einer Prozessmodell-Version verwendet werden, um gezielt
+auf die gewünschte Prozess-Engine zu deployen.
+
 # Task _deployProcessModelVersion_
 
 Dieser Task deployt ein im Admincenter vorhandenes Prozessmodell. Ist das Prozessmodell schon 
 deployt, wird es undeployt und neu deployt. 
 
-Mandant, Name, Version und Stufe des zu deployenden Prozesses werden wie im Kapitel 
-"Ermittlung von Konfigurationswerten" beschrieben aus der Konfiguration gelesen.
+Mandant, Name, Version und Stufe des zu deployenden Prozesses und die ID der Prozess-Engine, auf die
+deployt werden soll, werden wie im Kapitel "Ermittlung von Konfigurationswerten" beschrieben aus 
+der Konfiguration gelesen.
 
 Die Aktion entspricht dabei dem Button "Prozessmodell deployen" im Admincenter.
 Ein Triggern der Aktion "Deploy (Prozess-Testumgebung)" über diesen Task ist nicht möglich.
+
+Aus der Menge, der zur Verfügung stehenden Prozess-Engines, kann die Engine, auf die die
+Prozessversion deployt werden soll, ausgewählt werden. Ist keine Engine explizit angegeben,
+wird die Standard-Prozess-Engine verwendet.
 
 # Task  _uploadFormularFiles_
 
