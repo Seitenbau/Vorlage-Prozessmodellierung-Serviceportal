@@ -21,7 +21,7 @@ Arbeitsablauf:
 1. Den Projektnamen "Prozessmodellierungsvorlage" in den folgenden Dateien in den tatsächlichen Namen des Projektes ändern:
    - `settings.gradle`
    - `config/project.json`
-1. in der `settings.gradle` die gewünschte Version des Gradle-Plugins setzen     
+1. GGf. in der Datei `build.gradle` die gewünschte Version des Gradle-Plugins setzen     
 1. Die Submodule (sofern vorhanden und benutzt) initialisieren: `git submodule update --init --recursive`
 1. `git push` die gemachten Änderungen
 1. Anlegen der Formulare, Scripte, Prozessparameterdefinitionen und Scripte 
