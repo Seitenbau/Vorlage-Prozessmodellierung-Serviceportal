@@ -100,6 +100,9 @@ Die Ordnerstruktur wird vom Gradle-Plugin wie folgt erwartet:
   verschiedener Projekte übergreifend verwendet  werden können
 * **models** Enthält die Prozessmodell-Dateien (mit leeren Skript Tasks)
   * **${dateiname}.bpmn** Enthält eine Prozessmodell-Datei
+* **resources** Enthält Dateien, die zusätzlich in das Prozess-Deployment mit aufgenommen werden sollen
+  (z.B. Keystores oder Drools-Dateien). 
+  Falls keine solchen Dateien benötigt werden, muss der Ordner nicht angelegt werden.
 * **forms** Enthält die Formulare, die zum Prozess gehören
   * **${dateiname}.json** Enthält eine Formulardefinition
 * **parameterdefinitions** Enthält die Definitionen der Prozessparameter
