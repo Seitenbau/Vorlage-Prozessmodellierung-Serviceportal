@@ -1,5 +1,9 @@
 # Aktualisierungen
 
+## 2022.09.01-0
+- Behebung eines Fehlers, der in manchen Fällen im Task `buildModel` dazu geführt hat, dass ein 
+Prozessmodell erzeugt wurde, welches auf OZG-Hub Umgebungen nicht deployed werden konnte.
+
 ## 2022.03.23-0
 - Neues Feature: Dateien im Ordner resources werden jetzt as-is in das Deployment
   des Prozesses aufgenommen
