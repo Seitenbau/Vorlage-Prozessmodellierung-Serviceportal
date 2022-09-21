@@ -1,5 +1,8 @@
 # Aktualisierungen
 
+## 2022.09.21-0
+- Dependency-Updates: Plugin: de.seitenbau.serviceportal.prozesspipeline 2022.09.21-0, gradlew 7.5.1
+
 ## 2022.09.01-0
 - Behebung eines Fehlers, der in manchen Fällen im Task `buildModel` dazu geführt hat, dass ein 
 Prozessmodell erzeugt wurde, welches auf OZG-Hub Umgebungen nicht deployed werden konnte.
