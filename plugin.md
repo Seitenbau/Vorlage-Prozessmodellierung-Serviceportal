@@ -194,7 +194,7 @@ Die Dateien enthalten folgende Informationen:
   dass manche Werte auf manchen Umgebungen nicht zur Verfügung stehen.
 * **mandant**: Die Id des Mandanten für diese Umgebung.
   Wenn gesetzt, wird der Mandant aus der Datei project.json überschrieben.
-* **processModelNameExtension**: Ein optionaler Suffix, der beim Bauen der Prozessmodelle 
+* **processModelNameExtension**: Ein optionales Suffix, der beim Bauen der Prozessmodelle 
   an den Prozessnamen, der in der bpmn-Datei definiert ist, angehängt wird 
   (getrennt durch ein Leerzeichen).
 * **processEngine:**: Die ID der Prozess-Engine, auf welche die Prozessmodell-Version deployt werden
