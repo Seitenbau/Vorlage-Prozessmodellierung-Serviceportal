@@ -1,8 +1,11 @@
 # Aktualisierungen
 
+## 2022.09.27-0
+- Dependency-Updates: Plugin: de.seitenbau.serviceportal.prozesspipeline 2022.09.27-0, gradlew 7.5.1
+
 ## 2022.09.01-0
 - Behebung eines Fehlers, der in manchen Fällen im Task `buildModel` dazu geführt hat, dass ein 
-Prozessmodell erzeugt wurde, welches auf OZG-Hub Umgebungen nicht deployed werden konnte.
+Prozessmodell erzeugt wurde, welches auf OZG-Hub Umgebungen nicht deployt werden konnte.
 
 ## 2022.03.23-0
 - Neues Feature: Dateien im Ordner resources werden jetzt as-is in das Deployment
@@ -24,5 +27,5 @@ Prozessmodell erzeugt wurde, welches auf OZG-Hub Umgebungen nicht deployed werde
 - Optimierung: Der lokale HTTP-Server listet Dateien mit Bindestrichen auf. (SBW-19921)
 
 ## 2021.02.25-1
-- Bugfix: Laden und bearbeiten eines leeren Formulares im lokalen Formulardesigner ermöglichen.
+- Bugfix: Laden und bearbeiten eines leeren Formulars im lokalen Formulardesigner ermöglichen.
 - Optimierung: Anzeige, wo die Datei currentServerPort.txt liegt.

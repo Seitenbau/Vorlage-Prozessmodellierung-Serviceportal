@@ -23,7 +23,7 @@ Der Ansatz der lokalen Entwicklung ist aufgeteilt in:
 
 # System-Anforderungen
 
-* Das Plugin ist mit Gradle 6 getestet. Eventuell sind die Funktionen auch mit niedrigeren 
+* Das Plugin ist mit Gradle 7.5.1 getestet. Eventuell sind die Funktionen auch mit niedrigeren 
 Gradle-Versionen verfügbar.
 * Das verwendete Gradle muss minimal unter Java 11 laufen.
 
@@ -36,7 +36,7 @@ https://plugins.gradle.org/plugin/de.seitenbau.serviceportal.prozesspipeline zu 
 
 - Skripte werden nur als Rumpf-Skripte implementiert, die eigentliche Funktionalität
   wird in Groovy-Klassen implementiert, die wie andere Software auch mit Unittests geprüft werden 
-  können.  Die Klassen werden mit den Rumpf-Skripten über import-Anweisungen verbunden.
+  können. Die Klassen werden mit den Rumpf-Skripten über import-Anweisungen verbunden.
 - Die entwickelten Skripte werden dann in Rumpf-bpmn-Dateien in den entsprechenden Skript-Task
   eingefügt. Die Verknüpfung zwischen Skript-Task un Skript erfolgt über die ID des Skript-Tasks
   bzw. dem Dateiname des Skripts.
@@ -55,7 +55,7 @@ In diesem Release enthalten sind die Tasks
 * `mergeScripts` Fügt die einzelnen Bestandteile der Skripte zu kompilierbaren Groovy-Skripten
   zusammen
 * `buildModel` Fügt die Skripte in das Prozessmodell ein
-* `uploadProcessModelFiles` Lädt Prozessmodelldateien in das Admincenter hoch
+* `uploadProcessModelFiles` Lädt Prozessmodell-Dateien in das Admincenter hoch
 * `uploadProcessDefinitions` Lädt Prozessparameterdefinitionen in das Admincenter hoch
 * `getActiveProcessEngines` Gibt die Liste der zur Verfügung stehenden Prozess-Engines aus
 * `deployProcessModelVersion` Deployt eine (zuvor hochgeladene) Prozessversion
@@ -69,7 +69,7 @@ In diesem Release enthalten sind die Tasks
 
 Das Gradle-Plugin wird über mehrere Json-Dateien konfiguriert, die in einer vorgegebenen 
 Ordnerstruktur abgelegt werden müssen. Dabei können mehrere Umgebungen definiert werden; 
-So können z.B. die Testumgebung und die Prozesstestumgebung als eigene Umgebungen
+so können z.B. die Testumgebung und die Prozesstestumgebung als eigene Umgebungen
 in der Konfiguration gespeichert werden; beim Ausführen der Gradle-Tasks kann dann die gewünschte
 Umgebung mitgegeben werden. Die Prozessmodelle, Skripte und Formulare werden ebenfalls 
 in einer definierten Ordnerstruktur erwartet.
@@ -77,7 +77,7 @@ in einer definierten Ordnerstruktur erwartet.
 ## Ordnerstruktur
 
 Über die erwartete Ordnerstruktur wird im Folgenden ein Überblick gegeben, 
-danach werden die einzelnen Unterordner und Dateien im detalliert beschrieben.
+danach werden die einzelnen Unterordner und Dateien im detailliert beschrieben.
 Hierbei sind nicht für alle Gradle-Tasks alle beschriebenen Dateien und Ordner notwendig.
 
 Es wird empfohlen, die Ordnerstruktur nicht selbst von null aus aufzubauen,
@@ -86,29 +86,29 @@ zu verwenden.
 
 Die Ordnerstruktur wird vom Gradle-Plugin wie folgt erwartet:
 
-* **config** Enthält die Konfigurationsdateien
-  * **project.json** Enthält allgemeine Informationen zum Projekt, z.B. Prozessname und Mandant
-  * **auth.json** Enthält Tokens zum Authentifizieren gegen die Serviceportal-Schnittstellen.
-  * **default.json** Enthält die Definition der Standardumgebung (URL, Projektstufe, ...)
-  * **${umgebungsname}.json** Enthält die Definition der Umgebung ${umgebungsname} 
-* **scripts** Enthält die Skripte, die in die Prozessmodell-Dateien eingefügt werden sollen
-  * **${prozessmodelId}** Enthält die Skripte für den Prozess mit der Id ${prozessmodelId}
-    * **${skriptname}.groovy** Enthält den Inhalt des Skripts mit der Id ${skriptname} in der
+* **config**: Enthält die Konfigurationsdateien
+  * **project.json**: Enthält allgemeine Informationen zum Projekt, z.B. Prozessname und Mandant
+  * **auth.json**: Enthält Tokens zum Authentifizieren gegen die Serviceportal-Schnittstellen.
+  * **default.json**: Enthält die Definition der Standardumgebung (URL, Projektstufe, ...)
+  * **${umgebungsname}.json**: Enthält die Definition der Umgebung ${umgebungsname} 
+* **scripts**: Enthält die Skripte, die in die Prozessmodell-Dateien eingefügt werden sollen
+  * **${prozessmodelId}**: Enthält die Skripte für den Prozess mit der Id ${prozessmodelId}
+    * **${skriptname}.groovy**: Enthält den Inhalt des Skripts mit der Id ${skriptname} in der
       Prozessmodell-Datei ${prozessmodelName}.bpmn 
-  * **commons** Enthält Klassen, die in mehreren Skripten des Prozessmodells verwendet  werden können
-* **commons** Enthält Unterordner mit externen Klassen, die in den Skripten der Prozessmodelle 
-  verschiedener Projekte übergreifend verwendet  werden können
-* **models** Enthält die Prozessmodell-Dateien (mit leeren Skript Tasks)
-  * **${dateiname}.bpmn** Enthält eine Prozessmodell-Datei
-* **resources** Enthält Dateien, die zusätzlich in das Prozess-Deployment mit aufgenommen werden sollen
+  * **commons**: Enthält Klassen, die in mehreren Skripten des Prozessmodells verwendet werden können
+* **commons**: Enthält Unterordner mit externen Klassen, die in den Skripten der Prozessmodelle 
+  verschiedener Projekte übergreifend verwendet werden können
+* **models**: Enthält die Prozessmodell-Dateien (mit leeren Skript-Tasks)
+  * **${dateiname}.bpmn**: Enthält eine Prozessmodell-Datei
+* **resources**: Enthält Dateien, die zusätzlich in das Prozess-Deployment mit aufgenommen werden sollen
   (z.B. Keystores oder Drools-Dateien). 
   Falls keine solchen Dateien benötigt werden, muss der Ordner nicht angelegt werden.
-* **forms** Enthält die Formulare, die zum Prozess gehören
-  * **${dateiname}.json** Enthält eine Formulardefinition
-* **parameterdefinitions** Enthält die Definitionen der Prozessparameter
-  * **default.json** Fallback, wird verwendet, wenn keine Parameterdefinition für eine bestimmte
+* **forms**: Enthält die Formulare, die zum Prozess gehören
+  * **${dateiname}.json**: Enthält eine Formulardefinition
+* **parameterdefinitions**: Enthält die Definitionen der Prozessparameter
+  * **default.json**: Fallback, wird verwendet, wenn keine Parameterdefinition für eine bestimmte
     Umgebung vorhanden ist
-  * **${umgebungsname}.json** Enthält die Parameterdefinition für die Umgebung ${umgebungsname}
+  * **${umgebungsname}.json**: Enthält die Parameterdefinition für die Umgebung ${umgebungsname}
   
 ### Ordner config
 
@@ -121,7 +121,7 @@ Die Datei project.json enthält Informationen darüber, an welcher Stelle der Pr
 im Admincenter abgelegt wird. Enthalten sind folgende Informationen:
 * **projectName**: Der Name des Prozessmodells im Admincenter.
 * **projectVersion**: Die Version des Prozessmodells, an der gerade gearbeitet wird.
-* **mandant**: Die Id des  Mandanten, unter dem das Prozessmodell und die Formulare 
+* **mandant**: Die Id des Mandanten, unter dem das Prozessmodell und die Formulare 
   im Admincenter abgelegt werden.
 
 Beispielsweise könnte die Datei project.json so aussehen:
@@ -135,10 +135,10 @@ Beispielsweise könnte die Datei project.json so aussehen:
 
 #### Ordner config - Datei auth.json
 
-Die Informationen in dieser Datei autentifizieren den Benutzer gegen die entsprechende Umgebung.
+Die Informationen in dieser Datei authentifizieren den Benutzer gegen die entsprechende Umgebung.
 Die Authentifizierungsinformationen sind sensitive persönliche Informationen
 und entsprechen vom Stellenwert her persönlichen Passwörtern. 
-Das heisst, jeder Entwickler sollte eigene Authentifizierungs-Tokens benutzen, 
+Das heisst, jeder Entwickler sollte eigene Authentifizierungstokens benutzen, 
 daher sollte diese Datei NICHT unter Versionskontrolle stehen und NICHT an andere Personen
 weitergegeben werden. 
 
@@ -147,7 +147,7 @@ Die Datei hat folgende Struktur:
 * eine Map der Umgebungen mit key Umgebungs-Id
   * darin je eine Map der Mandanten mit Key Mandanten-Id
     * darin folgendes Attribut:
-      * **authorizationHeader** Parameter zur Authentifizierung (`Bearer-Token`)
+      * **authorizationHeader**: Parameter zur Authentifizierung (`Bearer-Token`)
 
 Damit die Token funktionieren, gelten folgende Voraussetzungen:
 
@@ -155,7 +155,7 @@ Damit die Token funktionieren, gelten folgende Voraussetzungen:
 * dem Nutzer müssen die entsprechenden Rechte über Rollen/ Benutzergruppen gewährt werden.
 * Das Token muss auf der entsprechenden Umgebung ausgestellt worden sein.
 * Ein Zugriff mittels Webservice-Benutzern ist nicht möglich.
-* Die Benutzertoken haben eine Güligkeitsdauer von 24h, danach muss ein neues Token erzeugt werden.
+* Die Benutzertoken haben eine Gültigkeitsdauer von 24h, danach muss ein neues Token erzeugt werden.
 
 Beispiel für die Authentifizierung für den Mandant 1 in der Umgebung default:
 ```json
@@ -173,9 +173,8 @@ Beispiel für die Authentifizierung für den Mandant 1 in der Umgebung default:
 Die Token können am bequemsten über den Task getAuthorizationToken geholt werden.
 
 Manche Umgebungen schränken aus Sicherheitsgründen einzelne Funktionen ein.
-So wird beispielsweise es möglich sein, auf die Produktivumgebungen Prozesse in die Stufe QS hoch
-zu laden, aber nicht in die Stufe Certified. Ebenso wird es nicht möglich sein mittels des Plugins 
-die Prozesse  zu deployen. 
+So wird beispielsweise es möglich sein, auf die Produktivumgebungen Prozesse in die Stufe QS hochzuladen, aber nicht in die Stufe Certified. Ebenso wird es nicht möglich sein mittels des Plugins 
+die Prozesse zu deployen. 
 
 Diese Beschränkungen werden über den Betrieb in Absprache mit dem IM/SK für jede Umgebung
 festgelegt.
@@ -195,11 +194,11 @@ Die Dateien enthalten folgende Informationen:
   dass manche Werte auf manchen Umgebungen nicht zur Verfügung stehen.
 * **mandant**: Die Id des Mandanten für diese Umgebung.
   Wenn gesetzt, wird der Mandant aus der Datei project.json überschrieben.
-* **processModelNameExtension** Ein optionaler Suffix, der beim Bauen der Prozessmodelle 
+* **processModelNameExtension**: Ein optionales Suffix, der beim Bauen der Prozessmodelle 
   an den Prozessnamen, der in der bpmn-Datei definiert ist, angehängt wird 
   (getrennt durch ein Leerzeichen).
-* **processEngine:** Die ID der Prozess-Engine, auf welche die Prozessmodell-Version deployt werden
-  soll. Ist der Parameter nicht gesetzt wird die Standard-Prozess-Engine verwendet.
+* **processEngine:**: Die ID der Prozess-Engine, auf welche die Prozessmodell-Version deployt werden
+  soll. Ist der Parameter nicht gesetzt, wird die Standard-Prozess-Engine verwendet.
 
 Beispiel:
 ```
@@ -221,7 +220,7 @@ Die Skripte für ein Prozessmodell liegen in einem Unterverzeichnis, dessen Name
 des Prozessmodells (Attribut `id` des Elements `process` der BPMN-Datei) und haben den Namen
 ${Id des Script-Tasks}.groovy.
 
-Sollen skripttaksübergreifende Groovy-Klassen verwendet werden, können im Unterverzeichnis "commons" 
+Sollen skript-tasksübergreifende Groovy-Klassen verwendet werden, können im Unterverzeichnis "commons" 
 abgelegt werden.
 
 Sie müssen im Package "commons" deklariert werden und können über Importanweisungen eingebungen 
@@ -241,12 +240,12 @@ commons/externalpackage/scripts/commons/externalpackage/Example.groovy gefunden 
 
 Dieses Verzeichnis ist dafür gedacht, um externe Verzeichnisse, die z.B.
 eine Bibliothek von prozessübergreifenden Klassen bereitstellen, 
-in das Projekt verlinken zu können (bespielsweise mit git submodules).
+in das Projekt verlinken zu können (beispielsweise mit git submodules).
 
 ### Ordner models
 
-Enthält die Prozessmodell-Dateien des Prozesses mit leeren Skript Tasks.
-Die Prozessmodelldateien enden mit .bpmn oder mit .bpmn20.xml.
+Enthält die Prozessmodell-Dateien des Prozesses mit leeren Skript-Tasks.
+Die Prozessmodell-Dateien enden mit .bpmn oder mit .bpmn20.xml.
 
 ### Ordner forms
 
@@ -320,7 +319,7 @@ die Umgebung `default` verwendet.
 
 Der Mandant wird mit folgender Hierarchie ermittelt. 
 Dabei wird von oben nach unten vorgegangen und der erste nicht-null Wert verwendet.
-* Parameter **mandant** bei Aufurf des Tasks (mittels `-Pmandant=<mandant>`)
+* Parameter **mandant** bei Aufruf des Tasks (mittels `-Pmandant=<mandant>`)
 * der in der Konfigurationsdatei der Umgebung definierte Mandant 
 * der in der Datei `config/project.json` definierte Mandant 
 
@@ -362,7 +361,7 @@ konfiguriert werden:
 * **mandant**: Optional. Überschreibt den im config-Verzeichnis festgelegten Mandanten.
 * **environment**: Optional. Definiert die Umgebung, deren Konfiguration verwendet wird. 
    Wird dieser Parameter nicht verwendet, so wird die Umgebung "default" verwendet.
-* **debug** Optional. Wenn der Wert des Paramters "true" ist, werden weitere debug-Ausgaben
+* **debug**: Optional. Wenn der Wert des Parameters "true" ist, werden weitere debug-Ausgaben
   durch das Plugin ausgegeben. 
 
 # Task _mergeScripts_
@@ -408,7 +407,7 @@ als Groovy-Quellverzeichnisse konfiguriert werden.
 
 ## Parameter
 
-Der globale Aufrufparameter **debug**  beeinflusst den Task wie angegeben.
+Der globale Aufrufparameter **debug** beeinflusst den Task wie angegeben.
  
 # Task _buildModel_
 
@@ -419,17 +418,17 @@ konfigurierten processModelNameExtension.
 
 Die Skripte werden nach folgendem Schema 
 `build/scripts/[ID des Prozesmodells]/[ID des Skript-Tasks].groovy`
-den Skript Tasks zugeordnet.  
+den Skript-Tasks zugeordnet.  
 
 Die gebauten Prozessmodelle werden in das Verzeichnis `build/models` geschrieben.  
 
 ## Aufrufparameter
 
-Die globalen Aufrufparameter **environment** und **debug**  beeinflussen den Task wie angegeben.
+Die globalen Aufrufparameter **environment** und **debug** beeinflussen den Task wie angegeben.
 
 # Task _uploadProcessModelFiles_
 
-Dieser Task lädt die mit dem Task _buildModel_ gebauten Prozessmodelldateien ins Admincenter hoch.
+Dieser Task lädt die mit dem Task _buildModel_ gebauten Prozessmodell-Dateien ins Admincenter hoch.
 Dabei wird das Prozessmodell nicht sofort deployt; das Deployment erfolgt über den separaten 
 Task _deployProcessModelVersion_.
 
@@ -520,7 +519,7 @@ Die Informationen zu den Formularen können entweder als Ordnerstruktur oder üb
 * `forms/${FormularName}-${FormularVersion}-${Sprachkürzel}.json` 
 * `forms/${FormularName}/${FormularVersion}/${Sprachkürzel}.json`
 
-\* analog dem Namen beim Download eines Formulares aus dem Admincenter
+\* analog dem Namen beim Download eines Formulars aus dem Admincenter
 
 Mandant und aktive Stufe für das Hochladen werden wie im Kapitel 
 "Ermittlung von Konfigurationswerten" beschrieben aus der Konfiguration gelesen.
@@ -535,9 +534,9 @@ Alle globalen Aufrufparameter beeinflussen den Task wie angegeben.
 
 Dieser Task dient dazu, die Formulare im Projekt an eine Umgebung zu senden 
 und anschliessend zu deployen.
-Ist ein die Formular schon deployt, so wird es vor dem erneuten Deployment undeployt. 
+Ist ein Formular schon deployt, so wird es vor dem erneuten Deployment undeployt. 
 
-Die weitere Funktion ist analog zum Task _uploadFormularFiles_ .
+Die weitere Funktion ist analog zum Task _uploadFormularFiles_.
 
 # Task _getAuthorizationToken_
 
@@ -546,7 +545,7 @@ in die Konfigurationsdatei `auth.json` geschrieben werden.
 Existiert das entsprechende Token schon, so wird mit dem neu geholten Token ersetzt.
 
 Benutzername und Passwort werden dabei aus einer der `gradle.properties` 
-(in der systemeigenen Hierachie)  aus den Keys `serviceportal.username` bzw. `serviceportal.password` 
+(in der systemeigenen Hierarchie) aus den Keys `serviceportal.username` bzw. `serviceportal.password` 
 gelesen.
 
 Mandant und Umgebung, unter der der Key abgelegt werden soll, werden wie im Kapitel 
@@ -570,7 +569,7 @@ Mit dem Parameter `environment` kann (wie bei den anderen Tasks) die gewünschte
 werden, auf welcher die Datei bearbeitet werden soll. Der Parameter `port` kann den Server auf
 einem definierten lokalen Port starten (sofern dieser frei ist).
 
-Es kann nur jeweils eine Instanz des Servers gestartet werden. Um den Server zu beenden kann in der 
+Es kann nur jeweils eine Instanz des Servers gestartet werden. Um den Server zu beenden, kann in der 
 Übersichtsseite auf der entsprechende Link verwendet bzw. auf der Konsole der dazu bereitgestellte 
 Task verwendet werden.
 

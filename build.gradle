@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'groovy'
-    id 'de.seitenbau.serviceportal.prozesspipeline' version '2022.09.01-0'
+    id 'de.seitenbau.serviceportal.prozesspipeline' version '2022.09.27-0'
 }
 
 repositories {
@@ -9,28 +9,28 @@ repositories {
 }
 
 dependencies {
-    implementation "org.codehaus.groovy:groovy-all:2.5.14"
+    implementation 'org.codehaus.groovy:groovy-all:2.5.14'
 
     // Include commons subproject
-    // i.e. compile project(":commons.serviceportal")
+    // i.e. compile project(':commons.serviceportal')
 }
 
 // Set source directories (where to compile and test from)
 sourceSets {
     main {
         groovy {
-            srcDirs = ["scripts"]
+            srcDirs = ['scripts']
         }
         resources {
-            srcDirs = ["scripts"]
+            srcDirs = ['scripts']
         }
     }
     test {
         groovy {
-            srcDirs = ["test"]
+            srcDirs = ['test']
         }
         resources {
-            srcDirs = ["test"]
+            srcDirs = ['test']
         }
     }
 }
@@ -38,7 +38,7 @@ sourceSets {
 // Enable logging of test results
 //test {
 //    testLogging {
-//        events "passed", "skipped", "failed"
+//        events 'passed', 'skipped', 'failed'
 //    }
 //}
 
