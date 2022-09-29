@@ -319,7 +319,7 @@ die Umgebung `default` verwendet.
 
 Der Mandant wird mit folgender Hierarchie ermittelt. 
 Dabei wird von oben nach unten vorgegangen und der erste nicht-null Wert verwendet.
-* Parameter **mandant** bei Aufwurf des Tasks (mittels `-Pmandant=<mandant>`)
+* Parameter **mandant** bei Aufruf des Tasks (mittels `-Pmandant=<mandant>`)
 * der in der Konfigurationsdatei der Umgebung definierte Mandant 
 * der in der Datei `config/project.json` definierte Mandant 
 
