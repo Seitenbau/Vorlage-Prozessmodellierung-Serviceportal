@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'groovy'
-    id 'de.seitenbau.serviceportal.prozesspipeline' version '2022.09.27-0'
+    id 'de.seitenbau.serviceportal.prozesspipeline' version '2022.10.07-0'
 }
 
 repositories {
