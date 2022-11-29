@@ -63,7 +63,9 @@ In diesem Release enthalten sind die Tasks
 * `uploadAndDeployFormularFiles` Lädt Formulardateien in das Admincenter hoch und deployt sie
 * `getAuthorizationToken` Erstellt ein Token zum Authentifizieren. 
   Ein solches Token wird zum Hochladen und Deployen von Prozessen,
-  Prozessparameterdefinitionen und Formularen benötigt. 
+  Prozessparameterdefinitionen und Formularen benötigt.
+* `startLocalHttpServer` Startet einen lokalen Server, um lokale Formulardateien mit dem
+  Formulardesigner auf einer definierten Umgebung zu bearbeiten
 
 # Konfiguration und Projektstruktur
 
