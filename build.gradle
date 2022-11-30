@@ -89,6 +89,11 @@ getAuthorizationToken {
     debug = getVariableValue('debug', false)
 }
 
+startLocalHttpServer {
+    environment = getVariableValue('environment', 'default')
+    port = getVariableValue('port', "0")
+}
+
 // ################ Kombinierte Tasks ################
 
 // Fügt die Skripte zusammen und fügt sie in das Modell ein
