@@ -1,5 +1,8 @@
 # Aktualisierungen
 
+## 2022.12.14-0
+- Dependency-Updates: Plugin: de.seitenbau.serviceportal.prozesspipeline 2022.12.14-0, gradlew 7.6
+
 ## 2022.10.07-0
 - Bugfix: Beim Zusammenführen von Quellcode-Dateien mittels `mergeScripts` prüfen, dass die Imports
   in den erzeugten Groovy-Skripten eindeutig sind
