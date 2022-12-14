@@ -66,6 +66,7 @@ In diesem Release enthalten sind die Tasks
   Prozessparameterdefinitionen und Formularen benötigt.
 * `startLocalHttpServer` Startet einen lokalen Server, um lokale Formulardateien mit dem
   Formulardesigner auf einer definierten Umgebung zu bearbeiten
+* `stopLocalHttpServer` Stoppt den lokalen Server zum Bearbeiten von lokalen Dateien.
 
 # Konfiguration und Projektstruktur
 
