@@ -44,14 +44,15 @@ Anlegen der Formulare im Admincenter deployt werden.
 `{pfad zum sgw}/formulare/management/formulare/api/upload`
 
 ### Headerparameter
-| **Name**              |  **Beschreibung** |
-| --------------------- | ----------------- |
-| X-SP-Formular-Name    | Name des Formulars |
-| X-SP-Formular-Version | Version des Formulars |
-| X-SP-Formular-Stage   | WorkflowStage des Formulars<br />`MODELLING`, `QUALITY_ASSURANCE`, `CERTIFIED` |
-| X-SP-Formular-Deploy  | `true`, wenn das Formular deployt werden soll, default: `false` |
-| X-SP-Mandant          | ID des Mandanten |
-| Content-Type          | `application/zip` |
+| **Name**              | **Beschreibung**                                                                                                                                                                                                                                                            |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| X-SP-Formular-Name    | Name des Formulars                                                                                                                                                                                                                                                          |
+| X-SP-Formular-Version | Version des Formulars                                                                                                                                                                                                                                                       |
+| X-SP-Formular-Stage   | WorkflowStage des Formulars<ul><li>`MODELLING`</li><li>`QUALITY_ASSURANCE`</li><li>`CERTIFIED`</li></ul> <b>*ACHTUNG:</b> Header ist Deprecated. Migration erfoderlich falls noch genutzt, <br/> siehe [Breaking Changes/Migration Guide](#breaking-changesmigration-guide) |
+| X-SP-Formular-Status  | Status des Formulars<ul><li>`EDIT`</li><li>`TEST`</li><li>`FINAL`</li></ul>                                                                                                                                                                                                 |
+| X-SP-Formular-Deploy  | `true`, wenn das Formular deployt werden soll, default: `false`                                                                                                                                                                                                             |
+| X-SP-Mandant          | ID des Mandanten                                                                                                                                                                                                                                                            |
+| Content-Type          | `application/zip`                                                                                                                                                                                                                                                           |
 
 ### Body
 Die Schnittstelle erwartet als Body eine ZIP-Datei. 
@@ -72,8 +73,9 @@ Um diese Schnittstelle aufrufen zu können benötigt der Benutzer folgende Recht
 
 Die Rechte sind in den oben genannten Rollen und Benutzergruppen enthalten.
 
-Für jede Umgebung ist eine maximale Stufe definiert. Wird versucht 
-Formulare in eine Stufe höher der angegebenen hochzuladen und/oder zu deployen, wird ein Fehler zurückgegeben.
+Für jede Umgebung ist ein maximaler Status definiert. Wird versucht 
+Formulare in einem Status hochzuladen und/oder zu deployen, der höher ist als der maximale, 
+wird ein Fehler zurückgegeben.
 
 ### Rückgabewerte 
 
@@ -98,13 +100,14 @@ im Backend an das Deplyoen eines Prozesses gekoppelt und wird automatisch mit au
 `{pfad zum sgw}/prozessmanagement/prozessmodelle/api/upload`
 
 ### Headerparameter
-| **Name**             | **Beschreibung** |
-| -------------------- | ---------------- |
-| X-SP-Process-Name    | Name des Prozesses |
-| X-SP-Process-Version | Version des Prozesses |
-| X-SP-Process-Stage   | WorkflowStage des Prozesses<br />`FUNCTIONAL_ANALYSIS`, `TECHNICAL_IMPLEMENTATION` , `QUALITY_ASSURANCE`, `CERTIFIED` |
-| X-SP-Mandant         | ID des Mandanten |
-| Content-Type         | `application/zip` |
+| **Name**             | **Beschreibung**                                                                                                                                                                                              |
+|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| X-SP-Process-Name    | Name des Prozesses                                                                                                                                                                                            |
+| X-SP-Process-Version | Version des Prozesses                                                                                                                                                                                         |
+| X-SP-Process-Stage   | WorkflowStage des Prozesses<br /><ul><li>`FUNCTIONAL_ANALYSIS`</li><li>`TECHNICAL_IMPLEMENTATION`</li><li>`QUALITY_ASSURANCE`</li><li>`CERTIFIED`</li></ul> <b>*ACHTUNG:</b> Header ist Deprecated. Migration erfoderlich falls noch genutzt, <br/> siehe [Breaking Changes/Migration Guide](#breaking-changesmigration-guide) |
+| X-SP-Process-Status  | Status des Prozesses<br /><ul><li>`EDIT`</li><li>`TEST`</li> <li>`FINAL`</li></ul>                                                                                                                            |
+| X-SP-Mandant         | ID des Mandanten                                                                                                                                                                                              |
+| Content-Type         | `application/zip`                                                                                                                                                                                             |
 
 ### Body
 Die Schnittstelle erwartet als Body eine ZIP-Datei, welche vom Aufbau her dem Business Archive von Activiti entspricht (https://www.activiti.org/userguide/#_business_archives):
@@ -125,8 +128,9 @@ Um diesse Schnittstelle aufrufen zu können benötigt der Benutzer folgende Rech
 
 Das Recht ist in den oben genannten Rollen und Benutzergruppen enthalten.
 
-Für jede Umgebung ist eine maximale Stufe definiert. Wird versucht eine Prozessmodellversion in eine Stufe höher 
-als der angegebenen hochzuladen, wird ein Fehler zurückgegeben.
+Für jede Umgebung ist ein maximaler Status definiert. 
+Wird versucht eine Prozessmodellversion in einem Status hochzuladen, der höher ist als der maximale Status, 
+wird ein Fehler zurückgegeben.
 
 ### Rückgabewerte 
 
@@ -146,10 +150,9 @@ Der Aufruf muss als POST ausgeführt werden.
 
 ### Headerparameter
 | **Name**             | **Beschreibung** |
-| -------------------- | ---------------- | 
+|----------------------| ---------------- | 
 | X-SP-Process-Name    | Name des Prozesses |
 | X-SP-Process-Version | Version des Prozesses |
-| X-SP-Process-Stage   | WorkflowStage des Prozesses<br />`FUNCTIONAL_ANALYSIS`, `TECHNICAL_IMPLEMENTATION` , `QUALITY_ASSURANCE`, `CERTIFIED` |
 | X-SP-Process-Engine  | ID der Prozess-Engine, Standard-Prozess-Engine wenn nicht gesetzt |
 | X-SP-Mandant         | ID des Mandanten |
 
@@ -163,8 +166,8 @@ Um diese Schnittstelle Aufrufen zu können benötigt der Benutzer folgende Recht
 
 Das Recht ist in den oben genannten Rollen und Benutzergruppen enthalten.
 
-Für jede Umgebung ist eine maximale Stufe definiert. Wird versucht eine Prozessmodellversion in eine Stufe höher 
-der angegebenen deployt, wird ein Fehler zurückgegeben.
+Für jede Umgebung ist ein maximaler Status definiert. Wird versucht eine Prozessmodellversion in einem Status
+zu deployen, der höher ist als der maximale, wird ein Fehler zurückgegeben.
 
 ### Rückgabewerte 
 
@@ -206,8 +209,8 @@ daher die Möglichkeit eines Deployments implizit enthält, wird zum Hochladen d
 | X-SP-Mandant         | ID des Mandanten      |
 | Content-Type         | `application/zip`     |
 
-Da Prozessparameterdefinitionen zu einer Prozessmodellversion und nicht einer spezifischen Stufe gehören,
-muss keine Stufe angegeben werden 
+Da Prozessparameterdefinitionen zu einer Prozessmodellversion und nicht einem spezifischen Status gehören,
+muss kein Status angegeben werden. 
 
 ### Body
 Die Schnittstelle als Body eine JSON-Datei, welche vom Aufbau her derjenigen des Hoch- und Herunterladens im Admincenter entspricht. 
@@ -257,3 +260,44 @@ Eine Liste mit den IDs und Namen der Prozess-Engines (`application/json`).
   }
 ]
 ```
+
+# Breaking Changes/Migration Guide
+
+Mit der letzten version des Gradle Plugins wurden die Projektstufen entfernt und durch
+Status werte ersetzt. Übergangsweise können die Schnittstellen sowohl mit der Stufe
+als auch dem neuen Status genutzt werden.
+
+Es sollte jedoch beachtet werden das die Stufen ab einem Zeitpunkt X, vollständig ausgebaut werden
+und deren Nutzung nicht mehr möglich ist.
+
+Daher sollte auf die Nutzung der neuen Stufen umgestellt werden.
+
+Was sollte gemacht werden um um die Funktionsweise zu gewährleisten?
+
+1. Beim Ansprechen der Schnittstellen nur noch den Status Wert verwenden
+   - Dieser wird über die entsprechenden Header `X-SP-Process-Status` und `X-SP-Formular-Status` übertragen
+2. Konfigurationsdateien anpassen. Statt dem Attribut `projectStage` sollte das Attribut `status` verwendet werden
+3. Die neuen Statuswerte statt den ehemaligen Stufen verwenden. Siehe hierfür die folgenden Tabellen
+
+
+## Mapping der alten Stufen auf neue Status Werte
+
+Die folgenden Tabellen stellen dar welcher Status Wert die selbe Funktionalität bieten wie eine
+bestimmte Stufe.
+
+### Formular Stufen <--> Status
+
+| projectStage      | status |
+|-------------------|--------|
+| MODELLING         | EDIT   |
+| QUALITY_ASSURANCE | TEST   |
+| CERTIFIED         | FINAL  |
+
+### Prozess Stufen <--> Status
+
+| projectStage             | status |
+|--------------------------|--------|
+| FUNCTIONAL_ANALYSIS      | EDIT   |
+| TECHNICAL_IMPLEMENTATION | EDIT   |
+| QUALITY_ASSURANCE        | TEST   |
+| CERTIFIED                | FINAl  |
