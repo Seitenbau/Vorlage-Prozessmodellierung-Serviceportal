@@ -1,3 +1,39 @@
+# Index
+
+1. [Ziele des Gradle-Plugins zur Prozessmodellierung](#ziele-des-gradle-plugins-zur-prozessmodellierung)
+2. [System-Anforderungen](#system-anforderungen)
+3. [Zugang](#zugang)
+4. [Grundidee](#grundidee)
+5. [Aktueller Funktionsumfang](#aktueller-funktionsumfang)
+6. [Konfiguration und Projektstruktur](#konfiguration-und-projektstruktur)
+   1. [Ordnerstruktur](#ordnerstruktur)
+      1. [/config](#ordner-config)
+      2. [/scripts](#ordner-scripts)
+      3. [/commons](#ordner-commons)
+      4. [/models](#ordner-models)
+      5. [/forms](#ordner-forms)
+      6. [/parameterdefinitions](#ordner-parameterdefinitions)
+   2. [Ermittlung von Konfigurationswerten](#ermittlung-von-konfigurationswerten)
+        1. [Umgebung](#umgebung)
+        2. [Mandant](#mandant)
+        3. [Name und Version des Prozessmodells](#name-und-version-des-prozessmodells)
+        4. [Stufe der Prozessmodell-Version](#stufe-der-prozessmodell-version)
+        5. [Prozess-Engine für Deployment](#prozess-engine-für-deployment)
+   3. [Unterstützung von Gradle Multi-Project Builds](#unterstützung-von-gradle-multi-project-builds)
+12. [Tasks](#tasks)
+    1. [_mergeScripts_](#task-mergescripts)
+    2. [_buildModel_](#task-buildmodel)
+    3. [_uploadProcessModelFiles_](#task-uploadprocessmodelfiles)
+    4. [_uploadParameterDefinition_](#task-uploadparameterdefinition)
+    5. [_getActiveProcessEngines_](#task-getactiveprocessengines)
+    6. [_deployProcessModelVersion_](#task-deployprocessmodelversion)
+    7. [_uploadFormularFiles_](#task-uploadformularfiles)
+    8. [_uploadAndDeployFormularFiles_](#task-uploadanddeployformularfiles)
+    9. [_getAuthorizationToken_](#task-getauthorizationtoken)
+    10. [_startLocalHttpServer_](#task-startlocalhttpserver)
+    11. [_stopLocalHttpServer_](#task-stoplocalhttpserver)
+3. [Breaking Changes/Migration Guide](#breaking-changesmigration-guide)
+
 # Ziele des Gradle-Plugins zur Prozessmodellierung
 
 Dieses Gradle-Plugin schafft die Möglichkeit, einzelne Prozess-Teile 
@@ -50,23 +86,21 @@ Deployen übernehmen.
 
 # Aktueller Funktionsumfang
 
-In diesem Release enthalten sind die Tasks
+In diesem Release enthalten sind die Tasks:
 
-* `mergeScripts` Fügt die einzelnen Bestandteile der Skripte zu kompilierbaren Groovy-Skripten
-  zusammen
-* `buildModel` Fügt die Skripte in das Prozessmodell ein
-* `uploadProcessModelFiles` Lädt Prozessmodell-Dateien in das Admincenter hoch
-* `uploadProcessDefinitions` Lädt Prozessparameterdefinitionen in das Admincenter hoch
-* `getActiveProcessEngines` Gibt die Liste der zur Verfügung stehenden Prozess-Engines aus
-* `deployProcessModelVersion` Deployt eine (zuvor hochgeladene) Prozessversion
-* `uploadFormularFiles` Lädt Formulardateien in das Admincenter hoch
-* `uploadAndDeployFormularFiles` Lädt Formulardateien in das Admincenter hoch und deployt sie
-* `getAuthorizationToken` Erstellt ein Token zum Authentifizieren. 
-  Ein solches Token wird zum Hochladen und Deployen von Prozessen,
-  Prozessparameterdefinitionen und Formularen benötigt.
-* `startLocalHttpServer` Startet einen lokalen Server, um lokale Formulardateien mit dem
-  Formulardesigner auf einer definierten Umgebung zu bearbeiten
-* `stopLocalHttpServer` Stoppt den lokalen Server zum Bearbeiten von lokalen Dateien.
+| Task                                                          | Beschreibung                                                                                                                                                    |
+|---------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`mergeScripts`](#mergescripts)                               | Fügt die einzelnen Bestandteile der Skripte zu kompilierbaren Groovy-Skripten zusammen                                                                          |
+| [`buildModel`](#buildmodel)                                   | Fügt die Skripte in das Prozessmodell ein                                                                                                                       | 
+| [`uploadProcessModelFiles`](#uploadprocessmodelfiles)         | Lädt Prozessmodell-Dateien in das Admincenter hoch                                                                                                              |
+| [`uploadProcessDefinitions`](#uploadprocessdefinitions)       | Lädt Prozessparameterdefinitionen in das Admincenter hoch                                                                                                       |
+| [`getActiveProcessEngines`](#getactiveprocessengines)         | Gibt die Liste der zur Verfügung stehenden Prozess-Engines aus                                                                                                  |
+| [`deployProcessModelVersion`](#deployprocessmodelversion)     | Deployt eine (zuvor hochgeladene) Prozessversion                                                                                                                |
+| [`uploadFormularFiles`](#uploadformularfiles)                 | Lädt Formulardateien in das Admincenter hoch                                                                                                                    |
+| [`uploadAndDeployFormulariles`](#uploadanddeployformulariles) | Lädt Formulardateien in das Admincenter hoch und deployt sie                                                                                                    |
+| [`getAuthorizationToken`](#getauthorizationtoken)             | Erstellt ein Token zum Authentifizieren. Ein solches Token wird zum Hochladen und Deployen von Prozessen, Prozessparameterdefinitionen und Formularen benötigt. |
+| [`startLocalHttpServer`](#startlocalhttpserver)               | Startet einen lokalen Server, um lokale Formulardateien mit dem Formulardesigner auf einer definierten Umgebung zu bearbeiten                                   |
+| [`stopLocalHttpServer`](#stoplocalhttpserver)                 | Stoppt den lokalen Server zum Bearbeiten von lokalen Dateien.                                                                                                   |
 
 # Konfiguration und Projektstruktur
 
@@ -118,14 +152,18 @@ Die Ordnerstruktur wird vom Gradle-Plugin wie folgt erwartet:
 Enthält die Konfigurationsdateien für das Gradle-Plugin. Die enthaltenen Dateien beeinflussen nur
 das Verhalten des Gradle-Plugins.
 
-#### Ordner config - Datei project.json
+<br/>                                 
+
+#### **Datei project.json**
 
 Die Datei project.json enthält Informationen darüber, an welcher Stelle der Prozess
 im Admincenter abgelegt wird. Enthalten sind folgende Informationen:
-* **projectName**: Der Name des Prozessmodells im Admincenter.
-* **projectVersion**: Die Version des Prozessmodells, an der gerade gearbeitet wird.
-* **mandant**: Die Id des Mandanten, unter dem das Prozessmodell und die Formulare 
-  im Admincenter abgelegt werden.
+
+| Attribut        | Beschreibung                                                                                         |
+|-----------------|------------------------------------------------------------------------------------------------------|
+| projectName     | Der Name des Prozessmodells im Admincenter.                                                          |
+| projectVersion  | Die Version des Prozessmodells, an der gerade gearbeitet wird.                                       |
+| mandant         | Die Id des Mandanten, unter dem das Prozessmodell und die Formulare  im Admincenter abgelegt werden. | 
 
 Beispielsweise könnte die Datei project.json so aussehen:
 ```json
@@ -135,8 +173,9 @@ Beispielsweise könnte die Datei project.json so aussehen:
   "mandant": "1"
 }
 ```
+<br/>                        
 
-#### Ordner config - Datei auth.json
+#### **Datei auth.json**
 
 Die Informationen in dieser Datei authentifizieren den Benutzer gegen die entsprechende Umgebung.
 Die Authentifizierungsinformationen sind sensitive persönliche Informationen
@@ -181,8 +220,10 @@ die Prozesse zu deployen.
 
 Diese Beschränkungen werden über den Betrieb in Absprache mit dem IM/SK für jede Umgebung
 festgelegt.
+                                                                
+<br/>
 
-#### Ordner config - Datei default.json und andere Umgebungsdefinitionen
+#### **Datei default.json und andere Umgebungsdefinitionen**
 
 Die Umgebungsdefinitionen dienen dazu, die Informationen für unterschiedliche Umgebungen abzulegen.
 Wird beim Aufruf der Tasks keine Umgebung angegeben, so wird die Umgebung "default" gewählt.
@@ -190,24 +231,21 @@ Der Name der Umgebung ist in dem Dateinamen kodiert. So wird z.B. für die Umgeb
 die Umgebungsdefinitionsdatei prozesstest.json angezogen.
 
 Die Dateien enthalten folgende Informationen:
-* **url**: Die URL des Servicegateways der Zielumgebung
-* **projectStage**: Die Stufe, in die das Prozessmodell und die Formulare 
-  auf der entsprechenden Umgebung abgelegt werden sollen. Gültige Werte sind prinzipiell
-  FUNCTIONAL_ANALYSIS, TECHNICAL_IMPLEMENTATION, QUALITY_ASSURANCE, CERTIFIED, es kann jedoch sein,
-  dass manche Werte auf manchen Umgebungen nicht zur Verfügung stehen.
-* **mandant**: Die Id des Mandanten für diese Umgebung.
-  Wenn gesetzt, wird der Mandant aus der Datei project.json überschrieben.
-* **processModelNameExtension**: Ein optionales Suffix, der beim Bauen der Prozessmodelle 
-  an den Prozessnamen, der in der bpmn-Datei definiert ist, angehängt wird 
-  (getrennt durch ein Leerzeichen).
-* **processEngine:**: Die ID der Prozess-Engine, auf welche die Prozessmodell-Version deployt werden
-  soll. Ist der Parameter nicht gesetzt, wird die Standard-Prozess-Engine verwendet.
+
+| Attribut                  | Beschreibung                                                                                                                                                                                                                                                                  |
+|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| url                       | Die URL des Servicegateways der Zielumgebung                                                                                                                                                                                                                                  |
+| status                    | Der Status in der das Prozessmodell und die Formulare auf der entsprechenden Umgebung abgelegt werden sollen. Gültige Werte sind: <ul><li>EDIT</li><li>TEST</li><li>FINAL</li></ul> Es kann jedoch sein, dass manche Werte auf manchen Umgebungen nicht zur Verfügung stehen. | 
+| mandant                   | Die Id des Mandanten für diese Umgebung. Wenn gesetzt, wird der Mandant aus der Datei project.json überschrieben.                                                                                                                                                             |
+| processModelNameExtension | Ein optionales Suffix, der beim Bauen der Prozessmodelle an den Prozessnamen, der in der bpmn-Datei definiert ist, angehängt wird (getrennt durch ein Leerzeichen).                                                                                                           |
+| rocessEngine              | Die ID der Prozess-Engine, auf welche die Prozessmodell-Version deployt werden soll. Ist der Parameter nicht gesetzt, wird die Standard-Prozess-Engine verwendet.                                                                                                             |
+
 
 Beispiel:
 ```
 {
   "url": "https://sgwtest.service-bw.de",
-  "projectStage": "TECHNICAL_IMPLEMENTATION",
+  "stufe": "EDIT",
   "mandant": "42",
   "processModelNameExtension": "DEV",
   "processEngine": "secondEngine"
@@ -271,24 +309,15 @@ automatisch statt default.json angezogen werden.
 die auch im Admincenter als Prozessparameterdefinitionen verwendet werden.**
 
 In einer Parameterdefinition werden die folgenden Informationen gespeichert
-* **name**: Der programmatische Name des Prozessparameters, muss unique für ein Prozessmodell sein
-* **description**: Die Beschreibung des Parameters für die Prozessverwalter, die den Parameter 
-  setzen wollen.
-* **type**: Der Typ des Prozessparameters. Erlaubt sind folgende Werte:
-  * **STRING**: Der im ProcessParameter gespeicherte String wird as is verwendet
-  * **JSON_STRING_MAP**: Der im ProcessParameter gespeicherte String wird im Prozess als 
-   JSON-Map<String, String> geparst
-  * **JSON_OBJECT**: Der im ProcessParameter gespeicherte String wird im Prozess als
-   JSON-Objekt geparst 
-  * **BINARY**: Der im ProcessParameter gespeicherte String wird als Base64 kodierter Byte-Array
-   interpretiert und als Byte-Array zurückgegeben.
-* **defaultValue**: Der Defaultwert des Parameters. Wird verwendet, falls der Prozessverwalter 
-  bei der Aktivierung des Prozesses nichts anderes angibt. 
-  Wenn defaultValue nicht gesetzt ist, gibt es keinen Defaultwert.
-* **required**: true, falls der Aktivierung des Prozesses immer ein Wert angegeben werden muss, 
-  oder false, wenn nicht. Default ist false.
-* **hidden**: true, wenn der Prozessparameter bei der Aktivierung nicht sichtbar sein soll,
-  oder false, wenn der Prozessparameter bei der Aktivierung sichtbar sein soll. Default ist false.
+
+| Attribut         | Beschreibung                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+|------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **name**         | Der programmatische Name des Prozessparameters, muss unique für ein Prozessmodell sein                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| **description**  | Die Beschreibung des Parameters für die Prozessverwalter, die den Parameter setzen wollen.                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| **type**         | Der Typ des Prozessparameters. Erlaubt sind folgende Werte: <ul><li>**STRING**: Der im ProcessParameter gespeicherte String wird as is verwendet</li><li>**JSON_STRING_MAP**: Der im ProcessParameter gespeicherte String wird im Prozess als JSON-Map<String, String> geparst</li><li>**JSON_OBJECT**: Der im ProcessParameter gespeicherte String wird im Prozess als JSON-Objekt geparst</li><li>**BINARY**: Der im ProcessParameter gespeicherte String wird als Base64 kodierter Byte-Array interpretiert und als Byte-Array zurückgegeben.</li></ul> |
+| **defaultValue** | Der Defaultwert des Parameters. Wird verwendet, falls der Prozessverwalter bei der Aktivierung des Prozesses nichts anderes angibt. Wenn defaultValue nicht gesetzt ist, gibt es keinen Defaultwert.                                                                                                                                                                                                                                                                                                                                                       |
+| **required**     | true, falls der Aktivierung des Prozesses immer ein Wert angegeben werden muss, oder false, wenn nicht. Default ist false.                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| **hidden**       | true, wenn der Prozessparameter bei der Aktivierung nicht sichtbar sein soll, oder false, wenn der Prozessparameter bei der Aktivierung sichtbar sein soll. Default ist false.                                                                                                                                                                                                                                                                                                                                                                             |
 
 
 Beispielhafter Inhalt einer Prozessparameterdefinitions-Datei:
@@ -354,20 +383,21 @@ Authentifizierungsdaten, die vom Task _getAuthorizationToken_ geschrieben werden
 in die Datei config/auth.json des Root-Projektes geschrieben. Authentifizierungsdaten im Unterprojekt
 werden dabei vollständig ignoriert.
 
-# Bereitgestellte Gradle-Tasks
+
+# Tasks
 
 ## Parameter für alle Tasks
 
 Die meisten vom Plugin bereitgestellten Gradle-Tasks können mit den folgenden Parametern
 konfiguriert werden:
+       
+| Parameter   | Required?   | Beschreibung                                                                                                                                   |
+|-------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| mandant     | false       | Überschreibt den im config-Verzeichnis festgelegten Mandanten.                                                                                 |
+| environment | false       | Definiert die Umgebung, deren Konfiguration verwendet wird. Wird dieser Parameter nicht verwendet, so wird die Umgebung "default" verwendet.   |
+| debug       | false       | Wenn der Wert des Parameters "true" ist, werden weitere debug-Ausgaben durch das Plugin ausgegeben.                                            |
 
-* **mandant**: Optional. Überschreibt den im config-Verzeichnis festgelegten Mandanten.
-* **environment**: Optional. Definiert die Umgebung, deren Konfiguration verwendet wird. 
-   Wird dieser Parameter nicht verwendet, so wird die Umgebung "default" verwendet.
-* **debug**: Optional. Wenn der Wert des Parameters "true" ist, werden weitere debug-Ausgaben
-  durch das Plugin ausgegeben. 
-
-# Task _mergeScripts_
+## Task _mergeScripts_
 
 Zweck dieses Tasks ist es, den Quellcode der Groovy-Skript-Tasks aus mehrere Dateien
 zusammenzufügen.
@@ -408,11 +438,11 @@ und schon während der Entwicklung auf Fehler hinzuweisen. Hierfür sollten in d
 die Verzeichnisse `scripts` und alle Unterverzeichnisse des Verzeichnisses `commons` 
 als Groovy-Quellverzeichnisse konfiguriert werden.
 
-## Parameter
+### Parameter
 
 Der globale Aufrufparameter **debug** beeinflusst den Task wie angegeben.
  
-# Task _buildModel_
+## Task _buildModel_
 
 Dieser Task fügt die (mit dem Task _mergeScripts_ zusammengefügten) Skripte in die Prozessmodelle
 ein, die im Verzeichnis `models` liegen, 
@@ -425,11 +455,11 @@ den Skript-Tasks zugeordnet.
 
 Die gebauten Prozessmodelle werden in das Verzeichnis `build/models` geschrieben.  
 
-## Aufrufparameter
+### Aufrufparameter
 
 Die globalen Aufrufparameter **environment** und **debug** beeinflussen den Task wie angegeben.
 
-# Task _uploadProcessModelFiles_
+## Task _uploadProcessModelFiles_
 
 Dieser Task lädt die mit dem Task _buildModel_ gebauten Prozessmodell-Dateien ins Admincenter hoch.
 Dabei wird das Prozessmodell nicht sofort deployt; das Deployment erfolgt über den separaten 
@@ -452,11 +482,11 @@ Falls für das angegebene Prozessmodell und die angegebene Version
 * bereits Dateien in einer höheren als der angegebenen Stufe vorhanden sind, ist ein Hochladen in
  die angegebene Stufe nicht möglich.
  
-## Aufrufparameter
+### Aufrufparameter
 
 Alle globalen Aufrufparameter beeinflussen den Task wie angegeben.
 
-# Task _uploadParameterDefinition_
+## Task _uploadParameterDefinition_
 
 Dieser Task lädt eine Prozessparameterdefinition für einen Prozess in das Admincenter hoch.
 Eine eventuell bereits vorhandene Parameterdefinition wird überschrieben. 
@@ -475,17 +505,17 @@ Prozessparameterdefinitionen aus der Datei `parameterdefinitions/default.json` v
 Wenn das angegebene Prozessmodell oder die angegebene Version im konfigurierten Mandanten 
 im Admincenter nicht existiert, wird ein Fehler geworfen.
 
-## Aufrufparameter
+### Aufrufparameter
 
 Alle globalen Aufrufparameter beeinflussen den Task wie angegeben.
 
-# Task _getActiveProcessEngines_
+## Task _getActiveProcessEngines_
 
 Dieser Task gibt die Liste der aktuell zur Verfügung stehenden Prozess-Engines aus. Die ID einer 
 Prozess-Engine kann beim Deployment einer Prozessmodell-Version verwendet werden, um gezielt
 auf die gewünschte Prozess-Engine zu deployen.
 
-# Task _deployProcessModelVersion_
+## Task _deployProcessModelVersion_
 
 Dieser Task deployt ein im Admincenter vorhandenes Prozessmodell. Ist das Prozessmodell schon 
 deployt, wird es undeployt und neu deployt. 
@@ -501,7 +531,7 @@ Aus der Menge, der zur Verfügung stehenden Prozess-Engines, kann die Engine, au
 Prozessversion deployt werden soll, ausgewählt werden. Ist keine Engine explizit angegeben,
 wird die Standard-Prozess-Engine verwendet.
 
-# Task  _uploadFormularFiles_
+## Task _uploadFormularFiles_
 
 Dieser Task lädt die Formulare des Projekts in das Admincenter hoch.
 
@@ -515,7 +545,7 @@ höher ist als die in der Konfiguration angegebenen Stufe,
 so ist ein Hochladen in die angegebene Stufe nicht möglich. 
 Formulare, welche nicht dem Namensschema entsprechen, erzeugen einen Fehler.
 
-## Benennung
+### Benennung
 
 Die Informationen zu den Formularen können entweder als Ordnerstruktur oder über den Dateinamen*
  dem Task übergeben werden:
@@ -529,11 +559,11 @@ Mandant und aktive Stufe für das Hochladen werden wie im Kapitel
 Dabei werden die beiden Stufen `FUNCTIONAL_ANALYSIS` und `TECHNICAL_IMPLEMENTATION` 
 aus der ProjektKonfiguration im Admincenter auf die Stufe `Modellierung` gemappt.
 
-## Aufrufparameter
+### Aufrufparameter
 
 Alle globalen Aufrufparameter beeinflussen den Task wie angegeben.
    
-# Task _uploadAndDeployFormularFiles_
+## Task _uploadAndDeployFormularFiles_
 
 Dieser Task dient dazu, die Formulare im Projekt an eine Umgebung zu senden 
 und anschliessend zu deployen.
@@ -541,7 +571,7 @@ Ist ein Formular schon deployt, so wird es vor dem erneuten Deployment undeployt
 
 Die weitere Funktion ist analog zum Task _uploadFormularFiles_.
 
-# Task _getAuthorizationToken_
+## Task _getAuthorizationToken_
 
 Mit diesem Task kann ein neues Bearer-Token für eine Umgebung 
 in die Konfigurationsdatei `auth.json` geschrieben werden.
@@ -554,11 +584,11 @@ gelesen.
 Mandant und Umgebung, unter der der Key abgelegt werden soll, werden wie im Kapitel 
 "Ermittlung von Konfigurationswerten" beschrieben aus der Konfiguration gelesen.
 
-## Aufrufparameter
+### Aufrufparameter
 
 Alle globalen Aufrufparameter beeinflussen den Task wie angegeben.
 
-# Task _startLocalHttpServer_
+## Task _startLocalHttpServer_
 
 Startet einen lokalen Server, um auf einer beliebigen Serviceportal-Umgebung die auf dem lokalen 
 Rechner des Entwickler liegenden Dateien des Entwicklungsprojektes (Formulare und Prozesse) 
@@ -576,6 +606,39 @@ Es kann nur jeweils eine Instanz des Servers gestartet werden. Um den Server zu 
 Übersichtsseite auf der entsprechende Link verwendet bzw. auf der Konsole der dazu bereitgestellte 
 Task verwendet werden.
 
-# Task _stopLocalHttpServer_
+## Task _stopLocalHttpServer_
 
 Stoppt den lokalen Server zum Bearbeiten von lokalen Dateien.
+
+
+# Breaking Changes/Migration Guide
+
+Mit der aktuellsten Version des Gradle Plugins wurden die Parameter für folgende Tasks angepasst:
+
+- `uploadFormularFiles`
+- `uploadProcessModelFiles`
+
+Zu beachten ist das in der Konfiguration Datei jetzt statt dem Attribut `projectStage`,
+das Attribut `status` mitgegeben muss.
+
+Die Status Werte haben sich hier auch geändert. Im folgenden eine Übersicht die Darstellt 
+welche `projectStage` Werte welchen `status` Werten entsprechen.
+
+
+### Für Formulare
+
+| projectStage      | status |
+|-------------------|--------|
+| MODELLING         | EDIT   |
+| QUALITY_ASSURANCE | TEST   |
+| CERTIFIED         | FINAL  |
+
+### Für Prozesse
+
+| projectStage             | status |
+|--------------------------|--------|
+| FUNCTIONAL_ANALYSIS      | EDIT   |
+| TECHNICAL_IMPLEMENTATION | EDIT   |
+| QUALITY_ASSURANCE        | TEST   |
+| CERTIFIED                | FINAl  |
+
