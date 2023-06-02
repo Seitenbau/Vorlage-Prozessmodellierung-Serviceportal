@@ -92,7 +92,7 @@ Die Ordnerstruktur wird vom Gradle-Plugin wie folgt erwartet:
 * **config**: Enthält die Konfigurationsdateien
   * **project.json**: Enthält allgemeine Informationen zum Projekt, z.B. Prozessname und Mandant
   * **auth.json**: Enthält Tokens zum Authentifizieren gegen die Serviceportal-Schnittstellen.
-  * **default.json**: Enthält die Definition der Standardumgebung (URL, Projektstufe, ...)
+  * **default.json**: Enthält die Definition der Standardumgebung (URL, Status, ...)
   * **${umgebungsname}.json**: Enthält die Definition der Umgebung ${umgebungsname} 
 * **scripts**: Enthält die Skripte, die in die Prozessmodell-Dateien eingefügt werden sollen
   * **${prozessmodelId}**: Enthält die Skripte für den Prozess mit der Id ${prozessmodelId}
@@ -176,7 +176,8 @@ Beispiel für die Authentifizierung für den Mandant 1 in der Umgebung default:
 Die Token können am bequemsten über den Task getAuthorizationToken geholt werden.
 
 Manche Umgebungen schränken aus Sicherheitsgründen einzelne Funktionen ein.
-So wird beispielsweise es möglich sein, auf die Produktivumgebungen Prozesse in die Stufe QS hochzuladen, aber nicht in die Stufe Certified. Ebenso wird es nicht möglich sein mittels des Plugins 
+So ist es beispielsweise möglich, auf die Produktivumgebungen Prozesse im Status `TEST` 
+hochzuladen, aber nicht im Status `FINAL`. Ebenso ist es nicht möglich mittels des Plugins 
 die Prozesse zu deployen. 
 
 Diese Beschränkungen werden über den Betrieb in Absprache mit dem IM/SK für jede Umgebung
@@ -191,10 +192,9 @@ die Umgebungsdefinitionsdatei prozesstest.json angezogen.
 
 Die Dateien enthalten folgende Informationen:
 * **url**: Die URL des Servicegateways der Zielumgebung
-* **projectStage**: Die Stufe, in die das Prozessmodell und die Formulare 
+* **projectStage**: Der Status in der das Prozessmodell und die Formulare 
   auf der entsprechenden Umgebung abgelegt werden sollen. Gültige Werte sind prinzipiell
-  FUNCTIONAL_ANALYSIS, TECHNICAL_IMPLEMENTATION, QUALITY_ASSURANCE, CERTIFIED, es kann jedoch sein,
-  dass manche Werte auf manchen Umgebungen nicht zur Verfügung stehen.
+  EDIT, TEST und FINAL. Es kann jedoch sein, dass manche Werte auf manchen Umgebungen nicht zur Verfügung stehen.
 * **mandant**: Die Id des Mandanten für diese Umgebung.
   Wenn gesetzt, wird der Mandant aus der Datei project.json überschrieben.
 * **processModelNameExtension**: Ein optionales Suffix, der beim Bauen der Prozessmodelle 
@@ -207,7 +207,7 @@ Beispiel:
 ```
 {
   "url": "https://sgwtest.service-bw.de",
-  "projectStage": "TECHNICAL_IMPLEMENTATION",
+  "status": "EDIT",
   "mandant": "42",
   "processModelNameExtension": "DEV",
   "processEngine": "secondEngine"
@@ -330,9 +330,9 @@ Dabei wird von oben nach unten vorgegangen und der erste nicht-null Wert verwend
 
 Name und Version des Prozessmodells werden aus der Datei `config/project.json` gelesen.
 
-### Stufe der Prozessmodell-Version
+### Status der Prozessmodell-Version
 
-Die aktive Stufe des Prozessmodells wird aus der Konfigurationsdatei der Umgebung gelesen.
+Der aktive Status des Prozessmodells wird aus der Konfigurationsdatei der Umgebung gelesen.
 
 ### Prozess-Engine für Deployment
 Die ID der Prozess-Engine, auf die eine Prozessmodell-Version deployt werden soll, wird, sofern
@@ -435,22 +435,21 @@ Dieser Task lädt die mit dem Task _buildModel_ gebauten Prozessmodell-Dateien i
 Dabei wird das Prozessmodell nicht sofort deployt; das Deployment erfolgt über den separaten 
 Task _deployProcessModelVersion_.
 
-Mandant, Name, Version und aktive Stufe für das Hochladen werden wie im Kapitel 
+Mandant, Name, Version und aktiver Status für das Hochladen werden wie im Kapitel 
 "Ermittlung von Konfigurationswerten" beschrieben aus der Konfiguration gelesen.
 
 Beim erstmaligen Hochladen wird für den konfigurierten Mandanten im Admincenter 
 ein Prozessmodell mit dem konfigurierten Namen angelegt. 
 In diesem wird die konfigurierte Version angelegt. 
-Anschließend werden alle Dateien im Ordner `build/models` für alle Stufen bis zur
-konfigurierten Stufe importiert.
+Anschließend werden alle Dateien im Ordner `build/models` für den konfigurierten Status importiert.
 
 Falls für das angegebene Prozessmodell und die angegebene Version
-* bereits Dateien in der angegebenen Stufe vorhanden sind, so gilt:
-  * hat eine Datei in der Stufe den gleichen Namen wie eine Datei in `build/models`, wird diese
+* bereits Dateien mit dem angegebenen Status vorhanden sind, so gilt:
+  * hat eine Datei mit einem Status den gleichen Namen wie eine Datei in `build/models`, wird diese
    ersetzt
   * alle anderen vorhandenen Dateien werden NICHT verändert oder gelöscht
-* bereits Dateien in einer höheren als der angegebenen Stufe vorhanden sind, ist ein Hochladen in
- die angegebene Stufe nicht möglich.
+* bereits Dateien in einem höheren als dem angegebenen Status vorhanden sind, ist ein Hochladen mit
+  dem angegebenen Status nicht möglich.
  
 ## Aufrufparameter
 
@@ -490,7 +489,7 @@ auf die gewünschte Prozess-Engine zu deployen.
 Dieser Task deployt ein im Admincenter vorhandenes Prozessmodell. Ist das Prozessmodell schon 
 deployt, wird es undeployt und neu deployt. 
 
-Mandant, Name, Version und Stufe des zu deployenden Prozesses und die ID der Prozess-Engine, auf die
+Mandant, Name, Version und Status des zu deployenden Prozesses und die ID der Prozess-Engine, auf die
 deployt werden soll, werden wie im Kapitel "Ermittlung von Konfigurationswerten" beschrieben aus 
 der Konfiguration gelesen.
 
@@ -508,11 +507,10 @@ Dieser Task lädt die Formulare des Projekts in das Admincenter hoch.
 Die hochzuladenden Formulare werden im Ordner `forms` gesucht. Alle dort liegenden 
 und der Namenskonvention entsprechenden Formulare werden über die Schnittstelle
 an das Admincenter gesendet. Schon existierende Formulare werden überschrieben, 
-nicht existierende Formulare und Versionen werden angelegt. 
-Beim Neuanlegen werden alle Stufen bis zur angegebenen Stufe aufgefüllt.
-Falls die aktive Stufe für die Version des Formulars im Admincenter
-höher ist als die in der Konfiguration angegebenen Stufe, 
-so ist ein Hochladen in die angegebene Stufe nicht möglich. 
+nicht existierende Formulare und Versionen werden angelegt.
+Falls der aktive Status für die Version des Formulars im Admincenter
+höher ist als der angegebene Status in der Konfiguration, 
+so ist ein Hochladen in den angegebene Status nicht möglich. 
 Formulare, welche nicht dem Namensschema entsprechen, erzeugen einen Fehler.
 
 ## Benennung
@@ -524,10 +522,8 @@ Die Informationen zu den Formularen können entweder als Ordnerstruktur oder üb
 
 \* analog dem Namen beim Download eines Formulars aus dem Admincenter
 
-Mandant und aktive Stufe für das Hochladen werden wie im Kapitel 
+Mandant und der Status für das Hochladen werden wie im Kapitel 
 "Ermittlung von Konfigurationswerten" beschrieben aus der Konfiguration gelesen.
-Dabei werden die beiden Stufen `FUNCTIONAL_ANALYSIS` und `TECHNICAL_IMPLEMENTATION` 
-aus der ProjektKonfiguration im Admincenter auf die Stufe `Modellierung` gemappt.
 
 ## Aufrufparameter
 
