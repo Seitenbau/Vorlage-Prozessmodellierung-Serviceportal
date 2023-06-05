@@ -192,7 +192,7 @@ die Umgebungsdefinitionsdatei prozesstest.json angezogen.
 
 Die Dateien enthalten folgende Informationen:
 * **url**: Die URL des Servicegateways der Zielumgebung
-* **projectStage**: Der Status in der das Prozessmodell und die Formulare 
+* **status**: Der Status in der das Prozessmodell und die Formulare 
   auf der entsprechenden Umgebung abgelegt werden sollen. Gültige Werte sind prinzipiell
   EDIT, TEST und FINAL. Es kann jedoch sein, dass manche Werte auf manchen Umgebungen nicht zur Verfügung stehen.
 * **mandant**: Die Id des Mandanten für diese Umgebung.
