@@ -4,7 +4,7 @@
 
 1. [Umstellung von Projektstufen zu Statuswerten](#umstellung-projektstufen-zu-statuswerten)
    1. [Migration Guide](#migration-guide)
-   2. [Mapping Projektstufen auf neue Statuswerte](#mappingalte-stufen-auf-neue-statuswerte)
+   2. [Tabelle: Mapping der alten Stufen auf neue Statuswerte](#tabelle-mapping-der-alten-stufen-auf-neue-statuswerte)
 
 ## Umstellung Projektstufen zu Statuswerten
 
@@ -13,12 +13,9 @@ Statuswerte ersetzt.
 Die Schnittstelle selbst funktioniert übergangsweise sowohl mit der Stufe, als auch dem neuen Status.
 Es darf jedoch nur einer der beiden Werte an die Schnittstelle übertragen werden.
 
-**Wichtig:** Ab einem einem Zeitpunkt X, wird die Verwendung der Projektstufen vollständig ausgebaut 
+**Deprecated:** Ab einem einem Zeitpunkt X, wird die Verwendung der Projektstufen vollständig ausgebaut 
 und komplett auf die neuen Statuswerte umgestellt. Daher ist nicht gewährleistet das die Endpunkte
 zukunftig weiterhin mit den Projektstufen funktionieren.
-
-Um zur aktuellsten Plugin Version zu migrieren, müssen die im nächsten Abschnitt aufgeführten Schritte
-ausgeführt werden.
 
 
 ### Migration Guide
@@ -31,7 +28,26 @@ Um zur aktuellsten Plugin Version zu migrieren, müssen folgende aktionen durchg
 Die Werte des veralteten `projectStage` Attributs können anhand der nachfolgenden Tabelle
 in die neuen Statuswerte übertragen werden.
 
-### Mapping der alten Stufen auf neue Statuswerte
+#### Beispiel
+##### Alte config.json
+
+```json
+{
+   "url": "http://example.com:81/sgw",
+   "projectStage": "TECHNICAL_IMPLEMENTATION"
+}
+```
+
+##### Neue config.json
+
+```json
+{
+   "url": "http://example.com:81/sgw",
+   "status": "EDIT"
+}
+```
+
+### Tabelle: Mapping der alten Stufen auf neue Statuswerte
 
 Die folgenden Tabellen stellen dar welcher Statuswert die selbe Funktionalität bietet wie in der
 vorherigen Plugin version eine bestimmte Projektstufe.
@@ -51,6 +67,6 @@ vorherigen Plugin version eine bestimmte Projektstufe.
 | FUNCTIONAL_ANALYSIS      | EDIT   |
 | TECHNICAL_IMPLEMENTATION | EDIT   |
 | QUALITY_ASSURANCE        | TEST   |
-| CERTIFIED                | FINAl  |
+| CERTIFIED                | FINAL  |
 
 
