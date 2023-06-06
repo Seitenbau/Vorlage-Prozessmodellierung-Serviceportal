@@ -606,39 +606,3 @@ Task verwendet werden.
 ## Task _stopLocalHttpServer_
 
 Stoppt den lokalen Server zum Bearbeiten von lokalen Dateien.
-
-
-# Breaking Changes/Migration Guide
-
-Mit der aktuellsten Version des Gradle Plugins wurden die Parameter für folgende Tasks angepasst:
-
-- `uploadFormularFiles`
-- `uploadProcessModelFiles`
-
-Zu beachten ist das in der Konfiguration Datei jetzt statt dem Attribut `projectStage`,
-das Attribut `status` mitgegeben muss. Die Möglichen Werte die hier angegeben werden können,
-haben sich auch geändert siehe folgendes Kapitel.
-
-## Migration
-
-Um das Plugin in der neusten Version nutzen zu können müssen die Konfigurationsdateien angepasst
-werden, falls noch nicht geschehen. Hierzu das Attribut `projectStage` zu `status` umbennen.
-Die Werte dees Attributes können anhand der nachfolgenden Tabelle in die neuen Status Werte
-übertragen werden.
-
-### Für Formulare
-
-| projectStage      | status |
-|-------------------|--------|
-| MODELLING         | EDIT   |
-| QUALITY_ASSURANCE | TEST   |
-| CERTIFIED         | FINAL  |
-
-### Für Prozesse
-
-| projectStage             | status |
-|--------------------------|--------|
-| FUNCTIONAL_ANALYSIS      | EDIT   |
-| TECHNICAL_IMPLEMENTATION | EDIT   |
-| QUALITY_ASSURANCE        | TEST   |
-| CERTIFIED                | FINAl  |
