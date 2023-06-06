@@ -7,6 +7,7 @@ Die Dokumentation besteht aus folgenden Teilen:
 * [Gradle-Plugin (aus Gradle-Plugin-Repository)](plugin.md)
 * [Schnittstellendokumentation](schnittstelle.md) 
 * [Änderungen](changelog.md)
+* [Breaking Changes & Migration Guides](migration.md)
 
 # Projektvorlage
 

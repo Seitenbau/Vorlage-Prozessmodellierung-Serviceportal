@@ -32,7 +32,6 @@
     9. [_getAuthorizationToken_](#task-getauthorizationtoken)
     10. [_startLocalHttpServer_](#task-startlocalhttpserver)
     11. [_stopLocalHttpServer_](#task-stoplocalhttpserver)
-3. [Breaking Changes/Migration Guide](#breaking-changesmigration-guide)
 
 # Ziele des Gradle-Plugins zur Prozessmodellierung
 
