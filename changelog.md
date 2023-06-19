@@ -1,5 +1,11 @@
 # Aktualisierungen
 
+## 2023.06.19-0
+- Diese Plugin Version funktioniert erst mit Release Version 161.
+- `projectStage` ersetzt durch `status` in `default.json`
+- `migration.md` hinzugefügt mit Hinweisen zur Umstellungen auf Struktur der Konfigurationsdateien.
+- Dokumentation aktualisiert
+
 ## 2022.12.14-0
 - Dependency-Updates: Plugin: de.seitenbau.serviceportal.prozesspipeline 2022.12.14-0, gradlew 7.6
 
