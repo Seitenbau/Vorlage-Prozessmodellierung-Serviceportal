@@ -1,4 +1,4 @@
-# Index
+# Inhaltsverzeichnis
 
 1. [Ziele des Gradle-Plugins zur Prozessmodellierung](#ziele-des-gradle-plugins-zur-prozessmodellierung)
 2. [System-Anforderungen](#system-anforderungen)
@@ -17,7 +17,7 @@
         1. [Umgebung](#umgebung)
         2. [Mandant](#mandant)
         3. [Name und Version des Prozessmodells](#name-und-version-des-prozessmodells)
-        4. [Stufe der Prozessmodell-Version](#stufe-der-prozessmodell-version)
+        4. [Status der Prozessmodell-Version](#status-der-prozessmodell-version)
         5. [Prozess-Engine für Deployment](#prozess-engine-für-deployment)
    3. [Unterstützung von Gradle Multi-Project Builds](#unterstützung-von-gradle-multi-project-builds)
 12. [Tasks](#tasks)
@@ -245,7 +245,7 @@ Beispiel:
 ```
 {
   "url": "https://sgwtest.service-bw.de",
-  "stufe": "EDIT",
+  "status": "EDIT",
   "mandant": "42",
   "processModelNameExtension": "DEV",
   "processEngine": "secondEngine"
