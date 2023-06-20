@@ -1,7 +1,9 @@
 # Aktualisierungen
 
 ## 2023.06.19-0
-- Diese Plugin Version funktioniert erst mit Release Version 161.
+- Mit Plugin Version `2023.06.19-0` wurden die Projektstufen ausgebaut. Das Plugin in dieser Version
+ist Übergangsweise immernoch mit der alten Konfiguration nutzbar. 
+Für weitere Informationen siehe den [Migration Guide](migration.md).
 - `projectStage` ersetzt durch `status` in `default.json`
 - `migration.md` hinzugefügt mit Hinweisen zur Umstellungen auf Struktur der Konfigurationsdateien.
 - Dokumentation aktualisiert
