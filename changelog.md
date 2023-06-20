@@ -1,12 +1,11 @@
 # Aktualisierungen
 
 ## 2023.06.19-0
-- Mit Plugin Version `2023.06.19-0` wurden die Projektstufen ausgebaut. Das Plugin in dieser Version
-ist Übergangsweise immernoch mit der alten Konfiguration nutzbar. 
+- Mit Plugin Version `2023.06.19-0` wurden die Projektstufen ausgebaut.
 Für weitere Informationen siehe den [Migration Guide](migration.md).
-- `projectStage` ersetzt durch `status` in `default.json`
-- `migration.md` hinzugefügt mit Hinweisen zur Umstellungen auf Struktur der Konfigurationsdateien.
-- Dokumentation aktualisiert
+- `projectStage` ersetzt durch `status` in `default.json`.
+- `migration.md` hinzugefügt mit Hinweisen zur Umstellungen der Konfigurationsdateien.
+- Dokumentation aktualisiert.
 
 ## 2022.12.14-0
 - Dependency-Updates: Plugin: de.seitenbau.serviceportal.prozesspipeline 2022.12.14-0, gradlew 7.6
