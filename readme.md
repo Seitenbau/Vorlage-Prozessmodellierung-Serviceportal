@@ -7,6 +7,7 @@ Die Dokumentation besteht aus folgenden Teilen:
 * [Gradle-Plugin (aus Gradle-Plugin-Repository)](plugin.md)
 * [Schnittstellendokumentation](schnittstelle.md) 
 * [Änderungen](changelog.md)
+* [Breaking Changes & Migration Guides](migration.md)
 
 # Projektvorlage
 
@@ -33,3 +34,8 @@ und Verzeichnisse per copy&paste in das Projektverzeichnis übertragen werden.
 
 Die Konfiguration des Plugins und die Projektstruktur wird in 
 [der Dokumentation des Gradle-Plugins](plugin.md) beschrieben.
+
+## Breaking Changes & Migration Guides
+
+Informationen über Änderungen am Plugin die ein anpassen der Konfigurationsdateien 
+oder sonstiger Projektbestandteile erfordern, werden in [Breaking Changes](migration.md) beschrieben.
