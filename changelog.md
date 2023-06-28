@@ -1,5 +1,9 @@
 # Aktualisierungen
 
+## 2023.06.30-0
+- Bugfix: bei Schnittstellen-Aufrufen den HTTP-Header `Accept` auf den von der Schnittstelle
+erwarteten Wert setzen
+
 ## 2023.06.19-0
 - Mit Plugin Version `2023.06.19-0` wurden die Projektstufen ausgebaut.
 Für weitere Informationen siehe den [Migration Guide](migration.md).
