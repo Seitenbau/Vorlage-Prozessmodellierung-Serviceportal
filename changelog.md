@@ -1,6 +1,6 @@
 # Aktualisierungen
 
-## 2023.07.21-0
+## 2023.07.20-0
 - Verbesserung: bei übergabe einer nicht vorhandenen Umgebungs-Konfigurations-Datei über das Flag
   `-Penvironment=<environmentName>` wird eine eindeutigere Fehlermeldung ausgegeben.
 
