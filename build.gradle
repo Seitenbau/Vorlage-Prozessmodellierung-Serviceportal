@@ -9,10 +9,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.codehaus.groovy:groovy-all:2.5.14'
+    implementation 'org.codehaus.groovy:groovy-all:2.5.22'
 
     // Include commons subproject
     // i.e. compile project(':commons.serviceportal')
+
+    // Include to use latest scripting api version
+    // implementation 'de.seitenbau.serviceportal:prozess-scripting-api:1.+'
 }
 
 // Set source directories (where to compile and test from)
