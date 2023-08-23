@@ -1,0 +1,45 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/alpine
+{
+	"name": "Alpine",
+	
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/base:alpine-3.18",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers-contrib/features/groovy-sdkman:2": {
+			"version": "",
+			"jdkVersion": "17",
+			"jdkDistro": "open"
+		},
+		"ghcr.io/devcontainers/features/java:1": {
+			"installGradle": true,
+			"version": "17",
+			"jdkDistro": "open",
+			"gradleVersion": "7.5.1"
+		}
+	},
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"bpmn-io.vs-code-bpmn-io",
+				"formulahendry.auto-close-tag",
+				"formulahendry.auto-rename-tag",
+				"redhat.java",
+				"marlon407.code-groovy",
+				"vscjava.vscode-gradle"
+			]
+		}
+	}
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "uname -a",
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
