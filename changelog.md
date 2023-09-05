@@ -1,5 +1,8 @@
 # Aktualisierungen
 
+## 2023.09.05-0
+- Dependency-Updates: gradlew 7.6.1
+
 ## 2023.07.20-0
 - Verbesserung: bei übergabe einer nicht vorhandenen Umgebungs-Konfigurations-Datei über das Flag
   `-Penvironment=<environmentName>` wird eine eindeutigere Fehlermeldung ausgegeben.
