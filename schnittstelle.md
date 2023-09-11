@@ -110,9 +110,10 @@ im Backend an das Deplyoen eines Prozesses gekoppelt und wird automatisch mit au
 | Content-Type         | `application/zip`                                                                                                                                                                                                                                                                                                         |
 
 ### Body
-Die Schnittstelle erwartet als Body eine ZIP-Datei, welche vom Aufbau her dem Business Archive von Activiti entspricht (https://www.activiti.org/userguide/#_business_archives):
+Die Schnittstelle erwartet als Body eine ZIP-Datei, die vom Aufbau her einer Erweiterung des Business Archive von Activiti (https://www.activiti.org/userguide/#_business_archives) entspricht:
 
-Die Schnittstelle verarbeitet die im Hauptordner des Archives abgelegten `*.bpmn20.xml`-Dateien. 
+Die Schnittstelle verarbeitet die im Hauptordner des Archives abgelegten `*.bpmn20.xml`-Dateien
+und die `metadata.json`-Datei.
 ```
 /
     mainProcess.bpmn20.xml
