@@ -116,6 +116,7 @@ Die Schnittstelle verarbeitet die im Hauptordner des Archives abgelegten `*.bpmn
 und die `metadata.json`-Datei.
 ```
 /
+    metadata.json
     mainProcess.bpmn20.xml
     subProcess1.bpmn20.xml
     subProcess2.bpmn20.xml
