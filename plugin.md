@@ -72,8 +72,8 @@ https://plugins.gradle.org/plugin/de.seitenbau.serviceportal.prozesspipeline zu 
 - Skripte werden nur als Rumpf-Skripte implementiert, die eigentliche Funktionalität
   wird in Groovy-Klassen implementiert, die wie andere Software auch mit Unittests geprüft werden 
   können. Die Klassen werden mit den Rumpf-Skripten über import-Anweisungen verbunden.
-- Die entwickelten Skripte werden dann in Rumpf-bpmn-Dateien in den entsprechenden Skript-Task
-  eingefügt. Die Verknüpfung zwischen Skript-Task un Skript erfolgt über die ID des Skript-Tasks
+- Die entwickelten Skripte werden dann in BPMN-Rumpfdateien in den entsprechenden Skript-Task
+  eingefügt. Die Verknüpfung zwischen Skript-Task und Skript erfolgt über die ID des Skript-Tasks
   bzw. dem Dateiname des Skripts.
 - Die so entwickelten BPMN-Dateien sowie ebenso im Projekt abgelegte 
   Prozessparameterdefinitionen und Formulare können per Schnittstelle ins Admincenter 
@@ -461,7 +461,8 @@ Die globalen Aufrufparameter **environment** und **debug** beeinflussen den Task
 
 ## Task _uploadProcessModelFiles_
 
-Dieser Task lädt die mit dem Task _buildModel_ gebauten Prozessmodell-Dateien ins Admincenter hoch.
+Dieser Task lädt die Prozessmodell-Dateien, die mit dem Task _buildModel_ erstellt wurden,
+zusammen mit den Metadaten aus dem Verzeichnis `metadata` in das Admincenter hoch. 
 Dabei wird das Prozessmodell nicht sofort deployt; das Deployment erfolgt über den separaten 
 Task _deployProcessModelVersion_.
 
