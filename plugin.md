@@ -345,9 +345,9 @@ Beispielhafter Inhalt einer Prozessparameterdefinitions-Datei:
 
 Enthält eine optionale Definition der Prozess-Metadaten.
 
-| Attribut            | Beschreibung                                                                                                                  |
-|---------------------|-------------------------------------------------------------------------------------------------------------------------------|
-| authenticationTypes | Eine Liste der für diesen Prozess zulässigen Authentifizierungsmittel.<br/>Zur Zeit ist nur der Wert " SERVICEKONTO" erlaubt. |
+| Attribut            | Beschreibung                                                                                                                 |
+|---------------------|------------------------------------------------------------------------------------------------------------------------------|
+| authenticationTypes | Eine Liste der für diesen Prozess zulässigen Authentifizierungsmittel.<br/>Zur Zeit ist nur der Wert _SERVICEKONTO_ erlaubt. |
 
 ```json
 {
