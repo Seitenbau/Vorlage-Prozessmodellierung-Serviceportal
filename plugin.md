@@ -13,6 +13,7 @@
       4. [/models](#ordner-models)
       5. [/forms](#ordner-forms)
       6. [/parameterdefinitions](#ordner-parameterdefinitions)
+      7. [/metadata](#ordner-metadata)
    2. [Ermittlung von Konfigurationswerten](#ermittlung-von-konfigurationswerten)
         1. [Umgebung](#umgebung)
         2. [Mandant](#mandant)
@@ -137,7 +138,7 @@ Die Ordnerstruktur wird vom Gradle-Plugin wie folgt erwartet:
 * **models**: Enthält die Prozessmodell-Dateien (mit leeren Skript-Tasks)
   * **${dateiname}.bpmn**: Enthält eine Prozessmodell-Datei
 * **resources**: Enthält Dateien, die zusätzlich in das Prozess-Deployment mit aufgenommen werden sollen
-  (z.B. Keystores oder Drools-Dateien). 
+  z.B. Keystores. 
   Falls keine solchen Dateien benötigt werden, muss der Ordner nicht angelegt werden.
 * **forms**: Enthält die Formulare, die zum Prozess gehören
   * **${dateiname}.json**: Enthält eine Formulardefinition
@@ -145,6 +146,8 @@ Die Ordnerstruktur wird vom Gradle-Plugin wie folgt erwartet:
   * **default.json**: Fallback, wird verwendet, wenn keine Parameterdefinition für eine bestimmte
     Umgebung vorhanden ist
   * **${umgebungsname}.json**: Enthält die Parameterdefinition für die Umgebung ${umgebungsname}
+* **metadata**: Enthält die Metadaten-Datei
+    * **metadata.json**: Metadaten
   
 ### Ordner config
 
@@ -338,6 +341,22 @@ Beispielhafter Inhalt einer Prozessparameterdefinitions-Datei:
   }
 ]
 ```
+### Ordner metadata
+
+Enthält eine optionale Definition der Prozess-Metadaten.
+
+| Attribut            | Beschreibung                                                                                                                  |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| authenticationTypes | Eine Liste der für diesen Prozess zulässigen Authentifizierungsmittel.<br/>Zur Zeit ist nur der Wert " SERVICEKONTO" erlaubt. |
+
+```json
+{
+  "authenticationTypes": [
+    "SERVICEKONTO"
+  ]
+}
+```
+
 
 ## Ermittlung von Konfigurationswerten
 

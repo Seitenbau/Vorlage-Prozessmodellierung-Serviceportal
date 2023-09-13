@@ -44,15 +44,15 @@ Anlegen der Formulare im Admincenter deployt werden.
 `{pfad zum sgw}/formulare/management/formulare/api/upload`
 
 ### Headerparameter
-| **Name**              | **Beschreibung**                                                                                                                                                                                                                                                       |
-|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| X-SP-Formular-Name    | Name des Formulars                                                                                                                                                                                                                                                     |
-| X-SP-Formular-Version | Version des Formulars                                                                                                                                                                                                                                                  |
-| X-SP-Formular-Stage   | WorkflowStage des Formulars<ul><li>`MODELLING`</li><li>`QUALITY_ASSURANCE`</li><li>`CERTIFIED`</li></ul> <b>*Deprecated:</b> Header wird mit folgenden Versionen vollständig entfernt. Migration erfoderlich falls noch genutzt, siehe [Migration Guide](migration.md) |
-| X-SP-Formular-Status  | Status des Formulars<ul><li>`EDIT`</li><li>`TEST`</li><li>`FINAL`</li></ul>                                                                                                                                                                                            |
-| X-SP-Formular-Deploy  | `true`, wenn das Formular deployt werden soll, default: `false`                                                                                                                                                                                                        |
-| X-SP-Mandant          | ID des Mandanten                                                                                                                                                                                                                                                       |
-| Content-Type          | `application/zip`                                                                                                                                                                                                                                                      |
+| **Name**              | **Beschreibung**                                                                                                                                                                                                                                                        |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| X-SP-Formular-Name    | Name des Formulars                                                                                                                                                                                                                                                      |
+| X-SP-Formular-Version | Version des Formulars                                                                                                                                                                                                                                                   |
+| X-SP-Formular-Stage   | WorkflowStage des Formulars<ul><li>`MODELLING`</li><li>`QUALITY_ASSURANCE`</li><li>`CERTIFIED`</li></ul> <b>*Deprecated:</b> Header wird mit folgenden Versionen vollständig entfernt. Migration erforderlich falls noch genutzt, siehe [Migration Guide](migration.md) |
+| X-SP-Formular-Status  | Status des Formulars<ul><li>`EDIT`</li><li>`TEST`</li><li>`FINAL`</li></ul>                                                                                                                                                                                             |
+| X-SP-Formular-Deploy  | `true`, wenn das Formular deployt werden soll, default: `false`                                                                                                                                                                                                         |
+| X-SP-Mandant          | ID des Mandanten                                                                                                                                                                                                                                                        |
+| Content-Type          | `application/zip`                                                                                                                                                                                                                                                       |
 
 ### Body
 Die Schnittstelle erwartet als Body eine ZIP-Datei. 
@@ -94,20 +94,20 @@ Bei Prozessen sind die Schritte Hochladen und Deployen in zwei Schritte getrennt
 um nach dem Hochladen des Prozesses in einem separaten Aufruf die zugehörigen Prozessparameterdefinitionen hochladen zu können.
 
 Anschließend können beide gemeinsam (das Deployen von Prozessparameterdefinitionen ist 
-im Backend an das Deplyoen eines Prozesses gekoppelt und wird automatisch mit ausgeführt) deployt werden
+im Backend an das Deployen eines Prozesses gekoppelt und wird automatisch mit ausgeführt) deployt werden
 
 ### Pfad
 `{pfad zum sgw}/prozessmanagement/prozessmodelle/api/upload`
 
 ### Headerparameter
-| **Name**             | **Beschreibung**                                                                                                                                                                                                                                                                                                          |
-|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| X-SP-Process-Name    | Name des Prozesses                                                                                                                                                                                                                                                                                                        |
-| X-SP-Process-Version | Version des Prozesses                                                                                                                                                                                                                                                                                                     |
-| X-SP-Process-Stage   | WorkflowStage des Prozesses<br /><ul><li>`FUNCTIONAL_ANALYSIS`</li><li>`TECHNICAL_IMPLEMENTATION`</li><li>`QUALITY_ASSURANCE`</li><li>`CERTIFIED`</li></ul> <b>*Deprecated:</b> Header wird mit folgenden Versionen vollständig entfernt. Migration erfoderlich falls noch genutzt, siehe [Migration Guide](migration.md) |
-| X-SP-Process-Status  | Status des Prozesses<br /><ul><li>`EDIT`</li><li>`TEST`</li> <li>`FINAL`</li></ul>                                                                                                                                                                                                                                        |
-| X-SP-Mandant         | ID des Mandanten                                                                                                                                                                                                                                                                                                          |
-| Content-Type         | `application/zip`                                                                                                                                                                                                                                                                                                         |
+| **Name**             | **Beschreibung**                                                                                                                                                                                                                                                                                                           |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| X-SP-Process-Name    | Name des Prozesses                                                                                                                                                                                                                                                                                                         |
+| X-SP-Process-Version | Version des Prozesses                                                                                                                                                                                                                                                                                                      |
+| X-SP-Process-Stage   | WorkflowStage des Prozesses<br /><ul><li>`FUNCTIONAL_ANALYSIS`</li><li>`TECHNICAL_IMPLEMENTATION`</li><li>`QUALITY_ASSURANCE`</li><li>`CERTIFIED`</li></ul> <b>*Deprecated:</b> Header wird mit folgenden Versionen vollständig entfernt. Migration erforderlich falls noch genutzt, siehe [Migration Guide](migration.md) |
+| X-SP-Process-Status  | Status des Prozesses<br /><ul><li>`EDIT`</li><li>`TEST`</li> <li>`FINAL`</li></ul>                                                                                                                                                                                                                                         |
+| X-SP-Mandant         | ID des Mandanten                                                                                                                                                                                                                                                                                                           |
+| Content-Type         | `application/zip`                                                                                                                                                                                                                                                                                                          |
 
 ### Body
 Die Schnittstelle erwartet als Body eine ZIP-Datei, die vom Aufbau her einer Erweiterung des Business Archive von Activiti (https://www.activiti.org/userguide/#_business_archives) entspricht:
@@ -125,7 +125,7 @@ und die `metadata.json`-Datei.
 
 ### Berechtigungen
 
-Um diesse Schnittstelle aufrufen zu können benötigt der Benutzer folgende Rechte:
+Um diese Schnittstelle aufrufen zu können benötigt der Benutzer folgende Rechte:
 *  **hochladen**: prozessmanagement:prozessmodelle.api.Hochladen
 
 Das Recht ist in den oben genannten Rollen und Benutzergruppen enthalten.
@@ -151,12 +151,12 @@ Der Aufruf muss als POST ausgeführt werden.
 `{pfad zum sgw}/prozessmanagement/prozessmodelle/versions/api/deploy`
 
 ### Headerparameter
-| **Name**             | **Beschreibung** |
-|----------------------| ---------------- | 
-| X-SP-Process-Name    | Name des Prozesses |
-| X-SP-Process-Version | Version des Prozesses |
+| **Name**             | **Beschreibung**                                                  |
+|----------------------|-------------------------------------------------------------------| 
+| X-SP-Process-Name    | Name des Prozesses                                                |
+| X-SP-Process-Version | Version des Prozesses                                             |
 | X-SP-Process-Engine  | ID der Prozess-Engine, Standard-Prozess-Engine wenn nicht gesetzt |
-| X-SP-Mandant         | ID des Mandanten |
+| X-SP-Mandant         | ID des Mandanten                                                  |
 
 ### Body
 Die Schnittstelle erwartet einen leeren Body. 
@@ -205,7 +205,7 @@ daher die Möglichkeit eines Deployments implizit enthält, wird zum Hochladen d
 
 ### Headerparameter
 | **Name**             | **Beschreibung**      |
-| -------------------- | --------------------- |
+|----------------------|-----------------------|
 | X-SP-Process-Name    | Name des Prozesses    |
 | X-SP-Process-Version | Version des Prozesses |
 | X-SP-Mandant         | ID des Mandanten      |
