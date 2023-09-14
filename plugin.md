@@ -21,7 +21,7 @@
         4. [Status der Prozessmodell-Version](#status-der-prozessmodell-version)
         5. [Prozess-Engine für Deployment](#prozess-engine-für-deployment)
    3. [Unterstützung von Gradle Multi-Project Builds](#unterstützung-von-gradle-multi-project-builds)
-12. [Tasks](#tasks)
+7. [Tasks](#tasks)
     1. [_mergeScripts_](#task-mergescripts)
     2. [_buildModel_](#task-buildmodel)
     3. [_uploadProcessModelFiles_](#task-uploadprocessmodelfiles)
@@ -345,9 +345,9 @@ Beispielhafter Inhalt einer Prozessparameterdefinitions-Datei:
 
 Enthält eine optionale Definition der Prozess-Metadaten.
 
-| Attribut            | Beschreibung                                                                                                                 |
-|---------------------|------------------------------------------------------------------------------------------------------------------------------|
-| authenticationTypes | Eine Liste der für diesen Prozess zulässigen Authentifizierungsmittel.<br/>Zur Zeit ist nur der Wert _SERVICEKONTO_ erlaubt. |
+| Attribut            | Beschreibung                                                                                                               |
+|---------------------|----------------------------------------------------------------------------------------------------------------------------|
+| authenticationTypes | Eine Liste der für diesen Prozess zulässigen Authentisierungsmittel.<br/>Zur Zeit ist nur der Wert _SERVICEKONTO_ erlaubt. |
 
 ```json
 {
@@ -418,7 +418,7 @@ konfiguriert werden:
 
 ## Task _mergeScripts_
 
-Zweck dieses Tasks ist es, den Quellcode der Groovy-Skript-Tasks aus mehrere Dateien
+Zweck dieses Tasks ist es, den Quellcode der Groovy-Skript-Tasks aus mehreren Dateien
 zusammenzufügen.
 Die Klassennamen in den import-Statements des Basis-Skripts definieren die einzubindenden Dateien, 
 in denen typischerweise die importierten Klassen definiert sind. 
