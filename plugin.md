@@ -345,14 +345,16 @@ Beispielhafter Inhalt einer Prozessparameterdefinitions-Datei:
 
 Enthält eine optionale Definition der Prozess-Metadaten.
 
-| Attribut            | Beschreibung                                                                                                               |
-|---------------------|----------------------------------------------------------------------------------------------------------------------------|
-| authenticationTypes | Eine Liste der für diesen Prozess zulässigen Authentisierungsmittel.<br/>Zur Zeit ist nur der Wert _SERVICEKONTO_ erlaubt. |
+| Attribut            | Beschreibung                                                                                                                                           |
+|---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| authenticationTypes | Die Werte SERVICEKONTO, BUND_ID und MUK sind erlaubt<br/>Hinweis: Für die Produktionssysteme Service-BW und AMT-24 ist derzeit nur SERVICEKONTO aktiv. |
 
 ```json
 {
   "authenticationTypes": [
-    "SERVICEKONTO"
+    "SERVICEKONTO",
+    "BUND_ID",
+    "MUK"
   ]
 }
 ```
