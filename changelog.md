@@ -1,6 +1,6 @@
 # Aktualisierungen
 
-## 2023.10.02-0
+## 2023.10.25-0
 - Die Authentisierungsmittel BUND_ID und MUK sind dokumentiert.
 
 ## 2023.09.05-0
