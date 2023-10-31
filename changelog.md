@@ -1,9 +1,9 @@
 # Aktualisierungen
 
-## 2023.10.25-0
+## 2023.10.31-0
 - Die Authentisierungsmittel BUND_ID und MUK sind dokumentiert.
 
-## 2023.09.05-0
+## 2023.09.13-0
 - Dependency-Updates: gradlew 7.6.2
 - metadata.json (mit Authentisierungsmittel) hinzugefügt
 
