@@ -46,8 +46,14 @@ sourceSets {
 //}
 
 // Ermittelt für eine Variable Wert bzw. setzt den Defaultwert wenn nicht vorhanden
-def getVariableValue(name, defaultValue) {
+def getVariableValue(String name, defaultValue = null) {
     return project.hasProperty(name) ? project.property(name) : defaultValue
+}
+
+def getVariableValueAsDate(String name)
+{
+    String stringValue = getVariableValue(name)
+    return stringValue == null ? null : Date.parse('dd.MM.yyyy', stringValue)
 }
 
 mergeScripts {
@@ -97,21 +103,56 @@ startLocalHttpServer {
     port = getVariableValue('port', "0")
 }
 
+getDeploymentId {
+    environment = getVariableValue('environment', 'default')
+    debug = getVariableValue('debug', false)
+
+    processModelName = getVariableValue("processModelName")
+    processModelVersionName = getVariableValue("processModelVersionName")
+}
+
+createScheduledUndeployment {
+    environment = getVariableValue('environment', 'default')
+    debug = getVariableValue('debug', false)
+
+    deploymentId = getVariableValue("deploymentId")
+    undeploymentDate = getVariableValueAsDate("undeploymentDate")
+    undeploymentAnnounceMessageSubject = getVariableValue("undeploymentAnnounceMessageSubject")
+    undeploymentAnnounceMessageBody = getVariableValue("undeploymentAnnounceMessageBody")
+    undeploymentMessageSubject = getVariableValue("undeploymentMessageSubject")
+    undeploymentMessageBody = getVariableValue("undeploymentMessageBody")
+}
+
+deleteScheduledUndeployment {
+    environment = getVariableValue('environment', 'default')
+    debug = getVariableValue('debug', false)
+
+    deploymentId = getVariableValue("deploymentId")
+}
+
+listScheduledUndeployments {
+    environment = getVariableValue('environment', 'default')
+    debug = getVariableValue('debug', false)
+}
+
+
 // ################ Kombinierte Tasks ################
 
 // Fügt die Skripte zusammen und fügt sie in das Modell ein
-task mergeBuild {
+tasks.register('mergeBuild') {
     doFirst {
         clean
     }
     dependsOn 'buildModel'
     dependsOn 'mergeScripts'
-    tasks.findByName('buildModel').mustRunAfter 'mergeScripts'
+    tasks.named('buildModel') {
+        mustRunAfter 'mergeScripts'
+    }
 }
 
 // Fügt die Skripte zusammen, fügt sie in das Modell ein und läd
 // Prozessmodelle, Formulare und Prozessparameterdefinitionen hoch
-task upload {
+tasks.register('upload') {
     doFirst {
         clean
     }
@@ -126,7 +167,7 @@ task upload {
 // Fügt die Skripte zusammen, fügt sie in das Modell ein, läd
 // Prozessmodelle, Formulare und Prozessparameterdefinitionen hoch
 // und deployed Formulare und Prozesse
-task uploadAndDeploy {
+tasks.register('uploadAndDeploy') {
     doFirst {
         clean
     }
