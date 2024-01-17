@@ -32,7 +32,11 @@
     8. [_uploadAndDeployFormularFiles_](#task-uploadanddeployformularfiles)
     9. [_getAuthorizationToken_](#task-getauthorizationtoken)
     10. [_startLocalHttpServer_](#task-startlocalhttpserver)
-    11. [_stopLocalHttpServer_](#task-stoplocalhttpserver)
+   11. [_stopLocalHttpServer_](#task-stoplocalhttpserver)
+   12. [_getDeploymentId_](#task-getDeploymentId)
+   13. [_createScheduledUndeployment_](#task-createScheduledUndeployment)
+   14. [_deleteScheduledUndeployment_](#task-deleteScheduledUndeployment)
+   15. [_listScheduledUndeployments_](#task-listScheduledUndeployments)
 
 # Ziele des Gradle-Plugins zur Prozessmodellierung
 
@@ -627,3 +631,39 @@ Task verwendet werden.
 ## Task _stopLocalHttpServer_
 
 Stoppt den lokalen Server zum Bearbeiten von lokalen Dateien.
+
+## Task _getDeploymentId_
+
+Ermittelt die Deployment-ID eines Online-Dienstes.
+
+| Parameter               | Pflicht? | Beschreibung                     |
+|-------------------------|----------|----------------------------------|
+| processModelName        | Ja       | Name des Online-Dienstes         |
+| processModelVersionName | Ja       | Versionsname des Online-Dienstes |
+
+## Task _createScheduledUndeployment_
+
+Erstellt ein zeitgesteuertes Undeployment eines Online-Dienstes.
+
+| Parameter                          | Pflicht? | Beschreibung                                                                   |
+|------------------------------------|----------|--------------------------------------------------------------------------------|
+| deploymentId                       | Ja       | Deployment-ID des Online-Dienstes, der undeployt werden soll                   |
+| undeploymentDate                   | Ja       | Das Datum, an dem der Online-Dienst Undeployt geplant werden soll (TT.MM.YYYY) |
+| undeploymentAnnounceMessageSubject | Nein     | Betreff der Ankündigungsnachricht eines Undeployments                          |
+| undeploymentAnnounceMessageBody    | Nein     | Text der Ankündigungsnachricht eines Undeployments                             |
+| undeploymentMessageSubject         | Nein     | Betreff der Nachricht eines Undeployments                                      |
+| undeploymentMessageBody            | Nein     | Text der Nachricht eines Undeployments                                         |
+
+
+## Task _deleteScheduledUndeployment_
+
+Löscht ein zeitgesteuertes Undeployment eines Online-Dienstes.
+
+| Parameter     | Pflicht? | Beschreibung                                                                                     |
+|---------------|----------|--------------------------------------------------------------------------------------------------|
+| deploymentId  | Ja       | Deployment-ID des Online-Dienstes, für den das zeitgesteuerte Undeployment gelöscht werden soll. |
+
+
+## Task _listScheduledUndeployments_
+
+Listet alle zeitgesteuerten Undeployments von Online-Diensten auf.
