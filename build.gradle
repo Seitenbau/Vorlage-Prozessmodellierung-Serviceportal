@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'groovy'
-    id 'de.seitenbau.serviceportal.prozesspipeline' version '2024.01.19-0'
+    id 'de.seitenbau.serviceportal.prozesspipeline' version '2024.01.20-0'
 }
 
 repositories {
@@ -121,6 +121,9 @@ createScheduledUndeployment {
     undeploymentAnnounceMessageBody = getVariableValue("undeploymentAnnounceMessageBody")
     undeploymentMessageSubject = getVariableValue("undeploymentMessageSubject")
     undeploymentMessageBody = getVariableValue("undeploymentMessageBody")
+
+    undeploymentHintText = getVariableValue("undeploymentHintText")
+    startToDisplayUndeploymentHint = getVariableValue("startToDisplayUndeploymentHint")
 }
 
 deleteScheduledUndeployment {

@@ -1,5 +1,10 @@
 # Aktualisierungen
 
+## 2024.01.20-0
+- Hinzufügen neuer Parameter für zeitgesteuerte Undeployments
+  - `undeploymentHintText`: Hinweistext der dem Nutzer dargestellt wird.
+  - `startToDisplayUndeploymentHint`: Datum ab dem der Hinweistext angezeigt wird.
+
 ## 2024.01.19-0
 - Update auf Java 17
 - Tasks für zeitgesteuertes Undeployment hinzugefügt

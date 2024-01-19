@@ -377,6 +377,10 @@ Der Aufruf muss als **POST** ausgeführt werden.
     "undeploymentMessage": {
         "subject": "Betreff der Nachricht",
         "body": "Inhalt der Nachricht"
+    },
+    "undeploymentHint": {
+        "text": "Hinweistext der dem Nutzer innerhalb des Prozesses angezeigt wird.",
+        "startToDisplay": "2024-04-12"
     }
 }
 ```
@@ -387,6 +391,7 @@ Der Aufruf muss als **POST** ausgeführt werden.
 | undeploymentDate            | Ja          | Date    | Das Datum, an dem der Online-Dienst undeployt werden soll (YYYY-MM-TT).                                               |
 | undeploymentAnnounceMessage | Nein        | Message | Eine Nachricht die 1, 7 und 14 Tage vor dem eigentlichen Undeployment verschickt wird und das Undeployment ankündigt. |
 | undeploymentMessage         | Nein        | Message | Eine Nachricht die beim Undeployment des Prozessmodells verschickt wird.                                              |
+| undeploymentHint            | Nein        | UndeploymentHint | Ein Hinweistext der dem Nutzer ab einem bestimmten Datum angezeigt wird, wenn für den Prozess ein zeitgesteuertes Undeployment vorliegt. |
 
 ##### Message Objekt
 
@@ -402,6 +407,14 @@ Der Aufruf muss als **POST** ausgeführt werden.
 | name                      | Wird aufgelöst zum Namen des Empfängers.             | Max Mustermann                                                                    |
 | tageBisUndeployment       | Anzahl der Tage bis der Onlinedienst undeployt wird. | 14                                                                                |
 | linkAufAktuellenProzess   | Ein Verweis auf den aktuellen Prozess.               | {portal-url}/onlineantraege/onlineantrag?processInstanceId=zsoh_zgxiZaUpzuA6eLqzQ |
+
+###### UndeploymentHint Objekt
+
+| Name             | Beschreibung                                                                                                                            | Beispiel                                                                                 |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| text             | Der Text der dem Nutzer angezeigt wird.                                                                                                 | Der Prozess wird in demnächst undeployed, bitte schließen Sie ihn schnellstmöglich ab.   |
+| startToDisplay   | Ein Datum ab dem der Hinweistext angezeigt wird. Muss vor dem Datum liegen an dem das Undeployment stattfindet. (Format: `YYYY-MM-DD`)  | 2024-03-17                                                                               | 
+
 
 ### Berechtigungen
 

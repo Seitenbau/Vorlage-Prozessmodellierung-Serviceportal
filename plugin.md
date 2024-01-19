@@ -645,15 +645,16 @@ Ermittelt die Deployment-ID eines Online-Dienstes.
 
 Erstellt ein zeitgesteuertes Undeployment eines Online-Dienstes.
 
-| Parameter                          | Pflicht? | Beschreibung                                                           |
-|------------------------------------|----------|------------------------------------------------------------------------|
-| deploymentId                       | Ja       | Deployment-ID des Online-Dienstes, der undeployt werden soll           |
-| undeploymentDate                   | Ja       | Das Datum, an dem der Online-Dienst undeployt werden soll (TT.MM.YYYY) |
-| undeploymentAnnounceMessageSubject | Nein     | Betreff der Ankündigungsnachricht eines Undeployments                  |
-| undeploymentAnnounceMessageBody    | Nein     | Text der Ankündigungsnachricht eines Undeployments                     |
-| undeploymentMessageSubject         | Nein     | Betreff der Nachricht eines Undeployments                              |
-| undeploymentMessageBody            | Nein     | Text der Nachricht eines Undeployments                                 |
-
+| Parameter                          | Pflicht? | Beschreibung                                                                                                                                   |
+|------------------------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| deploymentId                       | Ja       | Deployment-ID des Online-Dienstes, der undeployt werden soll                                                                                   |
+| undeploymentDate                   | Ja       | Das Datum, an dem der Online-Dienst undeployt werden soll (TT.MM.YYYY)                                                                         |
+| undeploymentAnnounceMessageSubject | Nein     | Betreff der Ankündigungsnachricht eines Undeployments                                                                                          |
+| undeploymentAnnounceMessageBody    | Nein     | Text der Ankündigungsnachricht eines Undeployments                                                                                             |
+| undeploymentMessageSubject         | Nein     | Betreff der Nachricht eines Undeployments                                                                                                      |
+| undeploymentMessageBody            | Nein     | Text der Nachricht eines Undeployments                                                                                                         |
+| undeploymentHintText               | Nein     | Ein Hinweistext der dem Nutzer angezeigt wird, wenn ein zeitgesteuertes Undeployment für den Prozess vorliegt.                                 |
+| startToDisplayUndeploymentHint     | Nein     | Ein Datum ab welchem der Hinweistext für Nutzer dargestellt werden soll. (default = Das Datum an dem zeitgesteuerte Deployment erstellt wurde) |
 
 ## Task _deleteScheduledUndeployment_
 
