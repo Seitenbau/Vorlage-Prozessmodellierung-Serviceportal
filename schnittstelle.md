@@ -17,9 +17,11 @@ bereits standardmäßig auf allen Umgebungen angelegten Rollen und Benutzergrupp
 * Rollen
   * `Prozessentwickler - hochladen via Schnittstelle`
   * `Prozessentwickler - deployment via Schnittstelle`
+  * `Prozessentwickler - zeitgesteuertes Undeployment via Schnittstelle` 
 * Benutzergruppen 
   * `Prozessentwickler - hochladen via Schnittstelle`
   * `Prozessentwickler - deployment via Schnittstelle`
+  * `Prozessentwickler - zeitgesteuertes Undeployment via Schnittstelle`
 
 ### Token
 
@@ -43,7 +45,7 @@ Anlegen der Formulare im Admincenter deployt werden.
 ### Pfad
 `{pfad zum sgw}/formulare/management/formulare/api/upload`
 
-### Headerparameter
+### Header-Parameter
 | **Name**              | **Beschreibung**                                                                                                                                                                                                                                                        |
 |-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | X-SP-Formular-Name    | Name des Formulars                                                                                                                                                                                                                                                      |
@@ -99,7 +101,7 @@ im Backend an das Deployen eines Prozesses gekoppelt und wird automatisch mit au
 ### Pfad
 `{pfad zum sgw}/prozessmanagement/prozessmodelle/api/upload`
 
-### Headerparameter
+### Header-Parameter
 | **Name**             | **Beschreibung**                                                                                                                                                                                                                                                                                                           |
 |----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | X-SP-Process-Name    | Name des Prozesses                                                                                                                                                                                                                                                                                                         |
@@ -150,7 +152,7 @@ Der Aufruf muss als POST ausgeführt werden.
 ### Pfad
 `{pfad zum sgw}/prozessmanagement/prozessmodelle/versions/api/deploy`
 
-### Headerparameter
+### Header-Parameter
 | **Name**             | **Beschreibung**                                                  |
 |----------------------|-------------------------------------------------------------------| 
 | X-SP-Process-Name    | Name des Prozesses                                                |
@@ -203,7 +205,7 @@ daher die Möglichkeit eines Deployments implizit enthält, wird zum Hochladen d
 ### Pfad
 `{pfad zum sgw}/prozessmanagement/prozessparameterdefinitionen/api/deploy`
 
-### Headerparameter
+### Header-Parameter
 | **Name**             | **Beschreibung**      |
 |----------------------|-----------------------|
 | X-SP-Process-Name    | Name des Prozesses    |
@@ -265,7 +267,7 @@ Eine Liste mit den IDs und Namen der Prozess-Engines (`application/json`).
 
 ---------------------------------------------------------------------------------------------------
 
-### Schnittstelle zum ermitteln der Deployment-ID eines Onlinedienstes
+### Schnittstelle zum Ermitteln der Deployment-ID eines Onlinedienstes
 
 #### Allgemein
 
@@ -287,7 +289,7 @@ Der Aufruf muss als **GET** ausgeführt werden.
 
 #### Rückgabewerte
 
-Die Rückgabe ist vom Typ (`application/json`), es wird jedoch nur die ermittelte Deployment-ID zurückgegeben.<br />
+Die Rückgabe ist vom Typ (`application/txt`), es wird jedoch nur die ermittelte Deployment-ID zurückgegeben.<br />
 
 ```
 Sa6DGsfXOud4fWSpFPwOLD
@@ -295,7 +297,7 @@ Sa6DGsfXOud4fWSpFPwOLD
 
 ---------------------------------------------------------------------------------------------------
 
-### Schnittstelle zum auflisten aller erstellten zeitgesteuerte Undeployments
+### Schnittstelle zum Auflisten aller erstellten zeitgesteuerte Undeployments
 
 #### Allgemein
 
@@ -342,7 +344,7 @@ Ein Objekt (`application/json`), das eine Liste der erstellten zeitgesteuerte Un
 
 ---------------------------------------------------------------------------------------------------
 
-### Schnittstelle zum erstellen eines zeitgesteuertes Undeployments
+### Schnittstelle zum Erstellen eines zeitgesteuertes Undeployments
 
 #### Allgemein
 
@@ -395,11 +397,18 @@ Der Aufruf muss als **POST** ausgeführt werden.
 
 ###### Platzhalter Message Body
 
-| Name                      | Beschreibung                                         | Beispiel                                                                            |
-|---------------------------|------------------------------------------------------|-------------------------------------------------------------------------------------|
-| name                      | Wird aufgelöst zum Namen des Empfängers.             | Max Mustermann                                                                      |
-| tageBisUndeployment       | Anzahl der Tage bis der Onlinedienst undeployt wird. | 14                                                                                  |
-| linkAufAktuellenProzess   | Ein Verweis auf den aktuellen Prozess.               | {protal-url}/onlineantraege/onlineantrag?processInstanceId=zsoh_zgxiZaUpzuA6eLqzQ   |
+| Name                      | Beschreibung                                         | Beispiel                                                                          |
+|---------------------------|------------------------------------------------------|-----------------------------------------------------------------------------------|
+| name                      | Wird aufgelöst zum Namen des Empfängers.             | Max Mustermann                                                                    |
+| tageBisUndeployment       | Anzahl der Tage bis der Onlinedienst undeployt wird. | 14                                                                                |
+| linkAufAktuellenProzess   | Ein Verweis auf den aktuellen Prozess.               | {portal-url}/onlineantraege/onlineantrag?processInstanceId=zsoh_zgxiZaUpzuA6eLqzQ |
+
+### Berechtigungen
+
+Um diese Schnittstelle aufrufen zu können benötigt der Benutzer folgende Rechte:
+*  **zeitgesteuertes Undeployment**: prozess:prozessmodelle.ScheduledUndeployment
+
+Dieses Recht ist in der Rolle `Prozessentwickler - zeitgesteuertes Undeployment via Schnittstelle` enthalten, die wiederum in der Benutzergruppe `Prozessentwickler - zeitgesteuertes Undeployment via Schnittstelle` enthalten ist.
 
 #### Rückgabewerte
 
@@ -432,6 +441,12 @@ Der Aufruf muss als **DELETE** ausgeführt werden.
 |--------------|-------------|----------|------------------|
 | X-SP-Mandant | Ja          | Ganzzahl | ID des Mandanten |
 
+### Berechtigungen
+
+Um diese Schnittstelle aufrufen zu können benötigt der Benutzer folgende Rechte:
+*  **zeitgesteuertes Undeployment**: prozess:prozessmodelle.ScheduledUndeployment
+
+Dieses Recht ist in der Rolle `Prozessentwickler - zeitgesteuertes Undeployment via Schnittstelle` enthalten, die wiederum in der Benutzergruppe `Prozessentwickler - zeitgesteuertes Undeployment via Schnittstelle` enthalten ist.
 
 #### Rückgabewerte
 
