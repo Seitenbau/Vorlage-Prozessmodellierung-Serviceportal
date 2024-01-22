@@ -1,5 +1,13 @@
 # Aktualisierungen
 
+## 2024.01.19-0
+- Update auf Java 17
+- Tasks für zeitgesteuertes Undeployment hinzugefügt
+  - getDeploymentId
+  - createScheduledUndeployment
+  - deleteScheduledUndeployment
+  - listScheduledUndeployments
+
 ## 2023.10.31-0
 - Die Authentisierungsmittel BUND_ID und MUK sind dokumentiert.
 
