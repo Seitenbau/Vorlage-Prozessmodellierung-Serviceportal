@@ -1,3 +1,6 @@
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
 plugins {
     id 'java'
     id 'groovy'
@@ -54,6 +57,13 @@ def getVariableValueAsDate(String name)
 {
     String stringValue = getVariableValue(name)
     return stringValue == null ? null : Date.parse('dd.MM.yyyy', stringValue)
+}
+
+def getVariableValueAsLocalDate(String name)
+{
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern('dd.MM.yyyy')
+    String stringValue = getVariableValue(name)
+    return stringValue == null ? null : LocalDate.parse(stringValue, dateTimeFormatter)
 }
 
 mergeScripts {
@@ -123,7 +133,7 @@ createScheduledUndeployment {
     undeploymentMessageBody = getVariableValue("undeploymentMessageBody")
 
     undeploymentHintText = getVariableValue("undeploymentHintText")
-    startToDisplayUndeploymentHint = getVariableValue("startToDisplayUndeploymentHint")
+    startToDisplayUndeploymentHint = getVariableValueAsLocalDate("startToDisplayUndeploymentHint")
 }
 
 deleteScheduledUndeployment {
