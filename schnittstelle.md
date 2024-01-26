@@ -324,14 +324,14 @@ Ein Objekt (`application/json`), das eine Liste der zeitgesteuerten Undeployment
   "value": [
       {
           "deploymentId": "Sa6DGsfXOud4fWSpFPwOLD",
-          "undeploymentDate": 1707519600000,
+          "undeploymentDate": "2024-05-30",
           "undeploymentMessage": {},
           "undeploymentAnnounceMessage": {},
           "hint": {}
       },
       {
           "deploymentId": "FFb0ffdVnt9VmUN6AtT7BQ",
-          "undeploymentDate": 1707519603500,
+          "undeploymentDate": "2024-06-25",
           "undeploymentMessage": {
               "subject": "Undeployment des Prozesses",
               "body": "Der Prozess muss leider undeployed werden..."
@@ -374,7 +374,7 @@ Der Aufruf muss als **POST** ausgeführt werden.
 ```json
 {
     "deploymentId": "deploymentId des Prozessmodells",
-    "undeploymentDate": "2024-02-17",
+    "undeploymentDate": "2024-08-17",
     "undeploymentAnnounceMessage": {
         "subject": "Betreff der Nachricht",
         "body": "Inhalt der Nachricht"

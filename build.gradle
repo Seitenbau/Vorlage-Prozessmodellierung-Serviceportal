@@ -53,12 +53,6 @@ def getVariableValue(String name, defaultValue = null) {
     return project.hasProperty(name) ? project.property(name) : defaultValue
 }
 
-def getVariableValueAsDate(String name)
-{
-    String stringValue = getVariableValue(name)
-    return stringValue == null ? null : Date.parse('dd.MM.yyyy', stringValue)
-}
-
 def getVariableValueAsLocalDate(String name)
 {
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern('dd.MM.yyyy')
@@ -126,7 +120,7 @@ createScheduledUndeployment {
     debug = getVariableValue('debug', false)
 
     deploymentId = getVariableValue("deploymentId")
-    undeploymentDate = getVariableValueAsDate("undeploymentDate")
+    undeploymentDate = getVariableValueAsLocalDate("undeploymentDate")
     undeploymentAnnounceMessageSubject = getVariableValue("undeploymentAnnounceMessageSubject")
     undeploymentAnnounceMessageBody = getVariableValue("undeploymentAnnounceMessageBody")
     undeploymentMessageSubject = getVariableValue("undeploymentMessageSubject")
