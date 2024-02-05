@@ -1,5 +1,10 @@
 # Aktualisierungen
 
+## 2024.02.05-0
+- Bugfix: In der Version 2024.01.19-0 bricht das Plugin nach dem Hochladen
+  von Prozessparameterdefinitionen mit einem Fehler ab,
+  obwohl die Prozessparameterdefinitionen erfolgreich hochgeladen wurden
+
 ## 2024.01.19-0
 - Update auf Java 17
 - Tasks für zeitgesteuertes Undeployment hinzugefügt
