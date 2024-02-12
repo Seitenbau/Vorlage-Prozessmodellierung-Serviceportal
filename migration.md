@@ -13,7 +13,7 @@ Statuswerte ersetzt.
 Die Schnittstelle selbst funktioniert übergangsweise sowohl mit der Stufe, als auch dem neuen Status.
 Es darf jedoch nur einer der beiden Werte an die Schnittstelle übertragen werden.
 
-**Deprecated:** Ab dem 29.02.2024, wird die Verwendung der Projektstufen vollständig ausgebaut 
+**Deprecated:** Ab dem 29.02.2024 wird die Verwendung der Projektstufen vollständig ausgebaut 
 und komplett auf die neuen Statuswerte umgestellt. Daher ist nicht gewährleistet das die Endpunkte
 zukünftig weiterhin mit den Projektstufen funktionieren.
 
