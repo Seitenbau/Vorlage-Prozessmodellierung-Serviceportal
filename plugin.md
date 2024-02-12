@@ -645,15 +645,16 @@ Ermittelt die Deployment-ID eines Online-Dienstes.
 
 Erstellt ein zeitgesteuertes Undeployment eines Online-Dienstes.
 
-| Parameter                          | Pflicht? | Beschreibung                                                           |
-|------------------------------------|----------|------------------------------------------------------------------------|
-| deploymentId                       | Ja       | Deployment-ID des Online-Dienstes, der undeployt werden soll           |
-| undeploymentDate                   | Ja       | Das Datum, an dem der Online-Dienst undeployt werden soll (TT.MM.YYYY) |
-| undeploymentAnnounceMessageSubject | Nein     | Betreff der Ankündigungsnachricht eines Undeployments                  |
-| undeploymentAnnounceMessageBody    | Nein     | Text der Ankündigungsnachricht eines Undeployments                     |
-| undeploymentMessageSubject         | Nein     | Betreff der Nachricht eines Undeployments                              |
-| undeploymentMessageBody            | Nein     | Text der Nachricht eines Undeployments                                 |
-
+| Parameter                          | Pflicht? | Beschreibung                                                                                                   | Default                                                                                                                                   |
+|------------------------------------|----------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| deploymentId                       | Ja       | Deployment-ID des Online-Dienstes, der undeployt werden soll                                                   |                                                                                                                                           |
+| undeploymentDate                   | Ja       | Das Datum, an dem der Online-Dienst undeployt werden soll (TT.MM.YYYY)                                         |                                                                                                                                           |
+| undeploymentAnnounceMessageSubject | Nein     | Betreff der Ankündigungsnachricht eines Undeployments                                                          |                                                                                                                                           |
+| undeploymentAnnounceMessageBody    | Nein     | Text der Ankündigungsnachricht eines Undeployments                                                             |                                                                                                                                           |
+| undeploymentMessageSubject         | Nein     | Betreff der Nachricht eines Undeployments                                                                      |                                                                                                                                           |
+| undeploymentMessageBody            | Nein     | Text der Nachricht eines Undeployments                                                                         |                                                                                                                                           |
+| undeploymentHintText               | Nein     | Ein Hinweistext der dem Nutzer angezeigt wird, wenn ein zeitgesteuertes Undeployment für den Prozess vorliegt. | Das Prozessmodell wird demnächst undeployed. Schließen Sie den Prozess möglichst schnell ab, so dass ihr Fortschritt nicht verloren geht. |
+| startToDisplayUndeploymentHint     | Nein     | Ein Datum ab welchem der Hinweistext für Nutzer dargestellt werden soll. (Format: `dd.MM.yyyy`)                | 7 Tage vor dem `undeploymentDate`                                                                                                         |
 
 ## Task _deleteScheduledUndeployment_
 

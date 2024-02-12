@@ -324,18 +324,23 @@ Ein Objekt (`application/json`), das eine Liste der zeitgesteuerten Undeployment
   "value": [
       {
           "deploymentId": "Sa6DGsfXOud4fWSpFPwOLD",
-          "undeploymentDate": 1707519600000,
+          "undeploymentDate": "2024-05-30",
           "undeploymentMessage": {},
-          "undeploymentAnnounceMessage": {}
+          "undeploymentAnnounceMessage": {},
+          "hint": {}
       },
       {
           "deploymentId": "FFb0ffdVnt9VmUN6AtT7BQ",
-          "undeploymentDate": 1707519603500,
+          "undeploymentDate": "2024-06-25",
           "undeploymentMessage": {
               "subject": "Undeployment des Prozesses",
               "body": "Der Prozess muss leider undeployed werden..."
           },
-          "undeploymentAnnounceMessage": {}
+          "undeploymentAnnounceMessage": {},
+          "hint": {
+            "text": "Der Prozess wird demnächst undeployed.",
+            "startToDisplay": "2024-05-18"
+          }
       }
   ],
     "complete": true
@@ -369,7 +374,7 @@ Der Aufruf muss als **POST** ausgeführt werden.
 ```json
 {
     "deploymentId": "deploymentId des Prozessmodells",
-    "undeploymentDate": "2024-02-17",
+    "undeploymentDate": "2024-08-17",
     "undeploymentAnnounceMessage": {
         "subject": "Betreff der Nachricht",
         "body": "Inhalt der Nachricht"
@@ -377,16 +382,21 @@ Der Aufruf muss als **POST** ausgeführt werden.
     "undeploymentMessage": {
         "subject": "Betreff der Nachricht",
         "body": "Inhalt der Nachricht"
+    },
+    "hint": {
+        "text": "Hinweistext der dem Nutzer innerhalb des Prozesses angezeigt wird.",
+        "startToDisplay": "2024-04-12"
     }
 }
 ```
 
-| **Name**                    | **Pflicht** | **Typ** | **Beschreibung**                                                                                                      |
-|-----------------------------|-------------|---------|-----------------------------------------------------------------------------------------------------------------------|
-| deploymentId                | Ja          | String  | Deployment-ID des Online-Dienstes, der undeployt werden soll.                                                         |
-| undeploymentDate            | Ja          | Date    | Das Datum, an dem der Online-Dienst undeployt werden soll (YYYY-MM-TT).                                               |
-| undeploymentAnnounceMessage | Nein        | Message | Eine Nachricht die 1, 7 und 14 Tage vor dem eigentlichen Undeployment verschickt wird und das Undeployment ankündigt. |
-| undeploymentMessage         | Nein        | Message | Eine Nachricht die beim Undeployment des Prozessmodells verschickt wird.                                              |
+| **Name**                    | **Pflicht** | **Typ**           | **Beschreibung**                                                                                                                             |
+|-----------------------------|-------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| deploymentId                | Ja          | String            | Deployment-ID des Online-Dienstes, der undeployt werden soll.                                                                                |
+| undeploymentDate            | Ja          | Date              | Das Datum, an dem der Online-Dienst undeployt werden soll (YYYY-MM-TT).                                                                      |
+| undeploymentAnnounceMessage | Nein        | Message           | Eine Nachricht die 1, 7 und 14 Tage vor dem eigentlichen Undeployment verschickt wird und das Undeployment ankündigt.                        |
+| undeploymentMessage         | Nein        | Message           | Eine Nachricht die beim Undeployment des Prozessmodells verschickt wird.                                                                     |
+| hint                        | Nein        | UndeploymentHint  | Ein Hinweistext der dem Nutzer ab einem bestimmten Datum angezeigt wird, wenn für den Prozess ein zeitgesteuertes Undeployment vorliegt.     |
 
 ##### Message Objekt
 
@@ -402,6 +412,14 @@ Der Aufruf muss als **POST** ausgeführt werden.
 | name                      | Wird aufgelöst zum Namen des Empfängers.             | Max Mustermann                                                                    |
 | tageBisUndeployment       | Anzahl der Tage bis der Onlinedienst undeployt wird. | 14                                                                                |
 | linkAufAktuellenProzess   | Ein Verweis auf den aktuellen Prozess.               | {portal-url}/onlineantraege/onlineantrag?processInstanceId=zsoh_zgxiZaUpzuA6eLqzQ |
+
+###### UndeploymentHint Objekt
+
+| Name             | Beschreibung                                                                                                                            | Beispiel                                                                                 |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| text             | Der Text der dem Nutzer angezeigt wird.                                                                                                 | Der Prozess wird in demnächst undeployed, bitte schließen Sie ihn schnellstmöglich ab.   |
+| startToDisplay   | Ein Datum ab dem der Hinweistext angezeigt wird. Muss vor dem Datum liegen an dem das Undeployment stattfindet. (Format: `YYYY-MM-DD`)  | 2024-03-17                                                                               | 
+
 
 ### Berechtigungen
 

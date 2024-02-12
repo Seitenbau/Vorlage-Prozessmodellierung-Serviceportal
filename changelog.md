@@ -1,5 +1,10 @@
 # Aktualisierungen
 
+## 2024.02.10-0
+- Hinzufügen neuer Parameter für zeitgesteuerte Undeployments
+    - `undeploymentHintText`: Hinweistext der dem Nutzer dargestellt wird.
+    - `startToDisplayUndeploymentHint`: Datum ab dem der Hinweistext angezeigt wird.
+
 ## 2024.02.05-0
 - Bugfix: In der Version 2024.01.19-0 bricht das Plugin nach dem Hochladen
   von Prozessparameterdefinitionen mit einem Fehler ab,
