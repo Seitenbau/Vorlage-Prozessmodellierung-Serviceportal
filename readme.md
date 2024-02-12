@@ -9,6 +9,14 @@ Die Dokumentation besteht aus folgenden Teilen:
 * [Änderungen](changelog.md)
 * [Breaking Changes & Migration Guides](migration.md)
 
+## Ankündigungen
+
+### Deprecation von Projektstufen am 29.02.2024
+
+Projektstufen werden ausgebaut und sind nicht mehr nutzbar. Plugins mit version < `2023.06.19-0`
+sind dadurch nicht mehr nutzbar. Zusätzlich muss die Projektstruktur angepasst werden.
+Siehe [Breaking Changes & Migration Guides](migration.md) 
+
 # Projektvorlage
 
 Arbeitsablauf:
