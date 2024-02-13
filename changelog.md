@@ -1,6 +1,6 @@
 # Aktualisierungen
 
-## 2024.02.10-0
+## 2024.02.12-0
 - Hinzufügen neuer Parameter für zeitgesteuerte Undeployments
     - `undeploymentHintText`: Hinweistext der dem Nutzer dargestellt wird.
     - `startToDisplayUndeploymentHint`: Datum ab dem der Hinweistext angezeigt wird.
