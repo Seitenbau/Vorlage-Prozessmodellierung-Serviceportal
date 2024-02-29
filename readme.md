@@ -4,10 +4,10 @@
 Die Dokumentation besteht aus folgenden Teilen:
 
 * Projektvorlage (dieses Repository)
-* [Gradle-Plugin (aus Gradle-Plugin-Repository)](plugin.md)
-* [Schnittstellendokumentation](schnittstelle.md) 
-* [Änderungen](changelog.md)
-* [Breaking Changes & Migration Guides](migration.md)
+* [Gradle-Plugin (aus Gradle-Plugin-Repository)](https://doku.pmp.seitenbau.com/pages/viewpage.action?pageId=56559435)
+* [Schnittstellendokumentation](https://doku.pmp.seitenbau.com/display/DFO/Schnittstellendokumentation+Serviceportale) 
+* [Änderungen](https://doku.pmp.seitenbau.com/display/DFO/Changelog+GradlePlugIn+Serviceportale)
+* [Breaking Changes & Migration Guides](https://doku.pmp.seitenbau.com/display/DFO/Breaking+Changes+und+Migration+Guides)
 
 ## Ankündigungen
 
@@ -15,7 +15,7 @@ Die Dokumentation besteht aus folgenden Teilen:
 
 Projektstufen werden ausgebaut und sind nicht mehr nutzbar. Plugins mit version < `2023.06.19-0`
 sind dadurch nicht mehr nutzbar. Zusätzlich muss die Projektstruktur angepasst werden.
-Siehe [Breaking Changes & Migration Guides](migration.md) 
+Siehe [Breaking Changes & Migration Guides](https://doku.pmp.seitenbau.com/display/DFO/Breaking+Changes+und+Migration+Guides) 
 
 # Projektvorlage
 
@@ -41,9 +41,9 @@ und Verzeichnisse per copy&paste in das Projektverzeichnis übertragen werden.
 ## Konfiguration und Projektstruktur
 
 Die Konfiguration des Plugins und die Projektstruktur wird in 
-[der Dokumentation des Gradle-Plugins](plugin.md) beschrieben.
+[der Dokumentation des Gradle-Plugins](https://doku.pmp.seitenbau.com/pages/viewpage.action?pageId=56559943) beschrieben.
 
 ## Breaking Changes & Migration Guides
 
 Informationen über Änderungen am Plugin die ein anpassen der Konfigurationsdateien 
-oder sonstiger Projektbestandteile erfordern, werden in [Breaking Changes](migration.md) beschrieben.
+oder sonstiger Projektbestandteile erfordern, werden in [Breaking Changes](https://doku.pmp.seitenbau.com/display/DFO/Breaking+Changes+und+Migration+Guides) beschrieben.
