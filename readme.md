@@ -1,4 +1,4 @@
-# Vorlage zum Erstellen und automatisierten hochladen eines Serviceportal-Prozessmodells
+# Vorlage zum Erstellen und automatisierten Hochladen eines Serviceportal-Prozessmodells
 
 ## Übersicht
 Die Dokumentation besteht aus folgenden Teilen:
@@ -13,7 +13,7 @@ Die Dokumentation besteht aus folgenden Teilen:
 
 ### Deprecation von Projektstufen am 29.02.2024
 
-Projektstufen werden ausgebaut und sind nicht mehr nutzbar. Plugins mit version < `2023.06.19-0`
+Projektstufen werden ausgebaut und sind nicht mehr nutzbar. Plugins mit Version < `2023.06.19-0`
 sind dadurch nicht mehr nutzbar. Zusätzlich muss die Projektstruktur angepasst werden.
 Siehe [Breaking Changes & Migration Guides](https://doku.pmp.seitenbau.com/display/DFO/Breaking+Changes+und+Migration+Guides) 
 
@@ -45,5 +45,5 @@ Die Konfiguration des Plugins und die Projektstruktur wird in
 
 ## Breaking Changes & Migration Guides
 
-Informationen über Änderungen am Plugin die ein anpassen der Konfigurationsdateien 
+Informationen über Änderungen am Plugin, die ein Anpassen der Konfigurationsdateien 
 oder sonstiger Projektbestandteile erfordern, werden in [Breaking Changes](https://doku.pmp.seitenbau.com/display/DFO/Breaking+Changes+und+Migration+Guides) beschrieben.
