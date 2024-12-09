@@ -6,7 +6,7 @@ Die Dokumentation besteht aus folgenden Teilen:
 * Projektvorlage (dieses Repository)
 * [Gradle-Plugin (aus Gradle-Plugin-Repository)](https://doku.pmp.seitenbau.com/pages/viewpage.action?pageId=56559435)
 * [Schnittstellendokumentation](https://doku.pmp.seitenbau.com/display/DFO/Schnittstellendokumentation+Serviceportale) 
-* [Änderungen](https://doku.pmp.seitenbau.com/display/DFO/Changelog+GradlePlugIn+Serviceportale)
+* [Änderungen](https://doku.pmp.seitenbau.com/display/DFO/Changelog+Gradle-Plugin+Serviceportale)
 * [Breaking Changes & Migration Guides](https://doku.pmp.seitenbau.com/display/DFO/Breaking+Changes+und+Migration+Guides)
 
 ## Ankündigungen
