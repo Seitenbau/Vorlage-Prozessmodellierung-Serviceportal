@@ -5,7 +5,7 @@ import java.time.format.ResolverStyle
 plugins {
     id 'java'
     id 'groovy'
-    id 'de.seitenbau.serviceportal.prozesspipeline' version '2024.11.28-0'
+    id 'de.seitenbau.serviceportal.prozesspipeline' version '2025.01.30-0'
 }
 
 repositories {
@@ -102,6 +102,11 @@ uploadParameterDefinition {
     debug = getVariableValue('debug', false)
 }
 
+uploadPrivacyInformation {
+    environment = getVariableValue('environment', 'default')
+    debug = getVariableValue('debug', false)
+}
+
 getAuthorizationToken {
     environment = getVariableValue('environment', 'default')
     mandant = getVariableValue('mandant', null)
@@ -173,8 +178,10 @@ tasks.register('upload') {
     dependsOn 'uploadProcessModelFiles'
     dependsOn 'uploadFormularFiles'
     dependsOn 'uploadParameterDefinition'
+    dependsOn 'uploadPrivacyInformation'
     tasks.findByName('uploadProcessModelFiles').mustRunAfter 'buildModel'
     tasks.findByName('uploadParameterDefinition').mustRunAfter 'uploadProcessModelFiles'
+    tasks.findByName('uploadPrivacyInformation').mustRunAfter 'uploadParameterDefinition'
 }
 
 // Fügt die Skripte zusammen, fügt sie in das Modell ein, läd
@@ -188,10 +195,12 @@ tasks.register('uploadAndDeploy') {
     dependsOn 'uploadProcessModelFiles'
     dependsOn 'uploadAndDeployFormularFiles'
     dependsOn 'uploadParameterDefinition'
+    dependsOn 'uploadPrivacyInformation'
     dependsOn 'deployProcessModelVersion'
     tasks.findByName('uploadProcessModelFiles').mustRunAfter 'buildModel'
     tasks.findByName('uploadParameterDefinition').mustRunAfter 'uploadProcessModelFiles'
-    tasks.findByName('deployProcessModelVersion').mustRunAfter 'uploadParameterDefinition'
+    tasks.findByName('uploadPrivacyInformation').mustRunAfter 'uploadParameterDefinition'
+    tasks.findByName('deployProcessModelVersion').mustRunAfter 'uploadPrivacyInformation'
 }
 
 

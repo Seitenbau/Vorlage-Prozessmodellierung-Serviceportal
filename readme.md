@@ -33,7 +33,7 @@ Arbeitsablauf:
 1. Ggf. in der Datei `build.gradle` die gewünschte Version des Gradle-Plugins setzen     
 1. Die Submodule (sofern vorhanden und benutzt) initialisieren: `git submodule update --init --recursive`
 1. `git push` die gemachten Änderungen
-1. Anlegen der Formulare, Scripte, Prozessparameterdefinitionen und Scripte 
+1. Anlegen der Formulare, Scripte, Prozessparameterdefinitionen, Datenschutzerklärung und Scripte 
 
 Alternativ kann auch dieses Repository ausgecheckt werden und die benötigten Dateien 
 und Verzeichnisse per copy&paste in das Projektverzeichnis übertragen werden.
