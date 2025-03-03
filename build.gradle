@@ -163,9 +163,7 @@ tasks.register('mergeBuild') {
     }
     dependsOn 'buildModel'
     dependsOn 'mergeScripts'
-    tasks.named('buildModel') {
-        mustRunAfter 'mergeScripts'
-    }
+    tasks.findByName('buildModel').mustRunAfter 'mergeScripts'
 }
 
 // Fügt die Skripte zusammen, fügt sie in das Modell ein und läd
