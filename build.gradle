@@ -139,6 +139,7 @@ createScheduledUndeployment {
 
     undeploymentHintText = getVariableValue("undeploymentHintText")
     startToDisplayUndeploymentHint = getVariableValueAsLocalDate("startToDisplayUndeploymentHint")
+    processModelActivationsAction = getVariableValue("processModelActivationsAction")
 }
 
 deleteScheduledUndeployment {
