@@ -1,3 +1,5 @@
+import groovy.json.JsonSlurper
+
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.ResolverStyle
@@ -7,6 +9,8 @@ plugins {
     id 'groovy'
     id 'de.seitenbau.serviceportal.prozesspipeline' version '2025.06.10-0'
 }
+
+initJsonParameters()
 
 repositories {
     mavenCentral()
@@ -49,9 +53,41 @@ sourceSets {
 //    }
 //}
 
+def initJsonParameters()
+{
+    def jsonFilename = project.hasProperty('parameters')
+            ? project.property('parameters')
+            : 'config/parameters.json'
+
+    def jsonParameters
+    def jsonParametersFile = file(jsonFilename)
+    if (jsonParametersFile.exists())
+    {
+        jsonParameters = new JsonSlurper().parseText(jsonParametersFile.text)
+        // merge arrays, e.g. ["a","b","c"], into multi-line strings, e.g. "a\nb\nc"
+        jsonParameters.replaceAll((key, value) -> {
+            if (value instanceof Collection)
+            {
+                return value.join('\n')
+            }
+            return value
+        })
+    }
+    else
+    {
+        jsonParameters = [:]
+    }
+
+    project.ext.set("jsonParameters", jsonParameters)
+}
+
 // Ermittelt für eine Variable Wert bzw. setzt den Defaultwert wenn nicht vorhanden
 def getVariableValue(String name, defaultValue = null) {
-    return project.hasProperty(name) ? project.property(name) : defaultValue
+    def value = project.hasProperty(name)
+            ? project.property(name)
+            : project.jsonParameters[name] ?: defaultValue
+
+    return value;
 }
 
 def getVariableValueAsLocalDate(String name) {
