@@ -5,7 +5,7 @@ import java.time.format.ResolverStyle
 plugins {
     id 'java'
     id 'groovy'
-    id 'de.seitenbau.serviceportal.prozesspipeline' version '2025.06.10-0'
+    id 'de.seitenbau.serviceportal.prozesspipeline' version '2025.07.31-0'
 }
 
 repositories {
@@ -62,7 +62,7 @@ def getVariableValueAsLocalDate(String name) {
                 dateTimeFormatter.withResolverStyle(ResolverStyle.STRICT))
     } catch (Exception e) {
         throw new RuntimeException("Der Parameter '" + name
-                + "' konnte nicht als Datum interpretiert werden: " + e.getMessage());
+                + "' konnte nicht als Datum interpretiert werden: " + e.getMessage())
     }
 }
 
