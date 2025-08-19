@@ -1,0 +1,8 @@
+{
+  "environment": "amt24-develop",
+  "debug": false,
+  "deploymentId": 123,
+  "undeploymentDate": "17.07.2050",
+  "undeploymentAnnounceMessageSubject": "Sample subject",
+  "undeploymentAnnounceMessageBody": "Sample message"
+}
