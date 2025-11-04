@@ -7,7 +7,7 @@ import java.time.format.ResolverStyle
 plugins {
     id 'java'
     id 'groovy'
-    id 'de.seitenbau.serviceportal.prozesspipeline' version '2025.07.31-0'
+    id 'de.seitenbau.serviceportal.prozesspipeline' version '2025.10.31-0'
 }
 
 initJsonParameters()
@@ -213,10 +213,8 @@ tasks.register('upload') {
     dependsOn 'uploadProcessModelFiles'
     dependsOn 'uploadFormularFiles'
     dependsOn 'uploadParameterDefinition'
-    dependsOn 'uploadPrivacyInformation'
     tasks.findByName('uploadProcessModelFiles').mustRunAfter 'buildModel'
     tasks.findByName('uploadParameterDefinition').mustRunAfter 'uploadProcessModelFiles'
-    tasks.findByName('uploadPrivacyInformation').mustRunAfter 'uploadParameterDefinition'
 }
 
 // Fügt die Skripte zusammen, fügt sie in das Modell ein, läd
@@ -230,12 +228,8 @@ tasks.register('uploadAndDeploy') {
     dependsOn 'uploadProcessModelFiles'
     dependsOn 'uploadAndDeployFormularFiles'
     dependsOn 'uploadParameterDefinition'
-    dependsOn 'uploadPrivacyInformation'
     dependsOn 'deployProcessModelVersion'
     tasks.findByName('uploadProcessModelFiles').mustRunAfter 'buildModel'
     tasks.findByName('uploadParameterDefinition').mustRunAfter 'uploadProcessModelFiles'
-    tasks.findByName('uploadPrivacyInformation').mustRunAfter 'uploadParameterDefinition'
-    tasks.findByName('deployProcessModelVersion').mustRunAfter 'uploadPrivacyInformation'
+    tasks.findByName('deployProcessModelVersion').mustRunAfter 'uploadParameterDefinition'
 }
-
-
