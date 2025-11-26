@@ -7,7 +7,7 @@ import java.time.format.ResolverStyle
 plugins {
     id 'java'
     id 'groovy'
-    id 'de.seitenbau.serviceportal.prozesspipeline' version '2025.10.31-0'
+    id 'de.seitenbau.serviceportal.prozesspipeline' version '2025.11.25-0'
 }
 
 initJsonParameters()
@@ -53,28 +53,23 @@ sourceSets {
 //    }
 //}
 
-def initJsonParameters()
-{
+def initJsonParameters() {
     def jsonFilename = project.hasProperty('parameters')
             ? project.property('parameters')
             : 'config/parameters.json'
 
     def jsonParameters
     def jsonParametersFile = file(jsonFilename)
-    if (jsonParametersFile.exists())
-    {
+    if (jsonParametersFile.exists()) {
         jsonParameters = new JsonSlurper().parseText(jsonParametersFile.text)
         // merge arrays, e.g. ["a","b","c"], into multi-line strings, e.g. "a\nb\nc"
         jsonParameters.replaceAll((key, value) -> {
-            if (value instanceof Collection)
-            {
+            if (value instanceof Collection) {
                 return value.join('\n')
             }
             return value
         })
-    }
-    else
-    {
+    } else {
         jsonParameters = [:]
     }
 
@@ -87,7 +82,7 @@ def getVariableValue(String name, defaultValue = null) {
             ? project.property(name)
             : project.jsonParameters[name] ?: defaultValue
 
-    return value;
+    return value
 }
 
 def getVariableValueAsLocalDate(String name) {
@@ -97,8 +92,7 @@ def getVariableValueAsLocalDate(String name) {
         return stringValue == null ? null : LocalDate.parse(stringValue,
                 dateTimeFormatter.withResolverStyle(ResolverStyle.STRICT))
     } catch (Exception e) {
-        throw new RuntimeException("Der Parameter '" + name
-                + "' konnte nicht als Datum interpretiert werden: " + e.getMessage())
+        throw new RuntimeException("Der Parameter '$name' konnte nicht als Datum interpretiert werden: ${e.message}")
     }
 }
 
@@ -200,7 +194,6 @@ tasks.register('mergeBuild') {
     }
     dependsOn 'buildModel'
     dependsOn 'mergeScripts'
-    tasks.findByName('buildModel').mustRunAfter 'mergeScripts'
 }
 
 // Fügt die Skripte zusammen, fügt sie in das Modell ein und läd
@@ -213,8 +206,6 @@ tasks.register('upload') {
     dependsOn 'uploadProcessModelFiles'
     dependsOn 'uploadFormularFiles'
     dependsOn 'uploadParameterDefinition'
-    tasks.findByName('uploadProcessModelFiles').mustRunAfter 'buildModel'
-    tasks.findByName('uploadParameterDefinition').mustRunAfter 'uploadProcessModelFiles'
 }
 
 // Fügt die Skripte zusammen, fügt sie in das Modell ein, läd
@@ -229,7 +220,9 @@ tasks.register('uploadAndDeploy') {
     dependsOn 'uploadAndDeployFormularFiles'
     dependsOn 'uploadParameterDefinition'
     dependsOn 'deployProcessModelVersion'
-    tasks.findByName('uploadProcessModelFiles').mustRunAfter 'buildModel'
-    tasks.findByName('uploadParameterDefinition').mustRunAfter 'uploadProcessModelFiles'
-    tasks.findByName('deployProcessModelVersion').mustRunAfter 'uploadParameterDefinition'
 }
+
+tasks.named('buildModel') { mustRunAfter 'mergeScripts' }
+tasks.named('uploadProcessModelFiles') { mustRunAfter 'buildModel' }
+tasks.named('uploadParameterDefinition') { mustRunAfter 'uploadProcessModelFiles' }
+tasks.named('deployProcessModelVersion') { mustRunAfter 'uploadParameterDefinition' }
