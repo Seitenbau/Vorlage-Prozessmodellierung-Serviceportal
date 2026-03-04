@@ -24,27 +24,11 @@ variables:
 
 default:
   image: docker-io.repo.sds.seitenbau.net/library/eclipse-temurin:17
-  cache:
-    - key: cache-$CI_COMMIT_REF_SLUG
-      paths:
-        - build/
-    - key:
-        files:
-          - build.gradle
-          - gradle/wrapper/gradle-wrapper.properties
-      paths:
-        - .gradle/caches/
-        - .gradle/notifications/
-        - .gradle/wrapper/
 
 build:
   stage: build
   script:
     - ./gradlew build
-  artifacts:
-    when: always
-    paths:
-      - build/libs/*.jar
 
 publish_github:
   stage: publish
