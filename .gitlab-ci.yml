@@ -26,7 +26,12 @@ include:
   - component: $CI_SERVER_FQDN/dev/sds/sds-pipeline-components/util-components/rocket-chat@0.0.5
     inputs:
       room_id: "#sbw-schildkroeten"
-      text: "Die Vorlage-Prozessmodellierung wurde angepasst."
+      text: |
+        [$CI_PROJECT_PATH #$CI_PIPELINE_ID]($CI_PIPELINE_URL) (trigger: $CI_PIPELINE_SOURCE)
+        ```
+        $CI_COMMIT_AUTHOR
+        $CI_COMMIT_SHORT_SHA ($CI_COMMIT_BRANCH) $CI_COMMIT_TITLE
+        ```
       additional_json: '{"emoji": "$PIPELINE_RESULT_EMOJI"}'
     rules:
       - if: $CI_COMMIT_BRANCH == "master"
