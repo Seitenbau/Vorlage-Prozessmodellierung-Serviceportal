@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "labels": ["renovate"],,
+  "labels": ["renovate"],
   "gradle": {
     "enabled": true
   },
@@ -13,7 +13,7 @@
       "enabled": true
     },
     {
-      "matchDepTypes": ["dependencies","devDependencies"],
+      "matchDepTypes": ["dependencies", "devDependencies"],
       "enabled": false
     }
   ]
