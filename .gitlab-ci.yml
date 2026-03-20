@@ -68,7 +68,7 @@ publish_github:
     - git config user.email "no-reply@seitenbau.com"
     - git config user.name "Seitenbau"
     - git add .
-    - git commit -m "Neue Version veröffentlichen"
+    - git commit -m "$CI_COMMIT_TITLE"
     - git push "https://oauth2:${GITHUB_TOKEN}@${GITHUB_REPO}"
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
