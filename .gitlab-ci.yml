@@ -54,8 +54,6 @@ publish_github:
     - cd ..
     - git clone "https://oauth2:${GITHUB_TOKEN}@${GITHUB_REPO}" public-repo
     - cd public-repo
-    - git branch
-    - git checkout $CI_COMMIT_REF_NAME
 # Alle Dateien außer ".git" löschen
     - rm -rf *
     - rm -f .gitignore
