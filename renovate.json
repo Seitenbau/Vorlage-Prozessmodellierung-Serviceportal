@@ -1,19 +1,20 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "labels": [
-    "renovate"
-  ],
+  "labels": ["renovate"],,
+  "gradle": {
+    "enabled": true
+  },
   "packageRules": [
     {
-      "matchPackageNames": [
-        "de.seitenbau.serviceportal.prozesspipeline"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
+      "groupName": "Seitenbau gradle Plugin",
+      "matchPackageNames": ["de.seitenbau.serviceportal.prozesspipeline"],
+      "matchUpdateTypes": ["major", "minor", "patch"],
       "automerge": true,
-      "groupName": "Seitenbau gradle Plugin"
+      "enabled": true
+    },
+    {
+      "matchDepTypes": ["dependencies","devDependencies"],
+      "enabled": false
     }
   ]
 }
