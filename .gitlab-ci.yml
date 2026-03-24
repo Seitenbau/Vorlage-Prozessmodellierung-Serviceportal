@@ -1,0 +1,75 @@
+stages:
+  - build
+  - publish
+
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.vfs.watch=false -Dorg.gradle.caching=true"
+  GRADLE_USER_HOME: .gradle/
+  JF_REPO_URL: https://repo.sds.seitenbau.net/artifactory
+  JF_REPO_KEY: maven-imbw-serviceportal
+  JF_RW_USER: $JF_USER_RW
+  JF_RW_PASSWORD: $JF_USER_RW_PASSWORD
+
+include:
+  - component: $CI_SERVER_FQDN/dev/sds/sds-pipeline-components/util-components/rocket-chat@0.0.5
+    inputs:
+      room_id: '"@$GITLAB_USER_LOGIN"'
+      text: |
+        [$CI_PROJECT_PATH #$CI_PIPELINE_ID]($CI_PIPELINE_URL) (trigger: $CI_PIPELINE_SOURCE)
+        ```
+        $CI_COMMIT_AUTHOR
+        $CI_COMMIT_SHORT_SHA ($CI_COMMIT_BRANCH) $CI_COMMIT_TITLE
+        ```
+      additional_json: '{"emoji": "$PIPELINE_RESULT_EMOJI"}'
+    rules:
+      - if: $CI_COMMIT_BRANCH != "master"
+  - component: $CI_SERVER_FQDN/dev/sds/sds-pipeline-components/util-components/rocket-chat@0.0.5
+    inputs:
+      room_id: "#sbw-schildkroeten"
+      text: |
+        [$CI_PROJECT_PATH #$CI_PIPELINE_ID]($CI_PIPELINE_URL) (trigger: $CI_PIPELINE_SOURCE)
+        ```
+        $CI_COMMIT_AUTHOR
+        $CI_COMMIT_SHORT_SHA ($CI_COMMIT_BRANCH) $CI_COMMIT_TITLE
+        ```
+      additional_json: '{"emoji": "$PIPELINE_RESULT_EMOJI"}'
+    rules:
+      - if: $CI_COMMIT_BRANCH == "master"
+
+default:
+  image: docker-io.repo.sds.seitenbau.net/library/eclipse-temurin:17
+
+build:
+  stage: build
+  script:
+    - ./gradlew build
+
+publish_github:
+  stage: publish
+  image: "docker-sds.repo.sds.seitenbau.net/sds-pi/git-bash:0.4.1"
+  variables:
+    GITHUB_REPO: "github.com/Seitenbau/Vorlage-Prozessmodellierung-Serviceportal.git"
+  script:
+# Repository auf GitHub auschecken
+    - cd ..
+    - git clone "https://oauth2:${GITHUB_TOKEN}@${GITHUB_REPO}" public-repo
+    - cd public-repo
+# Alle Dateien außer ".git" löschen
+    - rm -rf *
+    - rm -f .gitignore
+    - rm -f .gitmodules
+# Dateien aus GitLab übertragen
+    - cp -r ../vorlage-prozessmodellierung-serviceportal/* .
+    - cp ../vorlage-prozessmodellierung-serviceportal/.gitignore .
+    - cp ../vorlage-prozessmodellierung-serviceportal/.gitmodules .
+# Interne Dateien nicht übertragen
+    - rm renovate.json
+# Änderungen committen und pushen
+    - git config user.email "no-reply@seitenbau.com"
+    - git config user.name "Seitenbau"
+    - git add .
+    - git commit -m "$CI_COMMIT_TITLE"
+    - git push "https://oauth2:${GITHUB_TOKEN}@${GITHUB_REPO}"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: on_success
