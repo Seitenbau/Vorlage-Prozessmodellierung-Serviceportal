@@ -25,7 +25,7 @@ include:
       - if: $CI_COMMIT_BRANCH != "master"
   - component: $CI_SERVER_FQDN/dev/sds/sds-pipeline-components/util-components/rocket-chat@0.0.5
     inputs:
-      room_id: "#sbw-schildkroeten"
+      room_id: '"#sbw-schildkroeten"'
       text: |
         [$CI_PROJECT_PATH #$CI_PIPELINE_ID]($CI_PIPELINE_URL) (trigger: $CI_PIPELINE_SOURCE)
         ```
