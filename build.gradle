@@ -112,12 +112,13 @@ uploadProcessModelFiles {
     debug = getVariableValue('debug', false)
 }
 
-uploadFormularFiles {
+buildFormularFiles {
     environment = getVariableValue('environment', 'default')
     debug = getVariableValue('debug', false)
+    scripts = getVariableValue('scripts')
 }
 
-buildFormularFiles {
+uploadFormularFiles {
     environment = getVariableValue('environment', 'default')
     debug = getVariableValue('debug', false)
 }
@@ -192,7 +193,8 @@ listScheduledUndeployments {
 
 // ################ Kombinierte Tasks ################
 
-// Fügt die Skripte zusammen und fügt sie in das Modell ein
+// Fügt die Skripte der Prozessmodelle zusammen
+// Fügt die Skripte in das Modell und die Formulare ein
 tasks.register('mergeBuild') {
     doFirst {
         clean
@@ -201,11 +203,11 @@ tasks.register('mergeBuild') {
     dependsOn 'mergeScripts'
     dependsOn 'buildFormularFiles'
     tasks.findByName('buildModel').mustRunAfter 'mergeScripts'
-    tasks.findByName('buildFormularFiles').mustRunAfter 'buildModel'
 }
 
-// Fügt die Skripte zusammen, fügt sie in das Modell ein und läd
-// Prozessmodelle, Formulare und Prozessparameterdefinitionen hoch
+// Fügt die Skripte der Prozessmodelle zusammen
+// Fügt die Skripte in das Modell und die Formulare ein
+// Lädt Prozessmodelle, Formulare und Prozessparameterdefinitionen hoch
 tasks.register('upload') {
     doFirst {
         clean
@@ -216,9 +218,10 @@ tasks.register('upload') {
     dependsOn 'uploadParameterDefinition'
 }
 
-// Fügt die Skripte zusammen, fügt sie in das Modell ein, läd
-// Prozessmodelle, Formulare und Prozessparameterdefinitionen hoch
-// und deployed Formulare und Prozesse
+// Fügt die Skripte der Prozessmodelle zusammen
+// Fügt die Skripte in das Modell und die Formulare ein
+// Lädt Prozessmodelle, Formulare und Prozessparameterdefinitionen hoch
+// Deployed Formulare und Prozesse
 tasks.register('uploadAndDeploy') {
     doFirst {
         clean
