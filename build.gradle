@@ -7,7 +7,7 @@ import java.time.format.ResolverStyle
 plugins {
     id 'java'
     id 'groovy'
-    id 'de.seitenbau.serviceportal.prozesspipeline' version '2025.11.25-0'
+    id 'de.seitenbau.serviceportal.prozesspipeline' version '2026.07.28-0'
 }
 
 initJsonParameters()
@@ -112,6 +112,12 @@ uploadProcessModelFiles {
     debug = getVariableValue('debug', false)
 }
 
+buildFormularFiles {
+    environment = getVariableValue('environment', 'default')
+    debug = getVariableValue('debug', false)
+    scripts = getVariableValue('scripts')
+}
+
 uploadFormularFiles {
     environment = getVariableValue('environment', 'default')
     debug = getVariableValue('debug', false)
@@ -187,17 +193,20 @@ listScheduledUndeployments {
 
 // ################ Kombinierte Tasks ################
 
-// Fügt die Skripte zusammen und fügt sie in das Modell ein
+// Fügt die Prozess-Skripte zusammen und fügt sie in das Modell ein
+// Fügt die Formular-Skripte in die Formulare ein
 tasks.register('mergeBuild') {
     doFirst {
         clean
     }
     dependsOn 'buildModel'
     dependsOn 'mergeScripts'
+    dependsOn 'buildFormularFiles'
 }
 
-// Fügt die Skripte zusammen, fügt sie in das Modell ein und läd
-// Prozessmodelle, Formulare und Prozessparameterdefinitionen hoch
+// Fügt die Prozess-Skripte zusammen und fügt sie in das Modell ein
+// Fügt die Formular-Skripte in die Formulare ein
+// Lädt Prozessmodelle, Formulare und Prozessparameterdefinitionen hoch
 tasks.register('upload') {
     doFirst {
         clean
@@ -208,9 +217,10 @@ tasks.register('upload') {
     dependsOn 'uploadParameterDefinition'
 }
 
-// Fügt die Skripte zusammen, fügt sie in das Modell ein, läd
-// Prozessmodelle, Formulare und Prozessparameterdefinitionen hoch
-// und deployed Formulare und Prozesse
+// Fügt die Prozess-Skripte zusammen und fügt sie in das Modell ein
+// Fügt die Formular-Skripte in die Formulare ein
+// Lädt Prozessmodelle, Formulare und Prozessparameterdefinitionen hoch
+// Deployed Formulare und Prozesse
 tasks.register('uploadAndDeploy') {
     doFirst {
         clean
@@ -224,5 +234,6 @@ tasks.register('uploadAndDeploy') {
 
 tasks.named('buildModel') { mustRunAfter 'mergeScripts' }
 tasks.named('uploadProcessModelFiles') { mustRunAfter 'buildModel' }
+tasks.named('uploadFormularFiles') { mustRunAfter 'buildModel' }
 tasks.named('uploadParameterDefinition') { mustRunAfter 'uploadProcessModelFiles' }
 tasks.named('deployProcessModelVersion') { mustRunAfter 'uploadParameterDefinition' }
