@@ -7,7 +7,7 @@ import java.time.format.ResolverStyle
 plugins {
     id 'java'
     id 'groovy'
-    id 'de.seitenbau.serviceportal.prozesspipeline' version '2025.11.25-0'
+    id 'de.seitenbau.serviceportal.prozesspipeline' version '2026.07.28-0'
 }
 
 initJsonParameters()
@@ -193,8 +193,8 @@ listScheduledUndeployments {
 
 // ################ Kombinierte Tasks ################
 
-// Fügt die Skripte der Prozessmodelle zusammen
-// Fügt die Skripte in das Modell und die Formulare ein
+// Fügt die Prozess-Skripte zusammen und fügt sie in das Modell ein
+// Fügt die Formular-Skripte in die Formulare ein
 tasks.register('mergeBuild') {
     doFirst {
         clean
@@ -202,11 +202,10 @@ tasks.register('mergeBuild') {
     dependsOn 'buildModel'
     dependsOn 'mergeScripts'
     dependsOn 'buildFormularFiles'
-    tasks.findByName('buildModel').mustRunAfter 'mergeScripts'
 }
 
-// Fügt die Skripte der Prozessmodelle zusammen
-// Fügt die Skripte in das Modell und die Formulare ein
+// Fügt die Prozess-Skripte zusammen und fügt sie in das Modell ein
+// Fügt die Formular-Skripte in die Formulare ein
 // Lädt Prozessmodelle, Formulare und Prozessparameterdefinitionen hoch
 tasks.register('upload') {
     doFirst {
@@ -218,8 +217,8 @@ tasks.register('upload') {
     dependsOn 'uploadParameterDefinition'
 }
 
-// Fügt die Skripte der Prozessmodelle zusammen
-// Fügt die Skripte in das Modell und die Formulare ein
+// Fügt die Prozess-Skripte zusammen und fügt sie in das Modell ein
+// Fügt die Formular-Skripte in die Formulare ein
 // Lädt Prozessmodelle, Formulare und Prozessparameterdefinitionen hoch
 // Deployed Formulare und Prozesse
 tasks.register('uploadAndDeploy') {
@@ -235,5 +234,6 @@ tasks.register('uploadAndDeploy') {
 
 tasks.named('buildModel') { mustRunAfter 'mergeScripts' }
 tasks.named('uploadProcessModelFiles') { mustRunAfter 'buildModel' }
+tasks.named('uploadFormularFiles') { mustRunAfter 'buildModel' }
 tasks.named('uploadParameterDefinition') { mustRunAfter 'uploadProcessModelFiles' }
 tasks.named('deployProcessModelVersion') { mustRunAfter 'uploadParameterDefinition' }
