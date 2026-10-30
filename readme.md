@@ -22,26 +22,29 @@ Siehe [Breaking Changes & Migration Guides](https://doku.pmp.seitenbau.com/displ
 Arbeitsablauf:
 
 1. Ein neues leeres GIT-Repository auf dem Server für das Projekt erstellen. 
-1. Das neue Projekt clonen und einen initialen Commit machen.
-1. Dieses Repository (also die Vorlage, in welcher Sie gerade lesen) als ein zweites remote-Repository 
+2. Das neue Projekt clonen und einen initialen Commit machen.
+3. Dieses Repository (also die Vorlage, in welcher Sie gerade lesen) als ein zweites remote-Repository 
 (vorgeschlagener Name: `template`) zu Ihrem Projekt hinzufügen: `git remote add template {link zu diesem repo}`
-1. `git fetch --all` aufrufen
-1. `git merge template/master --allow-unrelated-histories` alle Dateien aus der Vorlage in der Projekt mergen.
-1. Den Projektnamen "Prozessmodellierungsvorlage" in den folgenden Dateien in den tatsächlichen Namen des Projektes ändern:
+4. `git fetch --all` aufrufen
+5. `git merge template/master --allow-unrelated-histories` alle Dateien aus der Vorlage in der Projekt mergen.
+6. Den Projektnamen "Prozessmodellierungsvorlage" in den folgenden Dateien in den tatsächlichen Namen des Projektes ändern:
    - `settings.gradle`
    - `config/project.json`
-1. Ggf. in der Datei `build.gradle` die gewünschte Version des Gradle-Plugins setzen     
-1. Die Submodule (sofern vorhanden und benutzt) initialisieren: `git submodule update --init --recursive`
-1. `git push` die gemachten Änderungen
-1. Anlegen der Formulare, Scripte, Prozessparameterdefinitionen, Datenschutzerklärung und Scripte 
+7. Ggf. in der Datei `build.gradle` die gewünschte Version des Gradle-Plugins setzen     
+8. Die Submodule (sofern vorhanden und benutzt) initialisieren: `git submodule update --init --recursive`
+9. `git push` die gemachten Änderungen
+10. Anlegen der Formulare, Scripte, Prozessparameterdefinitionen, Datenschutzerklärung und Scripte 
 
 Alternativ kann auch dieses Repository ausgecheckt werden und die benötigten Dateien 
 und Verzeichnisse per copy&paste in das Projektverzeichnis übertragen werden.
 
 ## Konfiguration und Projektstruktur
 
-Die Konfiguration des Plugins und die Projektstruktur wird in 
-[der Dokumentation des Gradle-Plugins](https://doku.pmp.seitenbau.com/pages/viewpage.action?pageId=56559943) beschrieben.
+Die Konfiguration des Plugins und die Projektstruktur wird in der Dokumentation des Gradle-Plugins
+[v1](https://doku.pmp.seitenbau.com/spaces/DFO/pages/182683488/Konfiguration+und+Projektstruktur)
+und der Dokumentation der 
+[v2](https://doku.pmp.seitenbau.com/spaces/DFOV2/pages/176788085/Konfiguration+und+Projektstruktur)
+beschrieben.
 
 ## Breaking Changes & Migration Guides
 
